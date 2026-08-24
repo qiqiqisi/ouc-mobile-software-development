@@ -1,0 +1,23 @@
+# 微信开发者工具本地私有配置
+project.private.config.json
+
+# Node.js
+node_modules/
+
+# 日志
+*.log
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# macOS
+.DS_Store
+
+# 编辑器
+.vscode/
+.idea/
+
+# 临时文件
+*.tmp
+*.temp
