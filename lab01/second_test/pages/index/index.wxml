@@ -1,5 +1,0 @@
-<view class="container">
-  <text class="text">{{message}}</text>
-
-  <button bindtap="changeText">按钮</button>
-</view>

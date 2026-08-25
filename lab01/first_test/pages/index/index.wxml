@@ -1,9 +1,0 @@
-<view class="container">
-  <text class="title">第一个测试小程序</text>
-
-  <text class="count">点击次数：{{count}}</text>
-  
-  <button bindtap="addCount">点击</button>
-
-  <text class="content">{{motto}}</text>
-</view>
