@@ -1,0 +1,170 @@
+<view class="page">
+
+<!-- ==================== 顶部个人名片 ==================== -->
+<image
+  class="card-cover"
+  src="/images/card-cover.png"
+  mode="widthFix"
+/>
+
+
+<!-- ==================== 关于我 ==================== -->
+<view class="about">
+
+  <text class="section-label">ABOUT ME</text>
+  <text class="section-title">关于我</text>
+
+  <text class="intro">
+    HELLO！我是伍紫涵，一名来自中国海洋大学计算机科学与技术专业的学生。平时会写代码、做项目，获得过美国大学生数学建模大赛M奖；离开电脑的时候，我喜欢和我的小猫待在一起。
+  </text>
+
+
+  <!-- ==================== 个人词云 ==================== -->
+  <image
+    class="cloud-image"
+    src="/images/cloud.png"
+    mode="widthFix"
+  />
+
+
+  <!-- ==================== 更多信息 ==================== -->
+  <view class="more-info">
+
+    <text class="section-label">MORE INFO</text>
+    <text class="section-title">更多信息</text>
+
+    <!-- 学业信息 -->
+    <view class="stats-grid">
+
+      <view class="stat-item">
+        <text class="stat-value">92</text>
+        <text class="stat-label">加权均分</text>
+      </view>
+
+      <view class="stat-item">
+        <text class="stat-value">2</text>
+        <text class="stat-label">专业排名</text>
+      </view>
+
+      <view class="stat-item">
+        <text class="stat-value">550</text>
+        <text class="stat-label">CET-4</text>
+      </view>
+
+      <view class="stat-item">
+        <text class="stat-value">539</text>
+        <text class="stat-label">CET-6</text>
+      </view>
+
+    </view>
+
+
+    <!-- ==================== 项目经历 ==================== -->
+    <view class="projects">
+
+      <text class="projects-title">PROJECTS</text>
+
+
+      <!-- 移动软件开发 -->
+      <view class="project-item">
+
+        <text class="project-name">
+          移动软件开发
+        </text>
+
+        <text class="project-desc">
+          中国海洋大学《移动软件开发》课程实验与个人项目，记录微信小程序开发、实验报告以及后续个人项目。
+        </text>
+
+        <text
+          class="project-link"
+          bindtap="copyLink"
+          data-url="https://github.com/qiqiqisi/ouc-mobile-software-development"
+        >
+          复制 GitHub 链接 →
+        </text>
+
+      </view>
+
+
+      <!-- Django -->
+      <view class="project-item">
+
+        <text class="project-name">
+          Django 电商平台
+        </text>
+
+        <text class="project-desc">
+          基于 Django 的轻量商城系统，包含用户、商品、店铺、购物车、订单和评论等完整业务流程。
+        </text>
+
+        <text
+          class="project-link"
+          bindtap="copyLink"
+          data-url="https://github.com/qiqiqisi/django-shopping-websites"
+        >
+          复制 GitHub 链接 →
+        </text>
+
+      </view>
+
+
+      <!-- C++ 银行账户管理系统 -->
+      <view class="project-item">
+
+        <text class="project-name">
+          C++ 银行账户管理系统
+        </text>
+
+        <text class="project-desc">
+          基于 C++17 的面向对象课程项目，使用继承、多态、STL 和文件 I/O 实现账户管理、存取款与转账等功能。
+        </text>
+
+        <text
+          class="project-link"
+          bindtap="copyLink"
+          data-url="https://github.com/qiqiqisi/ouc-bank-account-symstem"
+        >
+          复制 GitHub 链接 →
+        </text>
+
+      </view>
+
+
+      <!-- LaTeX -->
+      <view class="project-item">
+
+        <text class="project-name">
+          LaTeX 作业集
+        </text>
+
+        <text class="project-desc">
+          使用 LaTeX 完成课程作业与实验报告，并整理了可复用的实验报告模板与 TikZ 绘图示例。
+        </text>
+
+        <text
+          class="project-link"
+          bindtap="copyLink"
+          data-url="https://github.com/qiqiqisi/Latex_Used"
+        >
+          复制 GitHub 链接 →
+        </text>
+
+      </view>
+
+    </view>
+
+  </view>
+
+
+
+  <button
+    class="share-button"
+    open-type="share"
+  >
+    分享我的名片
+  </button>
+
+</view>
+
+</view>
