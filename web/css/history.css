@@ -1,0 +1,165 @@
+.history-page {
+  padding: calc(24px + env(safe-area-inset-top)) 18px calc(45px + env(safe-area-inset-bottom));
+}
+
+.history-header {
+  margin-bottom: 28px;
+}
+
+.month-nav {
+  margin-bottom: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.month-title {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 650;
+}
+
+.month-arrow {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #f5f7f5;
+  color: #4f6755;
+  font-size: 24px;
+}
+
+.week-row,
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+.week-row {
+  margin-bottom: 4px;
+}
+
+.week-row span {
+  color: #aaaaaa;
+  font-size: 12px;
+  line-height: 18px;
+  text-align: center;
+}
+
+.calendar-grid {
+  column-gap: 1px;
+  row-gap: 3px;
+}
+
+.day-cell {
+  height: 56px;
+  min-width: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+}
+
+.day-cell.is-empty {
+  visibility: hidden;
+}
+
+.day-card {
+  width: calc(100% - 2px);
+  max-width: 41px;
+  height: 50px;
+  padding: 4px 0 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  background: transparent;
+}
+
+.day-number {
+  height: 14px;
+  color: #777777;
+  font-size: 11px;
+  line-height: 14px;
+  text-align: center;
+}
+
+.day-mood-slot {
+  width: 22px;
+  height: 19px;
+  margin-top: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.day-mood {
+  font-size: 14px;
+  line-height: 1;
+}
+
+.day-card.has-record {
+  background: #f1f6f2;
+}
+
+.day-card.has-record .day-number {
+  color: #2f7d4a;
+  font-weight: 600;
+}
+
+.day-card.is-today {
+  border-color: #a9cbb4;
+}
+
+.day-card.is-future {
+  opacity: 0.3;
+}
+
+.day-cell:not(:disabled) {
+  cursor: pointer;
+}
+
+.month-summary {
+  min-height: 48px;
+  margin-top: 21px;
+  padding: 0 15px;
+  display: flex;
+  align-items: center;
+  border-radius: 12px;
+  background: #f5f8f5;
+}
+
+.summary-number {
+  color: #2f7d4a;
+  font-size: 23px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.summary-text {
+  margin-left: 6px;
+  color: #555555;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.footer-tip {
+  margin: 11px 0 0;
+  color: #aaaaaa;
+  font-size: 11px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+@media (max-width: 340px) {
+  .history-page {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+}

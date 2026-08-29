@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>检测｜BUGTI</title>
+  <link rel="stylesheet" href="./css/base.css">
+  <link rel="stylesheet" href="./css/analyze.css">
+</head>
+<body>
+  <main class="app-shell analyze-page">
+    <button class="page-back" type="button" aria-label="返回">‹</button>
+
+    <header class="analyze-header">
+      <div class="eyebrow">BUG CHECK</div>
+      <h1 class="page-title">最近是什么 Bug？</h1>
+      <p class="subtitle">选择一段时间，看看最近的运行状态。</p>
+    </header>
+
+    <section class="range-section">
+      <h2 class="section-title">检测范围</h2>
+      <div class="mode-row">
+        <button class="mode-item mode-active" data-mode="7d" type="button">最近 7 天</button>
+        <button class="mode-item" data-mode="30d" type="button">最近 30 天</button>
+        <button class="mode-item" data-mode="custom" type="button">自定义</button>
+      </div>
+    </section>
+
+    <section class="date-card">
+      <label class="date-item">
+        <span class="date-label">开始</span>
+        <input id="start-date" class="date-value" type="date">
+      </label>
+      <div class="date-line"></div>
+      <label class="date-item">
+        <span class="date-label">结束</span>
+        <input id="end-date" class="date-value" type="date">
+      </label>
+    </section>
+
+    <section class="status-card">
+      <div class="status-row">
+        <div><span class="status-label">当前范围</span><strong id="range-days" class="status-main">7 天</strong></div>
+        <div><span class="status-label">有效记录</span><strong id="valid-days" class="status-main">0 天</strong></div>
+        <div class="status-right"><span class="status-label">数据覆盖</span><strong id="coverage-percent" class="status-main">0%</strong></div>
+      </div>
+      <p id="status-tip" class="status-tip"></p>
+    </section>
+
+    <button id="run-analysis" class="analyze-button" type="button">开始检测</button>
+
+    <section class="ai-card">
+      <div class="ai-title-row">
+        <h2 class="ai-title">AI 深度分析</h2>
+        <span class="ai-badge">暂未开放</span>
+      </div>
+      <p class="ai-text">当前版本使用稳定的规则引擎。未来可在你主动选择时，让 AI 结合自由文字生成更个性化的总结。</p>
+    </section>
+
+    <p class="footer">BUGTI 仅用于娱乐与自我记录，不构成心理或医疗评估。</p>
+  </main>
+
+  <script type="module" src="./js/pages/analyze.js"></script>
+</body>
+</html>

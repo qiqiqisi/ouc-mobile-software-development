@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>历史｜BUGTI</title>
+  <link rel="stylesheet" href="./css/base.css">
+  <link rel="stylesheet" href="./css/history.css">
+</head>
+<body>
+  <main class="app-shell history-page">
+    <button class="page-back" type="button" aria-label="返回">‹</button>
+
+    <header class="history-header">
+      <div class="eyebrow">HISTORY</div>
+      <h1 class="page-title">你的运行记录</h1>
+      <p class="subtitle">有表情的日子，说明你留下过记录。</p>
+    </header>
+
+    <nav class="month-nav" aria-label="月份切换">
+      <button id="previous-month" class="month-arrow" type="button" aria-label="上个月">‹</button>
+      <h2 id="month-title" class="month-title"></h2>
+      <button id="next-month" class="month-arrow" type="button" aria-label="下个月">›</button>
+    </nav>
+
+    <div class="week-row" aria-hidden="true">
+      <span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span>
+    </div>
+
+    <div id="calendar-grid" class="calendar-grid"></div>
+
+    <section class="month-summary">
+      <span id="month-record-count" class="summary-number">0</span>
+      <span class="summary-text">个记录日</span>
+    </section>
+
+    <p class="footer-tip">点击有记录的日期可以编辑；点击过去的空白日期可以补记录。</p>
+  </main>
+
+  <script type="module" src="./js/pages/history.js"></script>
+</body>
+</html>

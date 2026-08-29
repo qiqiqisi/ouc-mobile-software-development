@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  >
+  <title>BUGTI</title>
+  <link rel="stylesheet" href="./css/base.css">
+  <link rel="stylesheet" href="./css/index.css">
+</head>
+<body>
+  <main class="app-shell index-page">
+    <header class="brand">
+      <div class="brand-name">BUGTI</div>
+      <div class="brand-subtitle">测测你最近是什么 Bug</div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-label">TODAY</div>
+      <h1 class="hero-title">今天运行得怎么样？</h1>
+      <div id="today" class="hero-date"></div>
+
+      <button id="today-record-button" class="home-action-button home-action-primary">
+        记录今天
+      </button>
+
+      <label class="home-action-button home-action-secondary home-action-picker">
+        补之前的记录
+        <input id="backfill-date" class="date-picker-input" type="date">
+      </label>
+    </section>
+
+    <section class="fortune-section">
+      <div class="fortune-header">
+        <div>
+          <div class="fortune-eyebrow">TODAY'S LUCK</div>
+          <h2 class="fortune-title">今日一抽</h2>
+        </div>
+        <div id="fortune-count" class="fortune-count is-hidden"></div>
+      </div>
+
+      <article id="shared-fortune" class="fortune-shared-card is-hidden">
+        <div class="fortune-shared-main">
+          <img id="shared-fortune-image" class="fortune-shared-image" src="./assets/fortune/card_back.webp" alt="朋友分享的运势">
+          <div class="fortune-shared-content">
+            <div class="fortune-shared-label">朋友刚抽到</div>
+            <div id="shared-fortune-title" class="fortune-shared-title"></div>
+            <div id="shared-fortune-comment" class="fortune-shared-comment"></div>
+          </div>
+        </div>
+        <button id="draw-shared-button" class="fortune-shared-button">我也抽一个</button>
+      </article>
+
+      <article id="fortune-card" class="fortune-card">
+        <div class="fortune-image-shell">
+          <img id="fortune-image" class="fortune-image is-card-back" alt="今日运势">
+        </div>
+
+        <div id="fortune-empty">
+          <p class="fortune-prompt">今天系统想跟你说什么？</p>
+          <button id="draw-button" class="fortune-action-button fortune-primary-button fortune-single-action">
+            抽一下
+          </button>
+        </div>
+
+        <div id="fortune-result" class="is-hidden">
+          <h3 id="fortune-result-title" class="fortune-result-title"></h3>
+
+          <div class="fortune-advice">
+            <span class="fortune-label fortune-label-yi">宜</span>
+            <span id="fortune-yi" class="fortune-advice-text"></span>
+          </div>
+
+          <div class="fortune-advice">
+            <span class="fortune-label fortune-label-ji">忌</span>
+            <span id="fortune-ji" class="fortune-advice-text"></span>
+          </div>
+
+          <div class="fortune-comment">
+            <span class="fortune-comment-label">系统评价</span>
+            <span id="fortune-comment" class="fortune-comment-text"></span>
+          </div>
+
+          <div class="fortune-actions">
+            <button id="draw-again-button" class="fortune-action-button fortune-primary-button">
+              再抽一次
+            </button>
+            <button id="share-fortune-button" class="fortune-action-button fortune-share-button">
+              分享这张
+            </button>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="progress-card">
+      <div class="progress-header">
+        <h2 class="progress-title">BUGTI 检测进度</h2>
+        <div id="progress-number" class="progress-number">0 / 3</div>
+      </div>
+      <div class="progress-track">
+        <div id="progress-bar" class="progress-bar"></div>
+      </div>
+      <p id="progress-tip" class="progress-tip">目前记录还比较少，也可以先测测看。</p>
+      <button id="analyze-button" class="analyze-button">开始检测</button>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2 class="section-title">最近记录</h2>
+        <a class="section-link" href="./history.html">查看全部 ›</a>
+      </div>
+      <article id="recent-record" class="record-card is-hidden">
+        <div id="recent-record-date" class="record-date"></div>
+        <div id="recent-record-summary" class="record-summary"></div>
+      </article>
+      <article id="record-empty" class="empty-card">
+        <div class="empty-title">这里暂时很安静。</div>
+        <div class="empty-text">记下第一天之后，最近状态会出现在这里。</div>
+      </article>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2 class="section-title">最近一次结果</h2>
+      </div>
+      <a id="recent-result" class="result-card is-hidden" href="./result.html">
+        <div>
+          <div id="recent-result-code" class="result-code"></div>
+          <div id="recent-result-name" class="result-name"></div>
+          <div id="recent-result-tagline" class="empty-text"></div>
+        </div>
+        <span class="result-arrow">›</span>
+      </a>
+      <article id="result-empty" class="empty-card">
+        <div class="empty-title">还没有检测结果。</div>
+        <div class="empty-text">测一次看看最近是什么 Bug。</div>
+      </article>
+    </section>
+
+    <p class="disclaimer">
+      BUGTI 是娱乐型阶段状态测评，不代表心理学或医学结论。
+    </p>
+  </main>
+
+  <script type="module" src="./js/pages/index.js"></script>
+</body>
+</html>

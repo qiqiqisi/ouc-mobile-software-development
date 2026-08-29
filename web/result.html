@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>结果｜BUGTI</title>
+  <link rel="stylesheet" href="./css/base.css">
+  <link rel="stylesheet" href="./css/result.css">
+</head>
+<body>
+  <main class="app-shell result-page">
+    <button class="page-back" type="button" aria-label="返回">‹</button>
+
+    <section id="missing-report" class="missing-report is-hidden">
+      <h1>这份结果在当前浏览器里找不到了。</h1>
+      <a class="return-home-button" href="./index.html">返回首页</a>
+    </section>
+
+    <div id="result-content" class="is-hidden">
+      <header class="result-header">
+        <span class="result-eyebrow">你的近期状态</span>
+        <span id="date-range" class="result-date"></span>
+      </header>
+
+      <section class="result-hero">
+        <h1 id="personality-name" class="personality-name"></h1>
+        <div id="personality-code" class="personality-code"></div>
+        <img id="personality-image" class="personality-image" alt="人格插画">
+        <p id="personality-tagline" class="personality-tagline"></p>
+      </section>
+
+      <div id="confidence" class="confidence"></div>
+      <section id="description" class="description"></section>
+      <div id="keywords" class="keywords"></div>
+
+      <section class="system-card">
+        <span class="system-label">系统评价</span>
+        <p id="system-comment" class="system-comment"></p>
+      </section>
+    </div>
+  </main>
+
+  <script type="module" src="./js/pages/result.js"></script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>记录｜BUGTI</title>
+  <link rel="stylesheet" href="./css/base.css">
+  <link rel="stylesheet" href="./css/record.css">
+</head>
+<body>
+  <main class="app-shell record-page">
+    <button class="page-back" type="button" aria-label="返回">‹</button>
+
+    <header class="record-header">
+      <div id="record-eyebrow" class="eyebrow">TODAY</div>
+      <h1 id="record-title" class="page-title">今天运行得怎么样？</h1>
+      <div id="record-date" class="record-date"></div>
+      <p class="header-tip">几个选择就够了，不用给自己写日报。</p>
+    </header>
+
+    <form id="record-form" novalidate>
+      <section class="record-section">
+        <div class="section-heading">
+          <h2>心情</h2><span class="required">必填</span>
+        </div>
+        <p class="section-tip">今天整体感觉怎么样？</p>
+        <div id="mood-list" class="mood-list"></div>
+      </section>
+
+      <section class="record-section">
+        <div class="section-heading">
+          <h2>电量</h2><span class="required">必填</span>
+        </div>
+        <p class="section-tip">你今天还剩多少电？</p>
+        <div id="energy-list" class="energy-list"></div>
+      </section>
+
+      <section class="record-section">
+        <div class="section-heading">
+          <h2>忙碌度</h2><span class="required">必填</span>
+        </div>
+        <p class="section-tip">今天被事情追着跑了吗？</p>
+        <div id="busyness-list" class="choice-list"></div>
+      </section>
+
+      <section class="record-section">
+        <div class="section-heading">
+          <h2>今天干了什么？</h2><span id="tag-count" class="required">0 / 3</span>
+        </div>
+        <p class="section-tip">选 1-3 个最有代表性的。</p>
+        <div id="tag-list" class="tag-list"></div>
+      </section>
+
+      <section class="record-section">
+        <div class="section-heading">
+          <h2>随便写两句</h2><span class="optional">可选</span>
+        </div>
+        <p class="section-tip">普通 BUGTI 分析不会读取这里的文字。</p>
+        <textarea id="note" class="note-input" maxlength="500" placeholder="今天发生了什么？想写就写。"></textarea>
+      </section>
+
+      <section class="record-section">
+        <div class="section-heading">
+          <h2>留点现场证据</h2><span id="image-count" class="optional">可选 · 0 / 3</span>
+        </div>
+        <p class="section-tip">图片只用于回看，不参与普通 BUGTI 分析。</p>
+        <div id="image-grid" class="image-grid"></div>
+        <label id="image-picker-label" class="add-image">
+          <span class="add-icon">＋</span>
+          <span class="add-text">添加图片</span>
+          <input id="image-picker" type="file" accept="image/*" multiple>
+        </label>
+      </section>
+
+      <div class="save-area">
+        <button id="save-button" class="save-button" type="submit">保存记录</button>
+        <p class="save-tip">同一天只保留一条记录，之后仍然可以修改。</p>
+        <div id="delete-area" class="delete-area is-hidden">
+          <button id="delete-button" class="delete-button" type="button">删除这天的记录</button>
+        </div>
+      </div>
+    </form>
+  </main>
+
+  <script type="module" src="./js/pages/record.js"></script>
+</body>
+</html>
