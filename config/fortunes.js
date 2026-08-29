@@ -173,11 +173,10 @@ const NORMAL_FORTUNES = [
 ]
 
 
-const SPECIAL_FORTUNE = {
+export const SPECIAL_FORTUNE = {
   id: "draw_again",
   title: "这把不算",
-  image:
-    "/assets/fortune/draw_again.webp",
+  ...
   variants: [
     {
       yi: "继续遍历",
@@ -185,8 +184,7 @@ const SPECIAL_FORTUNE = {
       comment:
         "六种都被你翻完了。现在继续抽不叫算运势，叫遍历；“再来一次”不是按钮，是 while(true)。"
     }
-  ],
-  special: true
+  ]
 }
 
 
