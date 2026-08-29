@@ -1,0 +1,50 @@
+<view class="page" wx:if="{{personality}}">
+
+  <view class="result-header">
+    <text class="eyebrow">你的近期状态</text>
+    <text class="date">{{dateRange}}</text>
+  </view>
+
+  <view class="hero">
+    <text class="name">{{personality.name}}</text>
+    <text class="code">{{personality.code}}</text>
+
+    <image
+      class="personality-image"
+      src="{{personality.image}}"
+      mode="aspectFit"
+    />
+
+    <text class="tagline">{{personality.tagline}}</text>
+  </view>
+
+  <view class="confidence">
+    {{confidenceText}}
+  </view>
+
+  <view class="description">
+    <text
+      wx:for="{{personality.description}}"
+      wx:key="index"
+      class="paragraph"
+    >
+      {{item}}
+    </text>
+  </view>
+
+  <view class="keywords">
+    <view
+      wx:for="{{personality.keywords}}"
+      wx:key="*this"
+      class="keyword"
+    >
+      <text class="keyword-text">{{item}}</text>
+    </view>
+  </view>
+
+  <view class="system-card">
+    <text class="system-label">系统评价</text>
+    <text class="system-comment">{{personality.systemComment}}</text>
+  </view>
+
+</view>

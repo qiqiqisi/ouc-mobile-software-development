@@ -1,0 +1,141 @@
+.page {
+  min-height: 100vh;
+  padding: 48rpx 40rpx 80rpx;
+  box-sizing: border-box;
+  background: #ffffff;
+  color: #222222;
+}
+
+/* 顶部信息 */
+.result-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.eyebrow {
+  font-size: 25rpx;
+  color: #777777;
+}
+
+.date {
+  font-size: 23rpx;
+  color: #999999;
+}
+
+/* 人格主视觉 */
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 52rpx;
+}
+
+.name {
+  font-size: 56rpx;
+  line-height: 1.3;
+  font-weight: 700;
+  color: #222222;
+}
+
+.code {
+  margin-top: 8rpx;
+  font-size: 34rpx;
+  font-weight: 750;
+  color: #2f7d4a;
+}
+
+.personality-image {
+  width: 540rpx;
+  height: 540rpx;
+  margin-top: 20rpx;
+}
+
+.tagline {
+  margin-top: 18rpx;
+  font-size: 31rpx;
+  font-weight: 600;
+  line-height: 1.6;
+  text-align: center;
+  color: #333333;
+}
+
+/* 匹配信息 */
+.confidence {
+  margin-top: 26rpx;
+  text-align: center;
+  font-size: 23rpx;
+  color: #aaaaaa;
+}
+
+/* 人格正文 */
+.description {
+  margin-top: 58rpx;
+}
+
+.paragraph {
+  display: block;
+  margin-bottom: 26rpx;
+  font-size: 29rpx;
+  line-height: 1.85;
+  color: #444444;
+}
+
+.paragraph:last-child {
+  margin-bottom: 0;
+}
+
+/* 关键词 */
+.keywords {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10rpx;
+  margin-top: 18rpx;
+  margin-bottom: 24rpx;
+}
+
+.keyword {
+  height: 48rpx;
+  padding: 0 16rpx;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999rpx;
+  background: #f1f6f2;
+}
+
+.keyword-text {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  font-size: 22rpx;
+  font-weight: 500;
+  line-height: 1.15;
+  color: #63806b;
+  white-space: nowrap;
+}
+
+/* 系统评价 */
+.system-card {
+  margin-top: 0;
+  padding: 30rpx;
+  border-radius: 24rpx;
+  background: #f5f8f5;
+}
+
+.system-label {
+  display: block;
+  margin-bottom: 14rpx;
+  font-size: 23rpx;
+  font-weight: 650;
+  color: #2f7d4a;
+}
+
+.system-comment {
+  display: block;
+  font-size: 29rpx;
+  line-height: 1.65;
+  color: #333333;
+}

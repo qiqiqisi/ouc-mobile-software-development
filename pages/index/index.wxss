@@ -1,0 +1,684 @@
+page {
+  background: #ffffff;
+  color: #222222;
+}
+
+.page {
+  min-height: 100vh;
+  padding: 48rpx 40rpx 90rpx;
+  box-sizing: border-box;
+}
+
+
+
+.brand {
+  margin-bottom: 72rpx;
+}
+
+.brand-name { 
+  display: block;
+
+  font-size: 34rpx;
+  font-weight: 800;
+  letter-spacing: 4rpx;
+
+  color: #2f7d4a;
+}
+
+.brand-subtitle {
+  display: block;
+
+  margin-top: 8rpx;
+
+  font-size: 25rpx;
+  color: #999999;
+}
+
+
+
+.hero {
+  margin-bottom: 60rpx;
+}
+
+.hero-label {
+  display: block;
+
+  margin-bottom: 10rpx;
+
+  font-size: 21rpx;
+  font-weight: 700;
+  letter-spacing: 3rpx;
+
+  color: #2f7d4a;
+}
+
+.hero-title {
+  display: block;
+
+  font-size: 52rpx;
+  line-height: 1.3;
+  font-weight: 700;
+
+  color: #202020;
+}
+
+.hero-date {
+  display: block;
+
+  margin-top: 14rpx;
+  margin-bottom: 38rpx;
+
+  font-size: 25rpx;
+
+  color: #999999;
+}
+
+
+
+
+
+
+
+
+
+/* =========================
+   进度
+   ========================= */
+
+.progress-card {
+  padding: 34rpx;
+
+  border-radius: 28rpx;
+
+  background: #f5f8f5;
+}
+
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.progress-title {
+  font-size: 28rpx;
+  font-weight: 650;
+
+  color: #2c3d31;
+}
+
+.progress-number {
+  font-size: 27rpx;
+  font-weight: 700;
+
+  color: #2f7d4a;
+}
+
+.progress-track {
+  width: 100%;
+  height: 12rpx;
+
+  margin-top: 28rpx;
+
+  overflow: hidden;
+
+  border-radius: 999rpx;
+
+  background: #e0e8e2;
+}
+
+.progress-0 {
+  width: 0%;
+}
+
+.progress-1 {
+  width: 33.33%;
+}
+
+.progress-2 {
+  width: 66.67%;
+}
+
+.progress-3 {
+  width: 100%;
+}
+
+.progress-tip {
+  display: block;
+
+  margin-top: 18rpx;
+
+  font-size: 24rpx;
+
+  color: #7b867e;
+}
+
+.progress-ready {
+  color: #2f7d4a;
+}
+
+.analyze-button {
+  width: 100%;
+
+  margin-top: 28rpx;
+
+  border-radius: 999rpx;
+
+  background: #ffffff;
+
+  color: #2f7d4a;
+
+  font-size: 27rpx;
+  font-weight: 600;
+}
+
+.analyze-button::after {
+  border: 2rpx solid #dce8df;
+}
+
+
+/* =========================
+   首页板块
+   ========================= */
+
+.section {
+  margin-top: 64rpx;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 22rpx;
+}
+
+.section-title {
+  font-size: 34rpx;
+  font-weight: 650;
+
+  color: #222222;
+}
+
+.section-link {
+  font-size: 25rpx;
+
+  color: #7a947f;
+}
+
+
+/* =========================
+   空状态
+   ========================= */
+
+.empty-card {
+  padding: 32rpx;
+
+  border-radius: 24rpx;
+
+  background: #f7f7f7;
+}
+
+.empty-title {
+  display: block;
+
+  font-size: 28rpx;
+  font-weight: 600;
+
+  color: #555555;
+}
+
+.empty-text {
+  display: block;
+
+  margin-top: 10rpx;
+
+  font-size: 24rpx;
+  line-height: 1.6;
+
+  color: #aaaaaa;
+}
+
+
+/* =========================
+   最近记录
+   ========================= */
+
+.record-card {
+  padding: 30rpx;
+
+  border: 2rpx solid #eeeeee;
+  border-radius: 24rpx;
+
+  background: #ffffff;
+}
+
+.record-date {
+  display: block;
+
+  font-size: 23rpx;
+
+  color: #999999;
+}
+
+.record-summary {
+  display: block;
+
+  margin-top: 12rpx;
+
+  font-size: 29rpx;
+  line-height: 1.6;
+
+  color: #333333;
+}
+
+
+/* =========================
+   最近结果
+   ========================= */
+
+.result-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 32rpx;
+
+  border-radius: 24rpx;
+
+  background: #f5f8f5;
+}
+
+.result-code {
+  display: block;
+
+  font-size: 27rpx;
+  font-weight: 750;
+
+  color: #2f7d4a;
+}
+
+.result-name {
+  display: block;
+
+  margin-top: 6rpx;
+
+  font-size: 34rpx;
+  font-weight: 650;
+
+  color: #222222;
+}
+
+.result-arrow {
+  font-size: 48rpx;
+
+  color: #819087;
+}
+
+
+/* =========================
+   声明
+   ========================= */
+
+.disclaimer {
+  display: block;
+
+  margin-top: 80rpx;
+
+  text-align: center;
+
+  font-size: 21rpx;
+  line-height: 1.6;
+
+  color: #bbbbbb;
+}
+
+/* =========================
+   今日记录入口
+   ========================= */
+
+   .home-action-button {
+    width: 100%;
+    height: 88rpx;
+  
+    box-sizing: border-box;
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    border-radius: 999rpx;
+  
+    font-size: 28rpx;
+    font-weight: 600;
+    line-height: 1;
+  
+    text-align: center;
+  }
+  
+  .home-action-primary {
+    background: #2f7d4a;
+    color: #ffffff;
+  
+    border: 2rpx solid #2f7d4a;
+  }
+  
+  .home-action-picker {
+    display: block;
+  
+    width: 100%;
+  
+    margin-top: 20rpx;
+  }
+  
+  .home-action-secondary {
+    background: #ffffff;
+    color: #607b68;
+  
+    border: 2rpx solid #dfe8e1;
+  }
+
+
+/* =========================
+   今日运势
+   ========================= */
+
+.fortune-section {
+  margin-bottom: 60rpx;
+}
+
+.fortune-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  margin-bottom: 22rpx;
+}
+
+.fortune-eyebrow {
+  display: block;
+
+  margin-bottom: 8rpx;
+
+  font-size: 21rpx;
+  font-weight: 700;
+  letter-spacing: 3rpx;
+
+  color: #2f7d4a;
+}
+
+.fortune-title {
+  display: block;
+
+  font-size: 38rpx;
+  font-weight: 700;
+
+  color: #222222;
+}
+
+.fortune-count {
+  padding-bottom: 4rpx;
+
+  font-size: 23rpx;
+
+  color: #7a947f;
+}
+
+.fortune-card {
+  padding: 32rpx;
+
+  border-radius: 28rpx;
+
+  background: #f5f8f5;
+
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  transition: opacity 200ms ease, transform 200ms ease;
+}
+
+.fortune-card-drawing {
+  opacity: 0.42;
+  transform: scale(0.97) translateY(4rpx);
+}
+
+.fortune-image {
+  display: block;
+
+  width: 100%;
+  height: 350rpx;
+
+  border-radius: 22rpx;
+
+  background: #ffffff;
+}
+
+.fortune-result-title {
+  display: block;
+
+  margin-top: 28rpx;
+  margin-bottom: 22rpx;
+
+  font-size: 34rpx;
+  font-weight: 700;
+
+  color: #222222;
+}
+
+.fortune-advice {
+  display: flex;
+  align-items: center;
+
+  min-height: 58rpx;
+  margin-top: 12rpx;
+}
+
+.fortune-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  width: 54rpx;
+  height: 42rpx;
+  margin-right: 16rpx;
+
+  border-radius: 999rpx;
+
+  font-size: 22rpx;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.fortune-label-yi {
+  background: #e4efe7;
+  color: #2f7d4a;
+}
+
+.fortune-label-ji {
+  background: #ececea;
+  color: #777771;
+}
+
+.fortune-advice-text {
+  font-size: 27rpx;
+  line-height: 1.55;
+
+  color: #424a44;
+}
+
+.fortune-comment {
+  margin-top: 24rpx;
+  padding: 24rpx;
+
+  border-radius: 20rpx;
+
+  background: #ffffff;
+}
+
+.fortune-comment-label {
+  display: block;
+
+  margin-bottom: 10rpx;
+
+  font-size: 22rpx;
+  font-weight: 700;
+
+  color: #6f8976;
+}
+
+.fortune-comment-text {
+  display: block;
+
+  font-size: 25rpx;
+  line-height: 1.7;
+
+  color: #505852;
+}
+
+.fortune-actions {
+  display: flex;
+
+  margin-top: 28rpx;
+  gap: 16rpx;
+}
+
+.fortune-action-button {
+  flex: 1;
+
+  height: 80rpx;
+  margin: 0;
+  padding: 0 24rpx;
+
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 999rpx;
+
+  font-size: 27rpx;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.fortune-action-button::after,
+.fortune-shared-button::after {
+  border: 0;
+}
+
+.fortune-primary-button {
+  background: #2f7d4a;
+  color: #ffffff;
+}
+
+.fortune-share-button {
+  border: 2rpx solid #bed1c3;
+
+  background: #ffffff;
+  color: #2f7d4a;
+}
+
+.fortune-prompt {
+  display: block;
+
+  margin-top: 28rpx;
+
+  text-align: center;
+
+  font-size: 27rpx;
+  line-height: 1.5;
+
+  color: #6f7b72;
+}
+
+.fortune-single-action {
+  width: 100%;
+  margin-top: 26rpx;
+}
+
+.fortune-shared-card {
+  margin-bottom: 22rpx;
+  padding: 24rpx;
+
+  border: 2rpx solid #e1e9e3;
+  border-radius: 24rpx;
+
+  background: #ffffff;
+}
+
+.fortune-shared-main {
+  display: flex;
+  align-items: center;
+}
+
+.fortune-shared-image {
+  flex-shrink: 0;
+
+  width: 136rpx;
+  height: 136rpx;
+  margin-right: 22rpx;
+
+  border-radius: 18rpx;
+
+  background: #f5f8f5;
+}
+
+.fortune-shared-content {
+  min-width: 0;
+  flex: 1;
+}
+
+.fortune-shared-label {
+  display: block;
+
+  font-size: 21rpx;
+  font-weight: 700;
+
+  color: #6f8976;
+}
+
+.fortune-shared-title {
+  display: block;
+
+  margin-top: 6rpx;
+
+  font-size: 29rpx;
+  font-weight: 700;
+
+  color: #222222;
+}
+
+.fortune-shared-comment {
+  display: -webkit-box;
+
+  margin-top: 8rpx;
+  overflow: hidden;
+
+  font-size: 22rpx;
+  line-height: 1.5;
+
+  color: #858b87;
+
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.fortune-shared-button {
+  width: 100%;
+  height: 64rpx;
+  margin-top: 20rpx;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 0;
+  border-radius: 999rpx;
+
+  background: #edf4ef;
+  color: #2f7d4a;
+
+  font-size: 24rpx;
+  font-weight: 600;
+  line-height: 1;
+}

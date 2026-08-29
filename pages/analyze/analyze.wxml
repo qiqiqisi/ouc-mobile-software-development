@@ -1,0 +1,249 @@
+<view class="page">
+
+<view class="header">
+
+  <text class="eyebrow">
+    BUG CHECK
+  </text>
+
+  <text class="title">
+    最近是什么 Bug？
+  </text>
+
+  <text class="subtitle">
+    选择一段时间，看看最近的运行状态。
+  </text>
+
+</view>
+
+
+<!-- 快速时间范围 -->
+
+<view class="section">
+
+  <text class="section-title">
+    检测范围
+  </text>
+
+  <view class="mode-row">
+
+    <view
+      class="mode-item
+        {{mode === '7d'
+          ? 'mode-active'
+          : ''}}"
+      data-mode="7d"
+      bindtap="selectMode"
+    >
+      最近 7 天
+    </view>
+
+
+    <view
+      class="mode-item
+        {{mode === '30d'
+          ? 'mode-active'
+          : ''}}"
+      data-mode="30d"
+      bindtap="selectMode"
+    >
+      最近 30 天
+    </view>
+
+
+    <view
+      class="mode-item
+        {{mode === 'custom'
+          ? 'mode-active'
+          : ''}}"
+      data-mode="custom"
+      bindtap="selectMode"
+    >
+      自定义
+    </view>
+
+  </view>
+
+</view>
+
+
+<!-- 日期 -->
+
+<view class="date-card">
+
+  <view class="date-item">
+
+    <text class="date-label">
+      开始
+    </text>
+
+    <picker
+      mode="date"
+      value="{{startDate}}"
+      end="{{today}}"
+      bindchange="onStartDateChange"
+    >
+      <view class="date-value">
+        {{startDate}}
+      </view>
+    </picker>
+
+  </view>
+
+
+  <view class="date-line">
+  </view>
+
+
+  <view class="date-item">
+
+    <text class="date-label">
+      结束
+    </text>
+
+    <picker
+      mode="date"
+      value="{{endDate}}"
+      end="{{today}}"
+      bindchange="onEndDateChange"
+    >
+      <view class="date-value">
+        {{endDate}}
+      </view>
+    </picker>
+
+  </view>
+
+</view>
+
+
+<!-- 数据情况 -->
+
+<view class="status-card">
+
+  <view class="status-row">
+
+    <view>
+
+      <text class="status-label">
+        当前范围
+      </text>
+
+      <text class="status-main">
+        {{rangeDays}} 天
+      </text>
+
+    </view>
+
+
+    <view>
+
+      <text class="status-label">
+        有效记录
+      </text>
+
+      <text class="status-main">
+        {{validDays}} 天
+      </text>
+
+    </view>
+
+
+    <view class="status-right">
+
+      <text class="status-label">
+        数据覆盖
+      </text>
+
+      <text class="status-main">
+        {{coveragePercent}}%
+      </text>
+
+    </view>
+
+  </view>
+
+
+  <view
+    wx:if="{{rangeDays > 90}}"
+    class="status-tip warning"
+  >
+    自定义检测范围最多 90 天。
+  </view>
+
+
+  <view
+    wx:elif="{{rangeDays < 3}}"
+    class="status-tip warning"
+  >
+    检测范围至少需要 3 天。
+  </view>
+
+
+  <view
+    wx:elif="{{validDays < 3}}"
+    class="status-tip warning"
+  >
+    目前记录还比较少，也可以先测测看。
+  </view>
+
+
+  <view
+    wx:elif="{{coverageRate < 0.30}}"
+    class="status-tip warning"
+  >
+    这段时间记录比较稀疏，结果更多反映你留下记录的那些日子。
+  </view>
+
+
+  <view
+    wx:else
+    class="status-tip"
+  >
+    没有记录的日期视为未知，不会被当成宅家、摸鱼或低电量。
+  </view>
+
+</view>
+
+
+<!-- 开始检测 -->
+
+<button
+  class="analyze-button
+    {{canAnalyze
+      ? ''
+      : 'analyze-disabled'}}"
+  bindtap="runAnalysis"
+>
+  开始检测
+</button>
+
+
+<!-- AI 预留 -->
+
+<view class="ai-card">
+
+  <view class="ai-title-row">
+
+    <text class="ai-title">
+      AI 深度分析
+    </text>
+
+    <text class="ai-badge">
+      暂未开放
+    </text>
+
+  </view>
+
+  <text class="ai-text">
+    当前版本使用稳定的规则引擎。未来可在你主动选择时，让 AI 结合自由文字生成更个性化的总结。
+  </text>
+
+</view>
+
+
+<text class="footer">
+  BUGTI 仅用于娱乐与自我记录，不构成心理或医疗评估。
+</text>
+
+</view>

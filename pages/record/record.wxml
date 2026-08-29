@@ -1,0 +1,289 @@
+<view class="page">
+
+<!-- 页面顶部 -->
+<view class="header">
+
+  <text class="eyebrow">
+    {{isToday ? "TODAY" : "BACKFILL"}}
+  </text>
+
+  <text class="title">
+    {{isToday ? "今天运行得怎么样？" : "那天运行得怎么样？"}}
+  </text>
+
+  <text class="date">
+    {{date}}
+  </text>
+
+  <text class="header-tip">
+    几个选择就够了，不用给自己写日报。
+  </text>
+
+</view>
+
+
+<!-- 心情 -->
+<view class="section">
+
+  <view class="section-header">
+    <text class="section-title">心情</text>
+    <text class="required">必填</text>
+  </view>
+
+  <text class="section-tip">
+    今天整体感觉怎么样？
+  </text>
+
+  <view class="mood-list">
+
+    <view
+      wx:for="{{moods}}"
+      wx:key="value"
+      data-value="{{item.value}}"
+      bindtap="selectMood"
+      class="mood-item {{selectedMood == item.value ? 'selected' : ''}}"
+    >
+      <text class="mood-emoji">
+        {{item.emoji}}
+      </text>
+
+      <text class="option-label">
+        {{item.label}}
+      </text>
+    </view>
+
+  </view>
+
+</view>
+
+
+<!-- 电量 -->
+<view class="section">
+
+  <view class="section-header">
+    <text class="section-title">电量</text>
+    <text class="required">必填</text>
+  </view>
+
+  <text class="section-tip">
+    你今天还剩多少电？
+  </text>
+
+  <view class="energy-list">
+
+    <view
+      wx:for="{{energies}}"
+      wx:key="value"
+      data-value="{{item.value}}"
+      bindtap="selectEnergy"
+      class="energy-item {{selectedEnergy == item.value ? 'selected' : ''}}"
+    >
+      <text class="energy-emoji">
+        {{item.emoji}}
+      </text>
+
+      <text class="option-label">
+        {{item.label}}
+      </text>
+    </view>
+
+  </view>
+
+</view>
+
+
+<!-- 忙碌度 -->
+<view class="section">
+
+  <view class="section-header">
+    <text class="section-title">忙碌度</text>
+    <text class="required">必填</text>
+  </view>
+
+  <text class="section-tip">
+    今天被事情追着跑了吗？
+  </text>
+
+  <view class="choice-list">
+
+    <view
+      wx:for="{{busynessOptions}}"
+      wx:key="value"
+      data-value="{{item.value}}"
+      bindtap="selectBusyness"
+      class="choice-item {{selectedBusyness == item.value ? 'selected' : ''}}"
+    >
+      {{item.label}}
+    </view>
+
+  </view>
+
+</view>
+
+
+<!-- 标签 -->
+<view class="section">
+
+  <view class="section-header">
+
+    <text class="section-title">
+      今天干了什么？
+    </text>
+
+    <text class="required">
+      {{selectedTagCount}} / 3
+    </text>
+
+  </view>
+
+  <text class="section-tip">
+    选 1-3 个最有代表性的。
+  </text>
+
+  <view class="tag-list">
+
+    <view
+      wx:for="{{tags}}"
+      wx:key="label"
+      data-index="{{index}}"
+      bindtap="toggleTag"
+      class="tag-item {{item.selected ? 'tag-selected' : ''}}"
+    >
+      {{item.label}}
+    </view>
+
+  </view>
+
+</view>
+
+
+<!-- 自由文字 -->
+<view class="section">
+
+<view class="section-header">
+
+  <text class="section-title">
+    随便写两句
+  </text>
+
+  <text class="optional">
+    可选
+  </text>
+
+</view>
+
+<text class="section-tip">
+  普通 BUGTI 分析不会读取这里的文字。
+</text>
+
+<textarea
+  class="note-input"
+  value="{{note}}"
+  maxlength="500"
+  placeholder="今天发生了什么？想写就写。"
+  bindinput="onNoteInput"
+/>
+
+</view>
+
+
+<!-- 图片 -->
+<view class="section">
+
+<view class="section-header">
+
+  <text class="section-title">
+    留点现场证据
+  </text>
+
+  <text class="optional">
+    可选 · {{images.length}} / 3
+  </text>
+
+</view>
+
+<text class="section-tip">
+  图片只用于回看，不参与普通 BUGTI 分析。
+</text>
+
+
+<view class="image-grid">
+
+  <view
+    wx:for="{{images}}"
+    wx:key="path"
+    class="image-item"
+  >
+
+    <image
+      class="record-image"
+      src="{{item.path}}"
+      mode="aspectFill"
+      data-index="{{index}}"
+      bindtap="previewImage"
+    />
+
+    <view
+      class="remove-image"
+      data-index="{{index}}"
+      catchtap="removeImage"
+    >
+      ×
+    </view>
+
+  </view>
+
+
+  <view
+    wx:if="{{images.length < 3}}"
+    class="add-image"
+    bindtap="chooseImages"
+  >
+
+    <text class="add-icon">
+      ＋
+    </text>
+
+    <text class="add-text">
+      添加图片
+    </text>
+
+  </view>
+
+</view>
+
+</view>
+
+
+<!-- 保存 -->
+<view class="save-area">
+
+<button
+  class="save-button"
+  bindtap="saveRecord"
+>
+  {{isEditing ? "更新记录" : "保存记录"}}
+</button>
+
+<text class="save-tip">
+  同一天只保留一条记录，之后仍然可以修改。
+</text>
+
+
+<view
+  wx:if="{{isEditing}}"
+  class="delete-area"
+>
+
+  <text
+    class="delete-button"
+    bindtap="deleteRecord"
+  >
+    删除这天的记录
+  </text>
+
+</view>
+
+</view>
+
+</view>

@@ -1,0 +1,296 @@
+<view class="page">
+
+<!-- 品牌区域 -->
+<view class="brand">
+  <text class="brand-name">BUGTI</text>
+  <text class="brand-subtitle">测测你最近是什么 Bug</text>
+</view>
+
+
+<!-- 今日状态 -->
+<view class="hero">
+
+  <text class="hero-label">TODAY</text>
+
+  <text class="hero-title">
+    今天运行得怎么样？
+  </text>
+
+  <text class="hero-date">
+    {{today}}
+  </text>
+
+  <view
+    class="home-action-button home-action-primary"
+    bindtap="goToTodayRecord"
+  >
+    {{hasTodayRecord ? "编辑今日记录" : "记录今天"}}
+  </view>
+
+  <picker
+    class="home-action-picker"
+    mode="date"
+    value="{{today}}"
+    end="{{today}}"
+    bindchange="onBackfillDateChange"
+  >
+    <view class="home-action-button home-action-secondary">
+    补之前的记录
+    </view>
+  </picker>
+
+</view>
+
+
+<!-- 今日运势 -->
+<view class="fortune-section">
+
+  <view class="fortune-header">
+    <view>
+      <text class="fortune-eyebrow">TODAY'S LUCK</text>
+      <text class="fortune-title">今日一抽</text>
+    </view>
+
+    <text
+      wx:if="{{fortuneDrawCount > 0}}"
+      class="fortune-count"
+    >
+      第 {{fortuneDrawCount}} 抽
+    </text>
+  </view>
+
+  <view
+    wx:if="{{sharedFortunePreview}}"
+    class="fortune-shared-card"
+  >
+    <view class="fortune-shared-main">
+      <image
+        class="fortune-shared-image"
+        src="{{sharedFortunePreview.image}}"
+        mode="aspectFit"
+      />
+
+      <view class="fortune-shared-content">
+        <text class="fortune-shared-label">
+          朋友刚抽到
+        </text>
+
+        <text class="fortune-shared-title">
+          {{sharedFortunePreview.title}}
+        </text>
+
+        <text class="fortune-shared-comment">
+          {{sharedFortunePreview.comment}}
+        </text>
+      </view>
+    </view>
+
+    <button
+      class="fortune-shared-button"
+      bindtap="drawFortune"
+    >
+      我也抽一个
+    </button>
+  </view>
+
+  <view
+    class="fortune-card {{fortuneAnimating ? 'fortune-card-drawing' : ''}}"
+  >
+    <image
+      class="fortune-image"
+      src="{{fortuneImage}}"
+      mode="aspectFit"
+    />
+
+    <block wx:if="{{fortune}}">
+      <text class="fortune-result-title">
+        今日：{{fortune.title}}
+      </text>
+
+      <view class="fortune-advice">
+        <text class="fortune-label fortune-label-yi">宜</text>
+        <text class="fortune-advice-text">{{fortune.yi}}</text>
+      </view>
+
+      <view class="fortune-advice">
+        <text class="fortune-label fortune-label-ji">忌</text>
+        <text class="fortune-advice-text">{{fortune.ji}}</text>
+      </view>
+
+      <view class="fortune-comment">
+        <text class="fortune-comment-label">系统评价</text>
+        <text class="fortune-comment-text">{{fortune.comment}}</text>
+      </view>
+
+      <view class="fortune-actions">
+        <button
+          class="fortune-action-button fortune-primary-button"
+          bindtap="drawFortune"
+        >
+          再抽一次
+        </button>
+
+        <button
+          class="fortune-action-button fortune-share-button"
+          open-type="share"
+          data-share-kind="fortune"
+        >
+          分享这张
+        </button>
+      </view>
+    </block>
+
+    <block wx:else>
+      <text class="fortune-prompt">
+        今天系统想跟你说什么？
+      </text>
+
+      <button
+        class="fortune-action-button fortune-primary-button fortune-single-action"
+        bindtap="drawFortune"
+      >
+        抽一下
+      </button>
+    </block>
+  </view>
+
+</view>
+
+
+<!-- 解锁进度 -->
+<view class="progress-card">
+
+  <view class="progress-header">
+    <text class="progress-title">BUGTI 检测进度</text>
+
+    <text class="progress-number">
+      {{recordedDays}} / {{unlockDays}}
+    </text>
+  </view>
+
+  <view class="progress-track">
+    <view
+    class="progress-bar progress-{{recordedDays}}"
+    ></view>
+  </view>
+
+  <text
+    wx:if="{{recordedDays < unlockDays}}"
+    class="progress-tip"
+  >
+    目前记录还比较少，也可以先测测看。
+  </text>
+
+  <text
+    wx:else
+    class="progress-tip progress-ready"
+  >
+    数据够了，可以看看最近运行成什么样。
+  </text>
+
+  <button
+    class="analyze-button"
+    bindtap="goToAnalyze"
+  >
+    开始检测
+  </button>
+
+</view>
+
+
+<!-- 最近记录 -->
+<view class="section">
+
+  <view class="section-header">
+    <text class="section-title">最近记录</text>
+
+    <text
+      class="section-link"
+      bindtap="goToHistory"
+    >
+      查看全部 ›
+    </text>
+  </view>
+
+  <!-- 有记录 -->
+  <view
+    wx:if="{{recentRecord}}"
+    class="record-card"
+  >
+    <text class="record-date">
+      {{recentRecord.date}}
+    </text>
+
+    <text class="record-summary">
+      {{recentRecord.summary}}
+    </text>
+  </view>
+
+  <!-- 暂无记录 -->
+  <view
+    wx:else
+    class="empty-card"
+  >
+    <text class="empty-title">
+      这里暂时很安静。
+    </text>
+
+    <text class="empty-text">
+      记下第一天之后，最近状态会出现在这里。
+    </text>
+  </view>
+
+</view>
+
+
+<!-- 最近结果 -->
+<view class="section">
+
+  <view class="section-header">
+    <text class="section-title">最近一次结果</text>
+  </view>
+
+  <view
+    wx:if="{{recentResult}}"
+    class="result-card"
+    bindtap="goToRecentResult"
+  >
+    <view>
+      <text class="result-code">
+        {{recentResult.code}}
+      </text>
+
+      <text class="result-name">
+        {{recentResult.name}}
+      </text>
+
+      <text class="empty-text">
+        {{recentResult.tagline}}
+      </text>
+    </view>
+
+    <text class="result-arrow">›</text>
+  </view>
+
+  <view
+    wx:else
+    class="empty-card"
+  >
+    <text class="empty-title">
+      还没有检测结果。
+    </text>
+
+    <text class="empty-text">
+      测一次看看最近是什么 Bug。
+    </text>
+  </view>
+
+</view>
+
+
+<!-- 娱乐声明 -->
+<text class="disclaimer">
+  BUGTI 是娱乐型阶段状态测评，不代表心理学或医学结论。
+</text>
+
+</view>

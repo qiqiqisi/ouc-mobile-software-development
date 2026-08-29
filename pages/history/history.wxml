@@ -1,0 +1,68 @@
+<view class="page">
+
+  <!-- 页面标题 -->
+  <view class="header">
+    <text class="eyebrow">HISTORY</text>
+    <text class="title">你的运行记录</text>
+    <text class="subtitle">有表情的日子，说明你留下过记录。</text>
+  </view>
+
+  <!-- 月份切换 -->
+  <view class="month-nav">
+    <view class="month-arrow" bindtap="goPreviousMonth">‹</view>
+    <text class="month-title">{{monthTitle}}</text>
+    <view class="month-arrow" bindtap="goNextMonth">›</view>
+  </view>
+
+  <!-- 星期 -->
+  <view class="week-row">
+    <text
+      wx:for="{{weekNames}}"
+      wx:key="*this"
+      class="week-name"
+    >
+      {{item}}
+    </text>
+  </view>
+
+  <!-- 日历 -->
+  <view class="calendar-grid">
+    <view
+      wx:for="{{calendarDays}}"
+      wx:key="index"
+      class="day-cell {{item.empty ? 'day-empty' : ''}}"
+      data-date="{{item.date}}"
+      data-future="{{item.isFuture}}"
+      bindtap="tapDay"
+    >
+      <block wx:if="{{!item.empty}}">
+        <view
+          class="day-card
+            {{item.hasRecord ? 'day-recorded' : ''}}
+            {{item.isToday ? 'day-today' : ''}}
+            {{item.isFuture ? 'day-future' : ''}}"
+        >
+          <text class="day-number">{{item.day}}</text>
+
+          <view
+            wx:if="{{item.hasRecord}}"
+            class="day-mood-slot"
+          >
+            <text class="day-mood">{{item.moodEmoji}}</text>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <!-- 本月统计 -->
+  <view class="month-summary">
+    <text class="summary-number">{{monthRecordCount}}</text>
+    <text class="summary-text">个记录日</text>
+  </view>
+
+  <text class="footer-tip">
+    点击有记录的日期可以编辑；点击过去的空白日期可以补记录。
+  </text>
+
+</view>

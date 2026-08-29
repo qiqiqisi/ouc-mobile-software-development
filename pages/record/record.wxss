@@ -1,0 +1,410 @@
+page {
+  background: #ffffff;
+  color: #222222;
+}
+
+.page {
+  min-height: 100vh;
+  padding: 48rpx 40rpx 80rpx;
+  box-sizing: border-box;
+}
+
+
+/* 顶部 */
+
+.header {
+  margin-bottom: 54rpx;
+}
+
+.eyebrow {
+  display: block;
+
+  font-size: 22rpx;
+  font-weight: 700;
+  letter-spacing: 3rpx;
+
+  color: #2f7d4a;
+}
+
+.title {
+  display: block;
+
+  margin-top: 12rpx;
+
+  font-size: 48rpx;
+  line-height: 1.3;
+  font-weight: 700;
+
+  color: #222222;
+}
+
+.date {
+  display: block;
+
+  margin-top: 14rpx;
+
+  font-size: 25rpx;
+
+  color: #999999;
+}
+
+.header-tip {
+  display: block;
+
+  margin-top: 18rpx;
+
+  font-size: 25rpx;
+  line-height: 1.6;
+
+  color: #999999;
+}
+
+
+/* 每个区域 */
+
+.section {
+  padding: 40rpx 0;
+
+  border-top: 1rpx solid #eeeeee;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.section-title {
+  font-size: 33rpx;
+  font-weight: 650;
+
+  color: #222222;
+}
+
+.required {
+  padding: 7rpx 14rpx;
+
+  border-radius: 999rpx;
+
+  background: #edf5ef;
+
+  font-size: 21rpx;
+
+  color: #2f7d4a;
+}
+
+.section-tip {
+  display: block;
+
+  margin-top: 10rpx;
+  margin-bottom: 28rpx;
+
+  font-size: 24rpx;
+
+  color: #999999;
+}
+
+
+/* 心情 */
+
+.mood-list {
+  display: flex;
+  justify-content: space-between;
+}
+
+.mood-item {
+  width: 18%;
+
+  padding: 18rpx 2rpx;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  box-sizing: border-box;
+
+  border: 2rpx solid #eeeeee;
+  border-radius: 20rpx;
+
+  background: #ffffff;
+}
+
+.mood-emoji {
+  font-size: 43rpx;
+}
+
+.option-label {
+  margin-top: 8rpx;
+
+  font-size: 21rpx;
+
+  color: #666666;
+}
+
+
+/* 电量 */
+
+.energy-list {
+  display: flex;
+  justify-content: space-between;
+}
+
+.energy-item {
+  width: 31%;
+
+  padding: 23rpx 4rpx;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  box-sizing: border-box;
+
+  border: 2rpx solid #eeeeee;
+  border-radius: 20rpx;
+
+  background: #ffffff;
+}
+
+.energy-emoji {
+  font-size: 42rpx;
+}
+
+
+/* 忙碌 */
+
+.choice-list {
+  display: flex;
+  justify-content: space-between;
+}
+
+.choice-item {
+  width: 31%;
+
+  padding: 24rpx 0;
+
+  box-sizing: border-box;
+
+  border: 2rpx solid #eeeeee;
+  border-radius: 20rpx;
+
+  text-align: center;
+
+  font-size: 27rpx;
+
+  color: #555555;
+}
+
+
+/* 所有单选选中状态 */
+
+.selected {
+  border-color: #2f7d4a;
+
+  background: #f1f7f3;
+}
+
+.selected .option-label {
+  color: #2f7d4a;
+  font-weight: 600;
+}
+
+
+/* 标签 */
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+
+  margin-right: -14rpx;
+}
+
+.tag-item {
+  margin-right: 14rpx;
+  margin-bottom: 16rpx;
+
+  padding: 17rpx 27rpx;
+
+  border: 2rpx solid transparent;
+  border-radius: 999rpx;
+
+  background: #f5f5f5;
+
+  font-size: 26rpx;
+
+  color: #555555;
+}
+
+.tag-selected {
+  border-color: #2f7d4a;
+
+  background: #edf5ef;
+
+  color: #2f7d4a;
+
+  font-weight: 600;
+}
+
+
+.optional {
+  font-size: 22rpx;
+  color: #aaaaaa;
+}
+
+
+/* 自由文字 */
+
+.note-input {
+  width: 100%;
+  height: 210rpx;
+
+  padding: 26rpx;
+
+  box-sizing: border-box;
+
+  border-radius: 22rpx;
+
+  background: #f7f7f7;
+
+  font-size: 27rpx;
+  line-height: 1.7;
+
+  color: #333333;
+}
+
+
+/* 图片 */
+
+.image-grid {
+  display: flex;
+  flex-wrap: wrap;
+
+  margin-top: 26rpx;
+}
+
+.image-item,
+.add-image {
+  width: 190rpx;
+  height: 190rpx;
+
+  margin-right: 18rpx;
+  margin-bottom: 18rpx;
+
+  border-radius: 22rpx;
+
+  overflow: hidden;
+
+  box-sizing: border-box;
+}
+
+.image-item {
+  position: relative;
+}
+
+.record-image {
+  width: 100%;
+  height: 100%;
+}
+
+.remove-image {
+  position: absolute;
+
+  top: 10rpx;
+  right: 10rpx;
+
+  width: 42rpx;
+  height: 42rpx;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: rgba(0, 0, 0, 0.55);
+
+  color: #ffffff;
+
+  font-size: 30rpx;
+}
+
+.add-image {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  border: 2rpx dashed #cccccc;
+
+  background: #fafafa;
+}
+
+.add-icon {
+  font-size: 50rpx;
+
+  color: #888888;
+}
+
+.add-text {
+  margin-top: 4rpx;
+
+  font-size: 23rpx;
+
+  color: #888888;
+}
+
+
+/* 保存 */
+
+.save-area {
+  padding: 42rpx 0 20rpx;
+}
+
+.save-button {
+  width: 100%;
+
+  border-radius: 999rpx;
+
+  background: #2f7d4a;
+
+  color: #ffffff;
+
+  font-size: 30rpx;
+  font-weight: 600;
+}
+
+.save-button::after {
+  border: none;
+}
+
+.save-tip {
+  display: block;
+
+  margin-top: 18rpx;
+
+  text-align: center;
+
+  font-size: 22rpx;
+
+  color: #aaaaaa;
+}
+
+.delete-area {
+  margin-top: 46rpx;
+
+  padding-top: 32rpx;
+
+  border-top: 1rpx solid #eeeeee;
+
+  text-align: center;
+}
+
+.delete-button {
+  display: inline-block;
+
+  padding: 16rpx 24rpx;
+
+  font-size: 25rpx;
+
+  color: #b65a5a;
+}
