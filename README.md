@@ -68,7 +68,7 @@ BUGTI Web v1.0.0 **暂时没有账号系统和云端同步**。当前记录保�
 | ------ | ---------------- | ------------------------------------------------------------ | -------- |
 | Lab 01 | 第一个微信小程序 | [lab01](https://github.com/qiqiqisi/ouc-mobile-software-development/tree/lab01) | ✅ 已完成 |
 | Lab 02 | 名片小程序       | [lab02](https://github.com/qiqiqisi/ouc-mobile-software-development/tree/lab02) | ✅ 已完成 |
-| Lab 03 | 待更新           | `lab03`                                                      | ⏳        |
+| Lab 03 | 高校新闻网       | [lab03](https://github.com/qiqiqisi/ouc-mobile-software-development/tree/lab03) | ✅ 已完成 |
 | ...    | 后续实验         | -                                                            | 持续更新 |
 
 ---
@@ -117,6 +117,31 @@ BUGTI Web v1.0.0 **暂时没有账号系统和云端同步**。当前记录保�
 
 ---
 
+## Lab 03：高校新闻网
+
+实验 3 完成了一个中国海洋大学校园新闻网小程序，并在基础实验要求上继续增加了一些实际使用功能。
+
+主要完成：
+
+- 使用中国海洋大学近期官方新闻替换 Demo 中的旧新闻数据
+- 首页使用轮播图展示重点新闻，并展示新闻列表
+- 支持新闻标题、作者和正文内容搜索
+- 支持“全部 / 海大要闻 / 综合新闻”分类筛选
+- 点击新闻进入详情页，展示完整正文、图片和图注
+- 首页、详情页和最近阅读均支持星标收藏，并保持收藏状态同步
+- 使用微信小程序 Storage 保存收藏、最近阅读和个人资料
+- 收藏与最近阅读支持左滑单条删除、批量删除、全选和一键清空
+- 最近阅读记录最后阅读时间，并支持快捷收藏
+- 支持微信头像昵称填写、资料修改和本地快捷恢复登录
+- 使用 `open-type="share"` 和 `onShareAppMessage()` 实现新闻分享
+- 使用 AI 辅助编写 Python 脚本，整理海大官方新闻正文和图片数据
+
+👉 [查看 Lab 03 分支](https://github.com/qiqiqisi/ouc-mobile-software-development/tree/lab03)
+
+进入分支后可以直接查看最终小程序源码、实验截图和完整实验报告。
+
+---
+
 ## 🌿 仓库与分支管理
 
 课程实验仍采用一个实验对应一个分支的方式管理；个人项目 BUGTI Web 当前位于 `main` 分支的 `web/` 目录，并通过 GitHub Actions 部署到 GitHub Pages。
@@ -143,5 +168,12 @@ lab02
 ├── README.md
 ├── images/
 ├── card/
+└── .gitignore
+
+lab03
+│
+├── README.md
+├── images/
+├── lab03_complete/
 └── .gitignore
 ```
