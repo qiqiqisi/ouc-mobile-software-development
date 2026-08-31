@@ -1,0 +1,376 @@
+<view class="my-page">
+  <view class="profile-hero">
+    <image class="hero-watermark" src="/images/brand/ouc_logo.png" mode="aspectFit" />
+
+    <view wx:if="{{loggedIn && profile}}" class="profile-content">
+      <image
+        class="avatar"
+        src="{{profileAvatar}}"
+        mode="aspectFill"
+        binderror="onProfileAvatarError"
+      />
+      <text class="nickname">{{profile.nickname}}</text>
+      <text class="profile-en">OCEAN UNIVERSITY OF CHINA</text>
+
+      <view class="profile-actions">
+        <button
+          class="profile-edit pressable"
+          hover-class="pressable-hover"
+          bindtap="startEdit"
+        >编辑资料</button>
+
+        <button
+          class="profile-logout pressable"
+          hover-class="pressable-hover"
+          bindtap="logout"
+        >退出登录</button>
+      </view>
+    </view>
+
+    <view wx:else class="profile-content">
+      <image
+        class="avatar {{hasSavedProfile ? '' : 'avatar--brand'}}"
+        src="{{savedAvatarPreview}}"
+        mode="{{hasSavedProfile ? 'aspectFill' : 'aspectFit'}}"
+        binderror="onSavedAvatarError"
+      />
+
+      <text class="nickname">{{hasSavedProfile ? '欢迎回来' : '你好，OUCer'}}</text>
+      <text class="profile-tip">
+        {{hasSavedProfile ? '上次使用的资料已保留，可直接恢复登录' : '首次使用需要选择微信头像并确认昵称'}}
+      </text>
+
+      <button
+        class="profile-quick-login pressable"
+        hover-class="pressable-hover"
+        bindtap="startLogin"
+      >
+        <text class="quick-login-main">{{hasSavedProfile ? '一键恢复登录' : '微信快捷登录'}}</text>
+        <text class="quick-login-arrow">›</text>
+      </button>
+    </view>
+  </view>
+
+  <view class="content-tabs">
+    <view
+      class="content-tab {{activeTab === 'favorites' ? 'content-tab--active' : ''}}"
+      data-tab="favorites"
+      bindtap="switchContentTab"
+    >
+      <view class="tab-main">
+        <text>收藏</text>
+        <text class="tab-count">{{favorites.length < 10 ? '0' + favorites.length : favorites.length}}</text>
+      </view>
+      <text class="tab-en">FAVORITES</text>
+      <view class="tab-indicator"></view>
+    </view>
+
+    <view
+      class="content-tab {{activeTab === 'history' ? 'content-tab--active' : ''}}"
+      data-tab="history"
+      bindtap="switchContentTab"
+    >
+      <view class="tab-main">
+        <text>最近阅读</text>
+        <text class="tab-count">{{history.length < 10 ? '0' + history.length : history.length}}</text>
+      </view>
+      <text class="tab-en">RECENT</text>
+      <view class="tab-indicator"></view>
+    </view>
+  </view>
+
+  <!-- 收藏 -->
+  <block wx:if="{{activeTab === 'favorites'}}">
+    <view wx:if="{{favorites.length}}" class="list-head list-head--actions-only">
+      <view class="list-actions">
+        <text
+          wx:if="{{!manageMode}}"
+          class="manage-action"
+          bindtap="startManage"
+        >管理</text>
+
+        <text
+          wx:if="{{!manageMode}}"
+          class="clear-action"
+          bindtap="clearFavorites"
+        >清空</text>
+
+        <text
+          wx:else
+          class="done-action"
+          bindtap="finishManage"
+        >完成</text>
+      </view>
+    </view>
+
+    <view wx:if="{{manageMode && favorites.length}}" class="manage-bar">
+      <view class="select-all" bindtap="toggleSelectAll">
+        <view class="select-circle {{allSelected ? 'select-circle--active' : ''}}">
+          <text wx:if="{{allSelected}}">✓</text>
+        </view>
+        <text>全选</text>
+      </view>
+
+      <text class="selected-summary">已选择 {{selectedCount}} 项</text>
+
+      <text
+        class="batch-delete {{selectedCount ? 'batch-delete--active' : ''}}"
+        bindtap="batchDelete"
+      >删除{{selectedCount ? ' ' + selectedCount : ''}}</text>
+    </view>
+
+    <view wx:if="{{favorites.length}}" class="record-list">
+      <view
+        class="record-swipe"
+        wx:for="{{favorites}}"
+        wx:key="id"
+      >
+        <view
+          wx:if="{{!manageMode}}"
+          class="record-remove"
+          data-id="{{item.id}}"
+          data-type="favorites"
+          catchtap="removeRow"
+        >
+          <text class="remove-icon">×</text>
+          <text class="remove-text">取消收藏</text>
+        </view>
+
+        <view
+          class="record-row {{manageMode ? 'record-row--manage' : ''}}"
+          style="transform: translateX({{manageMode ? 0 : item.swipeX}}rpx);"
+          data-id="{{item.id}}"
+          data-type="favorites"
+          bindtouchstart="onRowTouchStart"
+          catchtouchmove="onRowTouchMove"
+          bindtouchend="onRowTouchEnd"
+          bindtouchcancel="onRowTouchEnd"
+          bindtap="openNews"
+        >
+          <view wx:if="{{manageMode}}" class="row-select">
+            <view class="select-circle {{item.selected ? 'select-circle--active' : ''}}">
+              <text wx:if="{{item.selected}}">✓</text>
+            </view>
+          </view>
+
+          <view class="record-main">
+            <text class="record-meta">{{item.category}} · {{item.displayDate}}</text>
+            <text class="record-title">{{item.title}}</text>
+          </view>
+
+          <view class="record-visual">
+            <image
+              wx:if="{{item.cover}}"
+              class="record-image"
+              src="{{item.cover}}"
+              mode="aspectFill"
+            />
+
+            <view wx:else class="record-image record-fallback">
+              <text class="fallback-ou">OUC</text>
+              <text class="fallback-news">NEWS</text>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <text wx:if="{{!manageMode}}" class="swipe-hint">左滑新闻可取消收藏</text>
+    </view>
+
+    <view wx:else class="empty">
+      <text class="empty-symbol">☆</text>
+      <text class="empty-title">还没有收藏</text>
+      <text class="empty-desc">看到值得再读一遍的新闻，\n可以把它留在这里。</text>
+      <button
+        class="empty-button pressable"
+        hover-class="pressable-hover"
+        bindtap="goHome"
+      >去看看新闻</button>
+    </view>
+  </block>
+
+  <!-- 最近阅读 -->
+  <block wx:else>
+    <view wx:if="{{history.length}}" class="list-head list-head--actions-only">
+      <view class="list-actions">
+        <text
+          wx:if="{{!manageMode}}"
+          class="manage-action"
+          bindtap="startManage"
+        >管理</text>
+
+        <text
+          wx:if="{{!manageMode}}"
+          class="clear-action"
+          bindtap="clearHistory"
+        >清空</text>
+
+        <text
+          wx:else
+          class="done-action"
+          bindtap="finishManage"
+        >完成</text>
+      </view>
+    </view>
+
+    <view wx:if="{{manageMode && history.length}}" class="manage-bar">
+      <view class="select-all" bindtap="toggleSelectAll">
+        <view class="select-circle {{allSelected ? 'select-circle--active' : ''}}">
+          <text wx:if="{{allSelected}}">✓</text>
+        </view>
+        <text>全选</text>
+      </view>
+
+      <text class="selected-summary">已选择 {{selectedCount}} 项</text>
+
+      <text
+        class="batch-delete {{selectedCount ? 'batch-delete--active' : ''}}"
+        bindtap="batchDelete"
+      >删除{{selectedCount ? ' ' + selectedCount : ''}}</text>
+    </view>
+
+    <view wx:if="{{history.length}}" class="record-list">
+      <view
+        class="record-swipe"
+        wx:for="{{history}}"
+        wx:key="id"
+      >
+        <view
+          wx:if="{{!manageMode}}"
+          class="record-remove"
+          data-id="{{item.id}}"
+          data-type="history"
+          catchtap="removeRow"
+        >
+          <text class="remove-icon">×</text>
+          <text class="remove-text">删除记录</text>
+        </view>
+
+        <view
+          class="record-row {{manageMode ? 'record-row--manage' : ''}}"
+          style="transform: translateX({{manageMode ? 0 : item.swipeX}}rpx);"
+          data-id="{{item.id}}"
+          data-type="history"
+          bindtouchstart="onRowTouchStart"
+          catchtouchmove="onRowTouchMove"
+          bindtouchend="onRowTouchEnd"
+          bindtouchcancel="onRowTouchEnd"
+          bindtap="openNews"
+        >
+          <view wx:if="{{manageMode}}" class="row-select">
+            <view class="select-circle {{item.selected ? 'select-circle--active' : ''}}">
+              <text wx:if="{{item.selected}}">✓</text>
+            </view>
+          </view>
+
+          <view class="record-main">
+            <text class="record-meta">阅读于 {{item.viewedAtText}}</text>
+            <text class="record-title">{{item.title}}</text>
+          </view>
+
+          <view class="record-visual">
+            <image
+              wx:if="{{item.cover}}"
+              class="record-image"
+              src="{{item.cover}}"
+              mode="aspectFill"
+            />
+
+            <view wx:else class="record-image record-fallback">
+              <text class="fallback-ou">OUC</text>
+              <text class="fallback-news">NEWS</text>
+            </view>
+
+            <view
+              wx:if="{{!manageMode}}"
+              class="record-star {{item.isFavorite ? 'record-star--active' : ''}}"
+              data-id="{{item.id}}"
+              hover-class="record-star-hover"
+              catchtap="toggleHistoryFavorite"
+            >
+              <text>{{item.isFavorite ? '★' : '☆'}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <text wx:if="{{!manageMode}}" class="swipe-hint">左滑新闻可删除阅读记录</text>
+    </view>
+
+    <view wx:else class="empty">
+      <text class="empty-symbol empty-symbol--recent">↺</text>
+      <text class="empty-title">还没有阅读记录</text>
+      <text class="empty-desc">打开新闻详情后，\n最近读过的内容会保存在这里。</text>
+      <button
+        class="empty-button pressable"
+        hover-class="pressable-hover"
+        bindtap="goHome"
+      >去看看新闻</button>
+    </view>
+  </block>
+
+  <view class="safe-bottom"></view>
+
+  <!-- 独立资料编辑浮层：不再改变个人卡布局，避免页面跳位 -->
+  <view
+    wx:if="{{editing}}"
+    class="editor-overlay"
+    catchtouchmove="preventTouchMove"
+  >
+    <view class="editor-backdrop" bindtap="cancelEdit"></view>
+
+    <view class="editor-sheet" catchtap="stopPropagation">
+      <view class="sheet-head">
+        <view>
+          <text class="sheet-kicker">{{editorMode === 'login' ? 'WECHAT PROFILE' : 'PROFILE'}}</text>
+          <text class="sheet-title">{{editorMode === 'login' ? '微信快捷登录' : '编辑资料'}}</text>
+        </view>
+
+        <view class="sheet-close" bindtap="cancelEdit">×</view>
+      </view>
+
+      <text class="sheet-tip">
+        {{editorMode === 'login' ? '首次使用需要选择微信头像，并确认昵称' : '修改头像或昵称后保存'}}
+      </text>
+
+      <button
+        class="sheet-avatar-picker"
+        open-type="chooseAvatar"
+        bindchooseavatar="onChooseAvatar"
+      >
+        <image
+          class="sheet-avatar"
+          src="{{draftAvatar}}"
+          mode="aspectFill"
+          binderror="onDraftAvatarError"
+        />
+        <view class="sheet-avatar-copy">
+          <text class="sheet-label">{{editorMode === 'login' ? '微信头像' : '头像'}}</text>
+          <text class="sheet-value">{{avatarChosen ? '已选择 · 点击可更换' : '点击选择头像'}}</text>
+        </view>
+        <text class="sheet-arrow">›</text>
+      </button>
+
+      <view class="sheet-field">
+        <text class="sheet-label">昵称</text>
+        <input
+          class="sheet-input"
+          type="nickname"
+          maxlength="20"
+          placeholder="{{editorMode === 'login' ? '点击输入，可使用微信昵称' : '输入昵称'}}"
+          value="{{draftNickname}}"
+          bindinput="onNicknameInput"
+        />
+      </view>
+
+      <view class="sheet-actions">
+        <button class="sheet-cancel" bindtap="cancelEdit">取消</button>
+        <button
+          class="sheet-save pressable"
+          hover-class="pressable-hover"
+          bindtap="saveProfile"
+        >{{editorMode === 'login' ? '确认登录' : '保存'}}</button>
+      </view>
+    </view>
+  </view>
+</view>

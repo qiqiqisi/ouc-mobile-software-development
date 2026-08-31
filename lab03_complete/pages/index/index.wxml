@@ -1,0 +1,158 @@
+<view class="page">
+  <view class="brand">
+    <view class="brand-row">
+      <image class="brand-logo" src="/images/brand/ouc_logo.png" mode="aspectFit" />
+      <view class="brand-copy">
+        <image class="brand-wordmark" src="/images/brand/ouc_wordmark.png" mode="widthFix" />
+        <text class="brand-en">OCEAN UNIVERSITY OF CHINA</text>
+      </view>
+    </view>
+
+    <view class="hero-copy">
+      <text class="hero-title">海大 · 正发生</text>
+      <text class="hero-subtitle">NEWS FROM OUC</text>
+    </view>
+  </view>
+
+  <swiper
+    class="headline-swiper"
+    autoplay
+    circular
+    interval="5200"
+    duration="520"
+    bindchange="onSwiperChange"
+  >
+    <swiper-item wx:for="{{swiperNews}}" wx:key="id">
+      <view
+        class="headline-card pressable"
+        hover-class="pressable-hover"
+        hover-stay-time="80"
+        data-id="{{item.id}}"
+        bindtap="openNews"
+      >
+        <image class="headline-image" src="{{item.cover}}" mode="aspectFill" />
+        <view class="headline-overlay"></view>
+
+        <view class="headline-content">
+          <text class="headline-category">{{item.category}}</text>
+          <text class="headline-title">{{item.title}}</text>
+
+          <view class="headline-meta">
+            <text>{{item.displayDate}}</text>
+            <text>0{{index + 1}} / 03</text>
+          </view>
+        </view>
+      </view>
+    </swiper-item>
+  </swiper>
+
+  <view class="section-head">
+    <view>
+      <text class="section-title">最新</text>
+      <text class="section-en">LATEST</text>
+    </view>
+    <view class="section-line"></view>
+  </view>
+
+  <view class="search-box">
+    <view class="search-icon" aria-hidden="true">
+      <view class="search-circle"></view>
+      <view class="search-handle"></view>
+    </view>
+
+    <input
+      class="search-input"
+      value="{{searchKeyword}}"
+      placeholder="搜索标题、作者或新闻内容"
+      placeholder-class="search-placeholder"
+      confirm-type="search"
+      bindinput="onSearchInput"
+    />
+
+    <view
+      wx:if="{{searchKeyword}}"
+      class="search-clear"
+      hover-class="search-clear-hover"
+      bindtap="clearSearch"
+    >×</view>
+  </view>
+
+  <scroll-view
+    class="category-scroll"
+    scroll-x
+    enable-flex
+    show-scrollbar="{{false}}"
+  >
+    <view class="category-list">
+      <view
+        wx:for="{{categories}}"
+        wx:key="*this"
+        class="category-item {{currentCategory === item ? 'category-item--active' : ''}}"
+        data-category="{{item}}"
+        bindtap="selectCategory"
+      >
+        <text>{{item}}</text>
+        <view class="category-indicator"></view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <view wx:if="{{newsList.length}}" class="news-list">
+    <view
+      class="news-row"
+      wx:for="{{newsList}}"
+      wx:key="id"
+      data-id="{{item.id}}"
+      bindtap="openNews"
+      hover-class="news-item-hover"
+      hover-stay-time="80"
+    >
+      <view class="news-main">
+        <view class="news-meta">
+          <text class="news-category">{{item.category}}</text>
+          <text class="dot">·</text>
+          <text>{{item.displayDate}}</text>
+        </view>
+
+        <text class="news-title">{{item.title}}</text>
+        <text class="news-lead">{{item.lead}}</text>
+      </view>
+
+      <view class="news-visual">
+        <image
+          wx:if="{{item.cover}}"
+          class="news-thumb"
+          src="{{item.cover}}"
+          mode="aspectFill"
+        />
+
+        <view wx:else class="news-no-photo">
+          <text class="no-photo-ou">OUC</text>
+          <text class="no-photo-label">NEWS</text>
+        </view>
+
+        <view
+          class="favorite-star {{item.isFavorite ? 'favorite-star--active' : ''}}"
+          hover-class="favorite-star-hover"
+          hover-stay-time="60"
+          data-id="{{item.id}}"
+          catchtap="toggleFavorite"
+          aria-label="{{item.isFavorite ? '取消收藏' : '收藏新闻'}}"
+        >
+          <text>{{item.isFavorite ? '★' : '☆'}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:else class="search-empty">
+    <view class="empty-mark">
+      <view class="empty-mark-circle"></view>
+      <view class="empty-mark-handle"></view>
+    </view>
+    <text class="empty-title">没有找到相关新闻</text>
+    <text class="empty-desc">换个关键词或分类试试</text>
+  </view>
+
+  <view class="safe-bottom"></view>
+</view>
