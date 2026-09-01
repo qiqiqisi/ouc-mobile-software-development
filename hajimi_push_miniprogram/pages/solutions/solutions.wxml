@@ -1,0 +1,92 @@
+<view class="solutions-page">
+  <view class="solutions-heading">
+    <text class="solutions-kicker">HAJIMI ROUTE BOOK</text>
+    <text class="solutions-title">标准作案路线</text>
+    <text class="solutions-subtitle">以下内容包含严重剧透。</text>
+  </view>
+
+  <view class="compute-card">
+    <image
+      class="compute-cat"
+      src="/assets/hajimi/compute.png"
+      mode="aspectFit"
+    />
+    <view class="compute-copy">
+      <text class="compute-title">哈吉米已完成猫爪运算</text>
+      <text class="compute-desc">
+        四关均按“每移动一格记 1 步”计算理论最少步数。
+      </text>
+    </view>
+  </view>
+
+  <view class="route-list">
+    <view
+      class="route-card {{item.passed ? 'route-card-openable' : 'route-card-locked'}}"
+      wx:for="{{levels}}"
+      wx:key="id"
+    >
+      <view
+        class="route-summary"
+        data-level="{{item.id}}"
+        bindtap="toggleLevel"
+        hover-class="{{item.passed ? 'route-summary-hover' : ''}}"
+      >
+        <view class="route-summary-left">
+          <text class="route-number">0{{item.id}}</text>
+
+          <view class="route-name-wrap">
+            <text class="route-name">{{item.name}}</text>
+            <text class="route-state" wx:if="{{item.passed}}">
+              已解锁 · 你的最佳 {{item.bestStepsText}} 步
+            </text>
+            <text class="route-state route-state-locked" wx:else>
+              你都没过，还想看答案？
+            </text>
+          </view>
+        </view>
+
+        <view class="route-toggle" wx:if="{{item.passed}}">
+          <text class="route-toggle-label">{{expandedLevelId === item.id ? '收起' : '查看'}}</text>
+          <text class="route-toggle-arrow">{{expandedLevelId === item.id ? '↑' : '↓'}}</text>
+        </view>
+        <text class="route-lock" wx:else>LOCK</text>
+      </view>
+
+      <view class="route-detail" wx:if="{{expandedLevelId === item.id && item.passed}}">
+        <view class="route-metrics">
+          <view class="route-metric">
+            <text class="route-metric-label">理论最少</text>
+            <text class="route-metric-value">{{item.optimalSteps}} 步</text>
+          </view>
+
+          <view class="route-metric">
+            <text class="route-metric-label">该路线推动</text>
+            <text class="route-metric-value">{{item.optimalPushes}} 次</text>
+          </view>
+        </view>
+
+        <text class="route-note">
+          从第 1 步开始依次执行：
+        </text>
+
+        <view class="move-grid">
+          <view
+            class="move-chip"
+            wx:for="{{item.solutionMoves}}"
+            wx:key="id"
+          >
+            {{item.arrow}}
+          </view>
+        </view>
+
+        <text class="route-footnote">
+          最优解按移动步数定义；如果只追求最少推动次数，可能得到另一条路线。
+        </text>
+      </view>
+    </view>
+  </view>
+
+  <text class="solutions-footer">
+    已解锁 {{passedCount}} / 4 · 不通关，不剧透。
+  </text>
+</view>

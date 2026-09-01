@@ -1,0 +1,16 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/game/game",
+    "pages/solutions/solutions"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#F5F1E8",
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "哈吉米推什么推",
+    "backgroundColor": "#F5F1E8",
+    "backgroundTextStyle": "dark"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

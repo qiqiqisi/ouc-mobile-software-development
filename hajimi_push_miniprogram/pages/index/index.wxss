@@ -1,0 +1,377 @@
+.page {
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding: 24rpx 32rpx 64rpx;
+  background: #F5F1E8;
+}
+
+.hero-card {
+  position: relative;
+  height: 382rpx;
+  box-sizing: border-box;
+  padding: 36rpx;
+  overflow: hidden;
+  border: 1rpx solid #D9DEC7;
+  border-radius: 34rpx;
+  background: #E9EFD8;
+  box-shadow: 0 14rpx 34rpx rgba(77, 65, 47, 0.07);
+}
+
+.hero-card::before {
+  content: '';
+  position: absolute;
+  right: -90rpx;
+  bottom: -120rpx;
+  width: 350rpx;
+  height: 350rpx;
+  border-radius: 50%;
+  background: rgba(199, 220, 103, 0.28);
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 2;
+  width: 420rpx;
+  height: 100%;
+}
+
+.hero-eyebrow {
+  display: block;
+  color: #82972C;
+  font-size: 21rpx;
+  font-weight: 800;
+  letter-spacing: 3rpx;
+}
+
+.hero-title {
+  margin-top: 16rpx;
+}
+
+.hero-title-line {
+  display: block;
+  color: #23271F;
+  font-size: 54rpx;
+  font-weight: 760;
+  line-height: 1.05;
+}
+
+.hero-desc {
+  display: block;
+  width: 350rpx;
+  margin-top: 18rpx;
+  color: #79786E;
+  font-size: 24rpx;
+  line-height: 1.5;
+}
+
+.hero-button {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 224rpx;
+  height: 72rpx;
+  margin: 0;
+  padding: 0 26rpx;
+  box-sizing: border-box;
+  border-radius: 22rpx;
+  background: #252A22;
+  color: #F7F5ED;
+  font-size: 26rpx;
+  font-weight: 700;
+  line-height: 72rpx;
+  box-shadow: 0 9rpx 18rpx rgba(55, 48, 37, 0.12);
+}
+
+.hero-button-hover {
+  background: #38402F;
+  transform: translateY(2rpx);
+}
+
+.hero-button-arrow {
+  margin-left: 16rpx;
+  color: #C7DC67;
+  font-size: 30rpx;
+}
+
+.hero-cat {
+  position: absolute;
+  z-index: 1;
+  right: -28rpx;
+  bottom: -34rpx;
+  width: 318rpx;
+  height: 318rpx;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 44rpx;
+  margin-bottom: 22rpx;
+}
+
+.section-title {
+  color: #282B25;
+  font-size: 30rpx;
+  font-weight: 700;
+}
+
+.section-meta {
+  color: #969083;
+  font-size: 22rpx;
+}
+
+.level-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.level-card {
+  width: 333rpx;
+  min-height: 312rpx;
+  margin-bottom: 20rpx;
+  padding: 22rpx;
+  box-sizing: border-box;
+  border: 1rpx solid #E3DCCE;
+  border-radius: 26rpx;
+  background: #FFFDF9;
+  box-shadow: 0 10rpx 28rpx rgba(77, 65, 47, 0.055);
+}
+
+.level-card-hover {
+  background: #FAF7F0;
+  transform: scale(0.985);
+}
+
+.level-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 34rpx;
+}
+
+.level-number {
+  color: #879D2E;
+  font-size: 22rpx;
+  font-weight: 800;
+  letter-spacing: 2rpx;
+}
+
+.level-status {
+  max-width: 220rpx;
+  overflow: hidden;
+  color: #A19A8E;
+  font-size: 18rpx;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.status-passed {
+  color: #7D8D44;
+}
+
+.status-perfect {
+  color: #738824;
+  font-weight: 650;
+}
+
+.preview-grid {
+  width: 100%;
+  height: 132rpx;
+  margin-top: 14rpx;
+  overflow: hidden;
+  border: 1rpx solid #E0D8CB;
+  border-radius: 17rpx;
+  background: #F2EEE4;
+}
+
+.preview-row {
+  display: flex;
+  width: 100%;
+  height: 16.5rpx;
+}
+
+.preview-cell {
+  position: relative;
+  width: 36.125rpx;
+  height: 16.5rpx;
+  box-sizing: border-box;
+  background: #E9E2D6;
+}
+
+.preview-cell-0 {
+  background: #D9D2C7;
+}
+
+.preview-cell-1 {
+  background: #B5A182;
+}
+
+.preview-cell-2,
+.preview-cell-3,
+.preview-cell-4,
+.preview-cell-5 {
+  background: #F4F0E7;
+}
+
+.preview-goal,
+.preview-can,
+.preview-cat {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 10rpx;
+  height: 10rpx;
+  margin-left: -5rpx;
+  margin-top: -5rpx;
+  border-radius: 50%;
+}
+
+.preview-goal {
+  box-sizing: border-box;
+  border: 2rpx solid #94AD31;
+  background: transparent;
+}
+
+.preview-can {
+  background: #F1C84B;
+}
+
+.preview-cat {
+  background: #20231F;
+}
+
+.preview-cat-eye {
+  position: absolute;
+  right: 1rpx;
+  top: 3rpx;
+  width: 3rpx;
+  height: 3rpx;
+  border-radius: 50%;
+  background: #C7DC67;
+}
+
+.level-name {
+  display: block;
+  margin-top: 18rpx;
+  color: #2A2D27;
+  font-size: 28rpx;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.level-desc {
+  display: -webkit-box;
+  margin-top: 8rpx;
+  overflow: hidden;
+  color: #918A7E;
+  font-size: 20rpx;
+  line-height: 1.45;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.progress-card {
+  margin-top: 20rpx;
+  padding: 28rpx;
+  border: 1rpx solid #DFD7C9;
+  border-radius: 26rpx;
+  background: #EDE7DB;
+}
+
+.progress-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.progress-title {
+  color: #30332C;
+  font-size: 27rpx;
+  font-weight: 700;
+}
+
+.progress-count {
+  color: #7D922B;
+  font-size: 24rpx;
+  font-weight: 800;
+}
+
+.progress-dots {
+  display: flex;
+  align-items: center;
+  margin-top: 24rpx;
+}
+
+.progress-dot {
+  width: 58rpx;
+  height: 10rpx;
+  margin-right: 12rpx;
+  border-radius: 999rpx;
+  background: #D3CBBB;
+}
+
+.progress-dot-done {
+  background: #AFC84B;
+}
+
+.progress-copy {
+  display: block;
+  margin-top: 18rpx;
+  color: #928B7F;
+  font-size: 21rpx;
+}
+
+.progress-copy-done {
+  color: #75843D;
+}
+
+.solution-entry {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20rpx;
+  padding: 28rpx;
+  border: 1rpx solid #DDD5C7;
+  border-radius: 26rpx;
+  background: #FFFDF9;
+  box-shadow: 0 10rpx 28rpx rgba(77, 65, 47, 0.05);
+}
+
+.solution-entry-hover {
+  background: #FAF7F0;
+}
+
+.solution-entry-copy {
+  display: flex;
+  flex-direction: column;
+}
+
+.solution-entry-title {
+  color: #2B2E28;
+  font-size: 27rpx;
+  font-weight: 700;
+}
+
+.solution-entry-desc {
+  margin-top: 8rpx;
+  color: #969083;
+  font-size: 20rpx;
+}
+
+.solution-entry-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56rpx;
+  height: 56rpx;
+  border-radius: 18rpx;
+  background: #E9EFD8;
+  color: #758929;
+  font-size: 29rpx;
+  font-weight: 700;
+}

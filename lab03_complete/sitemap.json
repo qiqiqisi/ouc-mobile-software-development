@@ -1,9 +1,0 @@
-{
-  "desc": "lab03 sitemap",
-  "rules": [
-    {
-      "action": "allow",
-      "page": "*"
-    }
-  ]
-}

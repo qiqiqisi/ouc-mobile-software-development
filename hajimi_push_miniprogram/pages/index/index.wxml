@@ -1,0 +1,111 @@
+<view class="page">
+  <view class="hero-card">
+    <view class="hero-copy">
+      <text class="hero-eyebrow">HAJIMI PUSH!</text>
+
+      <view class="hero-title">
+        <text class="hero-title-line">哈吉米</text>
+        <text class="hero-title-line">推什么推</text>
+      </view>
+
+      <text class="hero-desc">黑猫已就位，剩下的麻烦归你。</text>
+
+      <button
+        class="hero-button"
+        hover-class="hero-button-hover"
+        bindtap="startContinue"
+      >
+        <text>{{continueText}}</text>
+        <text class="hero-button-arrow">→</text>
+      </button>
+    </view>
+
+    <image
+      class="hero-cat"
+      src="/assets/hajimi/hero.png"
+      mode="aspectFit"
+    />
+  </view>
+
+  <view class="section-header">
+    <text class="section-title">今晚处理这些烂摊子</text>
+    <text class="section-meta">4 个现场</text>
+  </view>
+
+  <view class="level-grid">
+    <view
+      class="level-card"
+      wx:for="{{levels}}"
+      wx:key="id"
+      data-level="{{item.id}}"
+      bindtap="chooseLevel"
+      hover-class="level-card-hover"
+    >
+      <view class="level-card-top">
+        <text class="level-number">0{{item.id}}</text>
+        <text class="level-status {{item.statusClass}}">
+          {{item.statusText}}
+        </text>
+      </view>
+
+      <view class="preview-grid">
+        <view
+          class="preview-row"
+          wx:for="{{item.preview}}"
+          wx:key="id"
+          wx:for-item="previewRow"
+        >
+          <view
+            class="preview-cell preview-cell-{{previewCell.value}}"
+            wx:for="{{previewRow.cells}}"
+            wx:key="id"
+            wx:for-item="previewCell"
+          >
+            <view wx:if="{{previewCell.value === 3}}" class="preview-goal"></view>
+            <view wx:elif="{{previewCell.value === 4}}" class="preview-can"></view>
+            <view wx:elif="{{previewCell.value === 5}}" class="preview-cat">
+              <view class="preview-cat-eye"></view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <text class="level-name">{{item.name}}</text>
+      <text class="level-desc">{{item.description}}</text>
+    </view>
+  </view>
+
+  <view class="progress-card">
+    <view class="progress-top">
+      <text class="progress-title">作案进度</text>
+      <text class="progress-count">{{passedCount}} / 4</text>
+    </view>
+
+    <view class="progress-dots">
+      <view
+        class="progress-dot {{item.done ? 'progress-dot-done' : ''}}"
+        wx:for="{{progressDots}}"
+        wx:key="id"
+      ></view>
+    </view>
+
+    <text class="progress-copy" wx:if="{{passedCount < 4}}">
+      现场不多，麻烦不少。
+    </text>
+    <text class="progress-copy progress-copy-done" wx:else>
+      今晚的烂摊子已经全部处理。
+    </text>
+  </view>
+
+  <view
+    class="solution-entry"
+    bindtap="openSolutions"
+    hover-class="solution-entry-hover"
+  >
+    <view class="solution-entry-copy">
+      <text class="solution-entry-title">标准作案路线</text>
+      <text class="solution-entry-desc">通关后才能名正言顺偷看。</text>
+    </view>
+    <text class="solution-entry-arrow">→</text>
+  </view>
+</view>

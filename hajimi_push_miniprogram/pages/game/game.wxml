@@ -1,0 +1,168 @@
+<view class="game-page">
+  <view class="game-heading">
+    <text class="game-index">{{levelIndexText}}</text>
+    <text class="game-title">{{level.name}}</text>
+    <text class="game-subtitle">{{level.gameSubtitle}}</text>
+  </view>
+
+  <view class="stats-card">
+    <view class="stat-item">
+      <text class="stat-label">步数</text>
+      <text class="stat-value">{{steps}}</text>
+    </view>
+
+    <view class="stat-divider"></view>
+
+    <view class="stat-item">
+      <text class="stat-label">推动</text>
+      <text class="stat-value">{{pushes}}</text>
+    </view>
+
+    <view class="stat-divider"></view>
+
+    <view class="stat-item">
+      <text class="stat-label">最佳</text>
+      <text class="stat-value">{{bestStepsText}}</text>
+    </view>
+  </view>
+
+  <view class="board-shell">
+    <canvas
+      wx:if="{{canvasMounted}}"
+      type="2d"
+      id="gameCanvas"
+      class="game-canvas {{canvasVisible ? 'game-canvas-visible' : 'game-canvas-hidden'}}"
+      bindtouchstart="onTouchStart"
+      bindtouchend="onTouchEnd"
+    ></canvas>
+
+    <view class="board-loading" wx:if="{{!canvasReady && !showComplete && !suspendingForComplete}}">
+      <view class="loading-eyes">
+        <view class="loading-eye"></view>
+        <view class="loading-eye"></view>
+      </view>
+      <text>哈吉米正在进入现场……</text>
+    </view>
+  </view>
+
+  <text class="gesture-hint">可以点猫爪遥控，也可以直接在棋盘上滑。</text>
+
+  <view class="control-card">
+    <view class="control-copy">
+      <text class="control-title">猫爪遥控</text>
+      <text class="control-desc">方向明确，责任自负。</text>
+    </view>
+
+    <view class="dpad">
+      <view
+        class="dpad-key dpad-up"
+        data-dir="U"
+        bindtap="moveByButton"
+        hover-class="dpad-key-active"
+      >↑</view>
+
+      <view
+        class="dpad-key dpad-left"
+        data-dir="L"
+        bindtap="moveByButton"
+        hover-class="dpad-key-active"
+      >←</view>
+
+      <view class="dpad-center">
+        <view class="paw">
+          <view class="paw-toe paw-toe-1"></view>
+          <view class="paw-toe paw-toe-2"></view>
+          <view class="paw-toe paw-toe-3"></view>
+          <view class="paw-pad"></view>
+        </view>
+      </view>
+
+      <view
+        class="dpad-key dpad-right"
+        data-dir="R"
+        bindtap="moveByButton"
+        hover-class="dpad-key-active"
+      >→</view>
+
+      <view
+        class="dpad-key dpad-down"
+        data-dir="D"
+        bindtap="moveByButton"
+        hover-class="dpad-key-active"
+      >↓</view>
+    </view>
+  </view>
+
+  <view class="game-actions">
+    <button
+      class="action-button action-secondary"
+      bindtap="undo"
+      hover-class="action-hover"
+    >撤回一下</button>
+
+    <button
+      class="action-button action-ghost"
+      bindtap="resetLevel"
+      hover-class="action-hover"
+    >这把重开</button>
+  </view>
+
+  <view class="mini-toast" wx:if="{{toastText}}">
+    {{toastText}}
+  </view>
+
+  <view
+    class="complete-mask"
+    wx:if="{{showComplete}}"
+    catchtouchmove="noop"
+  >
+    <view class="complete-card">
+      <image
+        class="complete-cat"
+        src="/assets/hajimi/clear.png"
+        mode="aspectFit"
+      />
+
+      <text class="complete-kicker" wx:if="{{isNewRecord}}">
+        NEW RECORD
+      </text>
+
+      <view class="complete-title">
+        <text class="complete-title-line">收拾完了，</text>
+        <text class="complete-title-line">但哈吉米不认账。</text>
+      </view>
+
+      <view class="complete-stats">
+        <view class="complete-stat">
+          <text class="complete-label">步数</text>
+          <text class="complete-value">{{steps}}</text>
+        </view>
+
+        <view class="complete-stat">
+          <text class="complete-label">推动</text>
+          <text class="complete-value">{{pushes}}</text>
+        </view>
+
+        <view class="complete-stat">
+          <text class="complete-label">最优</text>
+          <text class="complete-value complete-optimal">{{level.optimalSteps}}</text>
+        </view>
+      </view>
+
+      <text class="complete-comment">{{completeComment}}</text>
+
+      <button
+        class="complete-main-button"
+        bindtap="nextLevel"
+        hover-class="complete-main-hover"
+      >{{nextButtonText}}</button>
+
+      <view class="complete-links">
+        <text class="complete-link" bindtap="replay">再演一遍</text>
+        <text class="complete-link complete-link-accent" bindtap="viewSolution">
+          查看标准作案路线 →
+        </text>
+      </view>
+    </view>
+  </view>
+</view>
