@@ -1,10 +1,11 @@
 const fs =
   wx.getFileSystemManager()
 
+let fileSequence = 0
 
 function getFileExtension(filePath) {
   const match =
-    filePath.match(
+    String(filePath || "").match(
       /\.[a-zA-Z0-9]+$/
     )
 
@@ -14,9 +15,37 @@ function getFileExtension(filePath) {
 }
 
 
-function persistTempFile(tempFilePath) {
+function normalizeExtension(extension) {
+  if (!extension) {
+    return ""
+  }
+
+  return String(extension).startsWith(".")
+    ? String(extension)
+    : `.${extension}`
+}
+
+
+function normalizePrefix(prefix) {
+  const safePrefix =
+    String(prefix || "bugti")
+      .replace(/[^a-zA-Z0-9_-]/g, "_")
+      .slice(0, 32)
+
+  return safePrefix || "bugti"
+}
+
+
+function persistTempFile(tempFilePath, options = {}) {
   const extension =
-    getFileExtension(tempFilePath)
+    normalizeExtension(
+      options.extension
+    ) || getFileExtension(tempFilePath)
+
+  const prefix =
+    normalizePrefix(
+      options.prefix
+    )
 
   const randomText =
     Math.random()
@@ -24,15 +53,21 @@ function persistTempFile(tempFilePath) {
       .slice(2, 8)
 
   const fileName =
-    `bugti_${Date.now()}_${randomText}${extension}`
+    `${prefix}_${Date.now()}_${randomText}_${++fileSequence}${extension}`
 
   const savedPath =
     `${wx.env.USER_DATA_PATH}/${fileName}`
 
-  fs.copyFileSync(
-    tempFilePath,
-    savedPath
-  )
+  try {
+    fs.copyFileSync(
+      tempFilePath,
+      savedPath
+    )
+  } catch (error) {
+    // 复制失败也可能留下不完整文件；不触碰源文件或原有图片。
+    removeFile(savedPath)
+    throw error
+  }
 
   return savedPath
 }
@@ -40,24 +75,29 @@ function persistTempFile(tempFilePath) {
 
 function removeFile(filePath) {
   if (!filePath) {
-    return
+    return true
   }
 
+  const root = `${wx.env.USER_DATA_PATH}/`
   if (
-    !filePath.startsWith(
-      wx.env.USER_DATA_PATH
-    )
+    !String(filePath).startsWith(root) ||
+    String(filePath).slice(root.length).split("/").includes("..")
   ) {
-    return
+    return false
   }
 
   try {
     fs.unlinkSync(filePath)
+    return true
   } catch (error) {
+    if (/ENOENT|no such file|file not exist/i.test(String(error.errMsg || error.message))) {
+      return true
+    }
     console.warn(
       "删除图片失败：",
       error
     )
+    return false
   }
 }
 

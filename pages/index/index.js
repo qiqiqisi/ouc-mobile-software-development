@@ -7,6 +7,9 @@ const reportService =
 const fortuneService =
   require("../../services/fortune")
 
+const petService =
+  require("../../services/pet")
+
 const {
   getPersonality
 } =
@@ -61,6 +64,30 @@ Page({
   
     const todayRecord =
       recordService.getByDate(this.data.today)
+
+    let petProfile = null
+    try {
+      petProfile = petService.getProfile()
+    } catch (error) {
+      console.warn("读取监工失败：", error)
+    }
+
+    const petCaption =
+      petProfile
+        ? `${petProfile.name}会一直盯着你完成记录。`
+        : ""
+
+    const petDisplayScale =
+      petProfile &&
+      typeof petProfile.displayScale === "number"
+        ? petProfile.displayScale
+        : 1.15
+
+    // 使用实际布局尺寸承载缩放，品牌、文案和 TODAY 自然排布。
+    const petStageHeight = petProfile
+      ? Math.round(200 * petDisplayScale)
+      : 222
+    const petStageWidth = Math.round(220 * petDisplayScale)
   
     const recordedDays = records.length
   
@@ -133,7 +160,13 @@ Page({
       hasTodayRecord: Boolean(todayRecord),
       recordedDays,
       recentRecord,
-      recentResult
+      recentResult,
+      petProfile,
+      petCaption,
+      petDisplayScale,
+      petStageHeight,
+      petStageWidth,
+      petBubble: ""
     })
   },
 
@@ -321,7 +354,11 @@ Page({
       CARD_BACK_IMAGE,
     fortuneDrawCount: 0,
     fortuneAnimating: false,
-    sharedFortunePreview: null
+    sharedFortunePreview: null,
+
+    petProfile: null,
+    petCaption: "",
+    petBubble: ""
   },
 
   onLoad(options) {
@@ -343,6 +380,60 @@ Page({
   
     this.loadHomeData()
     this.loadFortuneData()
+  },
+
+
+  // 我的监工
+  goToPet() {
+    wx.navigateTo({
+      url: "/pages/pet/pet"
+    })
+  },
+
+  onPetTap() {
+    if (!this.data.petProfile) {
+      this.goToPet()
+      return
+    }
+
+    this._petTapCount =
+      (this._petTapCount || 0) + 1
+
+    const name =
+      this.data.petProfile.name
+
+    let message =
+      `${name}看了你一眼。`
+
+    if (this._petTapCount >= 10) {
+      message =
+        "TOUCH LIMIT EXCEEDED"
+      this._petTapCount = 0
+    } else if (this._petTapCount >= 5) {
+      message =
+        "别点了，去记录。"
+    } else if (this._petTapCount >= 3) {
+      message =
+        `${name}开始觉得你有点闲。`
+    } else if (this._petTapCount === 2) {
+      message =
+        `${name}又看了你一眼。`
+    }
+
+    clearTimeout(
+      this._petBubbleTimer
+    )
+
+    this.setData({
+      petBubble: message
+    })
+
+    this._petBubbleTimer =
+      setTimeout(() => {
+        this.setData({
+          petBubble: ""
+        })
+      }, 1800)
   },
 
   // 记录今天 / 编辑今天
@@ -385,5 +476,11 @@ Page({
       url:
         `/pages/result/result?reportId=${this.data.recentResult.id}`
     })
+  },
+
+  onUnload() {
+    clearTimeout(
+      this._petBubbleTimer
+    )
   }
 })

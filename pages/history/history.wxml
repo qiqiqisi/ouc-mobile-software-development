@@ -37,10 +37,7 @@
     >
       <block wx:if="{{!item.empty}}">
         <view
-          class="day-card
-            {{item.hasRecord ? 'day-recorded' : ''}}
-            {{item.isToday ? 'day-today' : ''}}
-            {{item.isFuture ? 'day-future' : ''}}"
+          class="day-card {{item.hasRecord ? 'day-recorded' : ''}} {{item.isToday ? 'day-today' : ''}} {{item.isFuture ? 'day-future' : ''}}"
         >
           <text class="day-number">{{item.day}}</text>
 

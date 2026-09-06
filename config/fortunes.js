@@ -1,5 +1,5 @@
 const CARD_BACK_IMAGE =
-  "/assets/fortune/card_back.webp"
+  "/assets/fortune/card_back.png"
 
 
 const NORMAL_FORTUNES = [
@@ -7,7 +7,7 @@ const NORMAL_FORTUNES = [
     id: "cow_come",
     title: "牛来",
     image:
-      "/assets/fortune/cow_come.webp",
+      "/assets/fortune/cow_come.png",
     variants: [
       {
         yi: "该争取的直接开口",
@@ -35,7 +35,7 @@ const NORMAL_FORTUNES = [
     id: "wolf_dog",
     title: "狼想开了就是狗",
     image:
-      "/assets/fortune/wolf_dog.webp",
+      "/assets/fortune/wolf_dog.png",
     variants: [
       {
         yi: "把破事降级处理",
@@ -63,7 +63,7 @@ const NORMAL_FORTUNES = [
     id: "grass_stage",
     title: "草台班子正常营业",
     image:
-      "/assets/fortune/grass_stage.webp",
+      "/assets/fortune/grass_stage.png",
     variants: [
       {
         yi: "先上场再补妆",
@@ -91,7 +91,7 @@ const NORMAL_FORTUNES = [
     id: "love_self",
     title: "爱你老己",
     image:
-      "/assets/fortune/love_self.webp",
+      "/assets/fortune/love_self.png",
     variants: [
       {
         yi: "先偏袒自己一次",
@@ -119,7 +119,7 @@ const NORMAL_FORTUNES = [
     id: "bold_kangaroo",
     title: "胆子肥嘟嘟",
     image:
-      "/assets/fortune/bold_kangaroo.webp",
+      "/assets/fortune/bold_kangaroo.png",
     variants: [
       {
         yi: "试试那个一直没敢试的",
@@ -147,7 +147,7 @@ const NORMAL_FORTUNES = [
     id: "doubao",
     title: "豆包型人格",
     image:
-      "/assets/fortune/doubao.webp",
+      "/assets/fortune/doubao.png",
     variants: [
       {
         yi: "先把气氛稳住",
@@ -173,18 +173,20 @@ const NORMAL_FORTUNES = [
 ]
 
 
-export const SPECIAL_FORTUNE = {
+const SPECIAL_FORTUNE = {
   id: "draw_again",
   title: "这把不算",
-  ...
+  image:
+    "/assets/fortune/draw_again.png",
   variants: [
     {
       yi: "继续遍历",
       ji: "嘴上最后一次，手上继续抽",
       comment:
-        "六种普通运势都被你翻过了。现在继续抽不叫算运势，叫遍历；“再来一次”不是按钮，是 while(true)。"
+        "六种都被你翻完了。现在继续抽不叫算运势，叫遍历；“再来一次”不是按钮，是 while(true)。"
     }
-  ]
+  ],
+  special: true
 }
 
 

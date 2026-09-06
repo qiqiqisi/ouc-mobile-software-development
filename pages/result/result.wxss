@@ -139,3 +139,139 @@
   line-height: 1.65;
   color: #333333;
 }
+
+/* 记录词云 */
+.wordcloud-section {
+  margin-top: 54rpx;
+  padding-top: 42rpx;
+  border-top: 1rpx solid #edf1ee;
+}
+
+.wordcloud-heading-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24rpx;
+}
+
+.wordcloud-heading-copy {
+  flex: 1;
+  min-width: 0;
+}
+
+.wordcloud-eyebrow {
+  display: block;
+  font-size: 20rpx;
+  font-weight: 700;
+  letter-spacing: 2rpx;
+  color: #2f7d4a;
+}
+
+.wordcloud-title {
+  display: block;
+  margin-top: 10rpx;
+  font-size: 32rpx;
+  font-weight: 700;
+  line-height: 1.45;
+  color: #222222;
+}
+
+.wordcloud-refresh {
+  flex-shrink: 0;
+  min-height: 56rpx;
+  margin-top: 20rpx;
+  padding: 10rpx 4rpx 10rpx 18rpx;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 23rpx;
+  font-weight: 600;
+  color: #2f7d4a;
+}
+
+.wordcloud-subtitle {
+  display: block;
+  margin-top: 12rpx;
+  font-size: 22rpx;
+  line-height: 1.6;
+  color: #999999;
+}
+
+.wordcloud-card {
+  position: relative;
+  width: 100%;
+  height: 620rpx;
+  margin-top: 24rpx;
+  overflow: hidden;
+  border-radius: 28rpx;
+  background: #f7faf7;
+}
+
+.wordcloud-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.wordcloud-render-error {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40rpx;
+  box-sizing: border-box;
+  background: #f7faf7;
+  text-align: center;
+}
+
+.wordcloud-error-title,
+.wordcloud-empty-title {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #2f7d4a;
+}
+
+.wordcloud-error-text,
+.wordcloud-empty-text {
+  margin-top: 12rpx;
+  font-size: 23rpx;
+  line-height: 1.65;
+  color: #7f8b82;
+}
+
+.wordcloud-empty {
+  min-height: 250rpx;
+  margin-top: 24rpx;
+  padding: 44rpx 36rpx;
+  box-sizing: border-box;
+  border-radius: 28rpx;
+  background: #f7faf7;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.wordcloud-note {
+  display: block;
+  margin-top: 14rpx;
+  text-align: right;
+  font-size: 20rpx;
+  color: #a4ada6;
+}
+
+/* 原有人格关键词改为“状态关键词”，避免与记录词云混淆。 */
+.status-keyword-label {
+  display: block;
+  margin-top: 30rpx;
+  font-size: 22rpx;
+  font-weight: 650;
+  color: #7b897e;
+}

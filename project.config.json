@@ -3,7 +3,12 @@
   "libVersion": "trial",
   "packOptions": {
     "ignore": [],
-    "include": []
+    "include": [
+      {
+        "type": "folder",
+        "value": "assets"
+      }
+    ]
   },
   "setting": {
     "coverView": true,

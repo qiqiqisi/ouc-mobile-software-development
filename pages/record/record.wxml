@@ -173,7 +173,7 @@
 </view>
 
 <text class="section-tip">
-  普通 BUGTI 分析不会读取这里的文字。
+  人格判断不会读取这里的文字；生成记录词云时会在本机提取关键词。
 </text>
 
 <textarea

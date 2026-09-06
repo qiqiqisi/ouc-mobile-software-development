@@ -9,7 +9,7 @@ const PERSONALITIES = {
     ],
     keywords: ["宅家", "低社交", "隐身", "安静消失"],
     systemComment: "查找用户中……算了，找不到就算了。",
-    image: "/assets/personality/404.webp",
+    image: "/assets/personality/404.png",
     special: false
   },
 
@@ -23,7 +23,7 @@ const PERSONALITIES = {
     ],
     keywords: ["重复", "稳定", "日常循环", "默认模式"],
     systemComment: "用户运行正常。更新内容：暂无。",
-    image: "/assets/personality/npc.webp",
+    image: "/assets/personality/npc.png",
     special: false
   },
 
@@ -37,7 +37,7 @@ const PERSONALITIES = {
     ],
     keywords: ["摸鱼", "随缘", "低投入", "见势不妙"],
     systemComment: "检测到问题。用户已退出当前页面。",
-    image: "/assets/personality/esc.webp",
+    image: "/assets/personality/esc.png",
     special: false
   },
 
@@ -51,7 +51,7 @@ const PERSONALITIES = {
     ],
     keywords: ["多线并行", "什么都想试", "活跃", "选择困难"],
     systemComment: "已选择全部项目。内存够不够，稍后再说。",
-    image: "/assets/personality/ctrl_a.webp",
+    image: "/assets/personality/ctrl_a.png",
     special: false
   },
 
@@ -65,7 +65,7 @@ const PERSONALITIES = {
     ],
     keywords: ["高社交", "陪伴", "朋友浓度高", "一起行动"],
     systemComment: "粘贴成功。是否允许单独运行？不允许。",
-    image: "/assets/personality/ctrl_v.webp",
+    image: "/assets/personality/ctrl_v.png",
     special: false
   },
 
@@ -80,7 +80,7 @@ const PERSONALITIES = {
     ],
     keywords: ["重启", "状态回升", "再来一次", "新版本"],
     systemComment: "刷新成功。请不要立即重复之前的操作。",
-    image: "/assets/personality/f5.webp",
+    image: "/assets/personality/f5.png",
     special: false
   },
 
@@ -94,7 +94,7 @@ const PERSONALITIES = {
     ],
     keywords: ["随机", "波动", "意外很多", "习以为常"],
     systemComment: "检测到异常。经核实：属于正常发挥。",
-    image: "/assets/personality/bug.webp",
+    image: "/assets/personality/bug.png",
     special: false
   },
 
@@ -108,7 +108,7 @@ const PERSONALITIES = {
     ],
     keywords: ["低能量", "休息", "疲惫", "省电模式"],
     systemComment: "当前电量过低。建议停止假装自己还有 80%。",
-    image: "/assets/personality/low_battery.webp",
+    image: "/assets/personality/low_battery.png",
     special: false
   },
 
@@ -122,7 +122,7 @@ const PERSONALITIES = {
     ],
     keywords: ["平稳", "正常运行", "佛系", "凑合能用"],
     systemComment: "Build succeeded. 谁都别碰。",
-    image: "/assets/personality/run.webp",
+    image: "/assets/personality/run.png",
     special: false
   },
 
@@ -138,7 +138,7 @@ const PERSONALITIES = {
     ],
     keywords: ["懒得记录", "数据不足", "一片空白", "下次一定"],
     systemComment: "分析失败。原因：用户甚至懒得提供素材。",
-    image: "/assets/personality/no_data.webp",
+    image: "/assets/personality/no_data.png",
     special: true
   }
 }

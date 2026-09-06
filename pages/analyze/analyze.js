@@ -7,6 +7,9 @@ const analyzer =
 const reportService =
   require("../../services/reports")
 
+const wordCloudService =
+  require("../../services/wordcloud")
+
 
 function padNumber(number) {
   return String(number)
@@ -486,6 +489,17 @@ Page({
         rangeDays
 
 
+      const wordCloud =
+        wordCloudService.createSnapshot(
+          records,
+          {
+            startDate,
+            endDate,
+            includeNote: true
+          }
+        )
+
+
       const report =
         reportService.save({
           startDate,
@@ -515,7 +529,9 @@ Page({
             result.gates,
 
           features:
-            result.features
+            result.features,
+
+          wordCloud
         })
 
 

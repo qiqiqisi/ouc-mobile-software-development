@@ -28,10 +28,7 @@
   <view class="mode-row">
 
     <view
-      class="mode-item
-        {{mode === '7d'
-          ? 'mode-active'
-          : ''}}"
+      class="mode-item {{mode === '7d' ? 'mode-active' : ''}}"
       data-mode="7d"
       bindtap="selectMode"
     >
@@ -40,10 +37,7 @@
 
 
     <view
-      class="mode-item
-        {{mode === '30d'
-          ? 'mode-active'
-          : ''}}"
+      class="mode-item {{mode === '30d' ? 'mode-active' : ''}}"
       data-mode="30d"
       bindtap="selectMode"
     >
@@ -52,10 +46,7 @@
 
 
     <view
-      class="mode-item
-        {{mode === 'custom'
-          ? 'mode-active'
-          : ''}}"
+      class="mode-item {{mode === 'custom' ? 'mode-active' : ''}}"
       data-mode="custom"
       bindtap="selectMode"
     >
@@ -209,10 +200,7 @@
 <!-- 开始检测 -->
 
 <button
-  class="analyze-button
-    {{canAnalyze
-      ? ''
-      : 'analyze-disabled'}}"
+  class="analyze-button {{canAnalyze ? '' : 'analyze-disabled'}}"
   bindtap="runAnalysis"
 >
   开始检测

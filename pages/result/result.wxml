@@ -22,6 +22,66 @@
     {{confidenceText}}
   </view>
 
+
+  <!-- 记录词云：只总结真实记录，不读取人格结果反推关键词。 -->
+  <view class="wordcloud-section">
+
+    <view class="wordcloud-heading-row">
+      <view class="wordcloud-heading-copy">
+        <text class="wordcloud-eyebrow">RECENT WORDS</text>
+        <text class="wordcloud-title">这段时间，都在忙些什么？</text>
+      </view>
+
+      <view
+        wx:if="{{wordCloudHasWords}}"
+        class="wordcloud-refresh"
+        bindtap="changeWordCloudLayout"
+      >
+        <text>换个姿势</text>
+      </view>
+    </view>
+
+    <text class="wordcloud-subtitle">
+      {{wordCloudSubtitle}}
+    </text>
+
+    <view
+      wx:if="{{wordCloudHasWords}}"
+      class="wordcloud-card"
+    >
+      <canvas
+        id="wordCloudCanvas"
+        type="2d"
+        class="wordcloud-canvas"
+      ></canvas>
+
+      <view
+        wx:if="{{wordCloudRenderFailed}}"
+        class="wordcloud-render-error"
+      >
+        <text class="wordcloud-error-title">词都在，站位出了点 Bug。</text>
+        <text class="wordcloud-error-text">点“换个姿势”再试一次。</text>
+      </view>
+    </view>
+
+    <view
+      wx:else
+      class="wordcloud-empty"
+    >
+      <text class="wordcloud-empty-title">词云也没词。</text>
+      <text class="wordcloud-empty-text">你连素材都没给，系统只能在这里表演留白。</text>
+    </view>
+
+    <text
+      wx:if="{{wordCloudHasWords}}"
+      class="wordcloud-note"
+    >
+      字号代表出现强度 · 颜色只负责好看
+    </text>
+
+  </view>
+
+
   <view class="description">
     <text
       wx:for="{{personality.description}}"
@@ -31,6 +91,8 @@
       {{item}}
     </text>
   </view>
+
+  <text class="status-keyword-label">状态关键词</text>
 
   <view class="keywords">
     <view

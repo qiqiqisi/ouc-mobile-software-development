@@ -1,9 +1,45 @@
 <view class="page">
 
-<!-- 品牌区域 -->
+<!-- 品牌区域 + 自定义监工 -->
 <view class="brand">
-  <text class="brand-name">BUGTI</text>
-  <text class="brand-subtitle">测测你最近是什么 Bug</text>
+  <view class="brand-copy">
+    <text class="brand-name">BUGTI</text>
+    <text class="brand-subtitle">测测你最近是什么 Bug</text>
+  </view>
+
+  <view
+    wx:if="{{petProfile}}"
+    class="pet-monitor"
+    style="width: {{petStageWidth}}rpx;"
+  >
+    <view class="pet-monitor-stage" style="height: {{petStageHeight}}rpx;">
+      <image
+        class="pet-monitor-image"
+        src="{{petProfile.imagePath}}"
+        mode="aspectFit"
+        style="width: {{petStageWidth}}rpx;"
+        bindtap="onPetTap"
+        bindlongpress="goToPet"
+      />
+    </view>
+
+    <view class="pet-monitor-meta">
+      <text class="pet-monitor-caption">
+        {{petBubble || petCaption}}
+      </text>
+      <button class="pet-monitor-edit" bindtap="goToPet">编辑</button>
+    </view>
+  </view>
+
+  <view
+    wx:else
+    class="pet-add"
+    bindtap="goToPet"
+  >
+    <text class="pet-add-plus">＋</text>
+    <text class="pet-add-title">添加监工</text>
+    <text class="pet-add-tip">让它盯着你记</text>
+  </view>
 </view>
 
 

@@ -1,0 +1,246 @@
+<view class="page">
+
+  <view class="page-header">
+    <text class="eyebrow">BUGTI MONITOR</text>
+    <text class="title">我的监工</text>
+    <text class="subtitle">
+      宠物、自己、同学、玩偶都行。把想留下来的部分涂出来，它就能住进首页。
+    </text>
+  </view>
+
+  <view wx:if="{{stage === 'intro'}}" class="intro-panel">
+    <view class="intro-mark">＋</view>
+    <text class="intro-title">抓一个监工过来</text>
+    <text class="intro-text">
+      选择一张图片。下一步只要厚涂想保留的部分，不需要沿轮廓画得很准。
+    </text>
+    <button class="primary-button" disabled="{{isBusy}}" bindtap="choosePhoto">
+      选择图片
+    </button>
+  </view>
+
+  <view wx:elif="{{stage === 'existing'}}" class="existing-panel">
+    <view class="preview-checker existing-preview">
+      <image
+        class="existing-image"
+        src="{{existingProfile.imagePath}}"
+        mode="aspectFit"
+        style="transform: scale({{displayScale}});"
+      />
+    </view>
+
+    <text class="existing-name">{{existingProfile.name}}</text>
+    <text class="existing-caption">当前监工已经住进首页。</text>
+
+    <view class="scale-block">
+      <view class="scale-header">
+        <text class="field-label compact-label">首页显示大小</text>
+        <text class="scale-value">{{displayScalePercent}}%</text>
+      </view>
+      <view class="scale-row">
+        <text class="scale-label">小</text>
+        <slider
+          class="scale-slider"
+          min="75"
+          max="200"
+          step="1"
+          value="{{displayScalePercent}}"
+          activeColor="#2f7d4a"
+          backgroundColor="#dfe8e1"
+          block-color="#2f7d4a"
+          block-size="20"
+          bindchanging="onDisplayScaleChanging"
+          bindchange="onExistingScaleChange"
+        />
+        <text class="scale-label">大</text>
+      </view>
+    </view>
+
+    <view class="existing-actions">
+      <button class="secondary-button" bindtap="startRename">改名字</button>
+      <button class="secondary-button" disabled="{{isBusy}}" bindtap="choosePhoto">换图 / 重新制作</button>
+    </view>
+
+    <button class="primary-button existing-home-button" bindtap="backHome">
+      回首页看看
+    </button>
+
+    <button class="danger-button" bindtap="confirmDelete">
+      删除监工
+    </button>
+  </view>
+
+  <view wx:elif="{{stage === 'rename'}}" class="name-panel">
+    <view class="preview-checker name-preview">
+      <image
+        class="name-preview-image"
+        src="{{existingProfile.imagePath}}"
+        mode="aspectFit"
+        style="transform: scale({{displayScale}});"
+      />
+    </view>
+
+    <text class="field-label">给监工起个名字</text>
+    <input
+      class="name-input"
+      value="{{petName}}"
+      maxlength="-1"
+      placeholder="例如：哈机密"
+      bindinput="onNameInput"
+    />
+    <text class="field-help {{nameCount > 6 ? 'field-help-error' : ''}}">
+      {{nameCount}} / 6 个字符
+    </text>
+
+    <view class="bottom-actions">
+      <button class="secondary-button" bindtap="cancelRename">取消</button>
+      <button class="primary-button compact-button" bindtap="saveRename">保存</button>
+    </view>
+  </view>
+
+  <view wx:elif="{{stage === 'paint'}}" class="paint-panel">
+    <view class="step-row">
+      <text class="step-code">PAINT TO KEEP</text>
+      <text class="step-number">1 / 2</text>
+    </view>
+
+    <text class="editor-title">把想留下来的部分涂满</text>
+    <text class="editor-tip">
+      绿色代表会被保留。多涂了就切到“擦除”，不用沿着边缘一笔画完。
+    </text>
+
+    <view class="canvas-shell">
+      <canvas
+        id="petPaintCanvas"
+        type="2d"
+        class="pet-paint-canvas"
+        catchtouchstart="onPaintTouchStart"
+        catchtouchmove="onPaintTouchMove"
+        catchtouchend="onPaintTouchEnd"
+        catchtouchcancel="onPaintTouchEnd"
+      ></canvas>
+    </view>
+
+    <view class="paint-tools">
+      <view class="mode-row">
+        <button
+          class="mode-button {{paintMode === 'paint' ? 'mode-button-active' : ''}}"
+          data-mode="paint"
+          bindtap="setPaintMode"
+        >
+          涂抹保留
+        </button>
+        <button
+          class="mode-button {{paintMode === 'erase' ? 'mode-button-active' : ''}}"
+          data-mode="erase"
+          bindtap="setPaintMode"
+        >
+          擦除误涂
+        </button>
+      </view>
+
+      <view class="brush-row">
+        <text class="brush-label">笔刷</text>
+        <text class="brush-size-dot brush-size-small"></text>
+        <slider
+          class="brush-slider"
+          min="18"
+          max="96"
+          step="1"
+          value="{{brushSize}}"
+          activeColor="#2f7d4a"
+          backgroundColor="#dfe8e1"
+          block-color="#2f7d4a"
+          block-size="20"
+          bindchanging="onBrushSizeChange"
+          bindchange="onBrushSizeChange"
+        />
+        <text class="brush-size-dot brush-size-large"></text>
+      </view>
+    </view>
+
+    <view class="bottom-actions three-actions">
+      <button class="secondary-button small-action" disabled="{{isBusy}}" bindtap="choosePhoto">换张图</button>
+      <button class="secondary-button small-action" disabled="{{isBusy}}" bindtap="clearMask">清空全部</button>
+      <button
+        class="primary-button small-action"
+        disabled="{{!hasSelection || isBusy}}"
+        bindtap="previewCutout"
+      >
+        {{isBusy ? '处理中…' : '看看效果'}}
+      </button>
+    </view>
+  </view>
+
+  <view wx:elif="{{stage === 'preview'}}" class="preview-panel">
+    <view class="step-row">
+      <text class="step-code">PREVIEW</text>
+      <text class="step-number">2 / 2</text>
+    </view>
+
+    <text class="editor-title">抠出来了。</text>
+    <text class="editor-tip">
+      棋盘格只用于显示透明区域。现在再调整它住进首页后的大小。
+    </text>
+
+    <view class="preview-checker final-preview">
+      <image
+        class="final-preview-image"
+        src="{{previewPath}}"
+        mode="aspectFit"
+        style="transform: scale({{displayScale}});"
+      />
+    </view>
+
+    <view class="scale-block preview-scale-block">
+      <view class="scale-header">
+        <text class="field-label compact-label">首页显示大小</text>
+        <text class="scale-value">{{displayScalePercent}}%</text>
+      </view>
+      <view class="scale-row">
+        <text class="scale-label">小</text>
+        <slider
+          class="scale-slider"
+          min="75"
+          max="200"
+          step="1"
+          value="{{displayScalePercent}}"
+          activeColor="#2f7d4a"
+          backgroundColor="#dfe8e1"
+          block-color="#2f7d4a"
+          block-size="20"
+          bindchanging="onDisplayScaleChanging"
+          bindchange="onDisplayScaleChanging"
+        />
+        <text class="scale-label">大</text>
+      </view>
+    </view>
+
+    <text class="field-label">给监工起个名字</text>
+    <input
+      class="name-input"
+      value="{{petName}}"
+      maxlength="-1"
+      placeholder="例如：哈机密"
+      bindinput="onNameInput"
+    />
+    <text class="field-help {{nameCount > 6 ? 'field-help-error' : ''}}">
+      {{nameCount}} / 6 个字符
+    </text>
+
+    <view class="bottom-actions">
+      <button class="secondary-button" disabled="{{isBusy}}" bindtap="backToPaint">返回修改</button>
+      <button
+        class="primary-button compact-button"
+        disabled="{{isBusy}}"
+        bindtap="savePet"
+      >
+        {{isBusy ? '保存中…' : '就它了'}}
+      </button>
+    </view>
+  </view>
+
+  <canvas id="petMaskCanvas" type="2d" class="aux-canvas"></canvas>
+  <canvas id="petExportCanvas" type="2d" class="aux-canvas"></canvas>
+
+</view>
