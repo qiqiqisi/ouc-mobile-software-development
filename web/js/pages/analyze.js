@@ -11,6 +11,10 @@ import {
 } from "../services/reports.js"
 
 import {
+  createSnapshot
+} from "../services/wordcloud.js"
+
+import {
   calculateRangeDays,
   formatLocalDate,
   getTodayString,
@@ -215,6 +219,16 @@ function runAnalysis() {
       result.validDays /
       stats.rangeDays
 
+    const wordCloud =
+      createSnapshot(
+        stats.records,
+        {
+          startDate: stats.startDate,
+          endDate: stats.endDate,
+          includeNote: true
+        }
+      )
+
     const report = save({
       startDate: stats.startDate,
       endDate: stats.endDate,
@@ -230,7 +244,8 @@ function runAnalysis() {
       candidates:
         result.candidates,
       gates: result.gates,
-      features: result.features
+      features: result.features,
+      wordCloud
     })
 
     window.location.href =

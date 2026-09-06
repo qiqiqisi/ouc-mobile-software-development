@@ -6,15 +6,37 @@
     name="viewport"
     content="width=device-width, initial-scale=1, viewport-fit=cover"
   >
+  <meta name="bugti-build" content="wordcloud-monitor-v1">
   <title>BUGTI</title>
   <link rel="stylesheet" href="./css/base.css">
   <link rel="stylesheet" href="./css/index.css">
+  <link rel="stylesheet" href="./css/monitor.css">
 </head>
 <body>
   <main class="app-shell index-page">
-    <header class="brand">
-      <div class="brand-name">BUGTI</div>
-      <div class="brand-subtitle">测测你最近是什么 Bug</div>
+    <header class="brand-row">
+      <div class="brand">
+        <div class="brand-name">BUGTI</div>
+        <div class="brand-subtitle">测测你最近是什么 Bug</div>
+      </div>
+
+      <section id="monitor-home" class="monitor-home is-hidden" aria-label="我的监工">
+        <button id="monitor-home-image-button" class="monitor-home-image-button" type="button" aria-label="点击监工">
+          <span class="monitor-home-stage">
+            <img id="monitor-home-image" class="monitor-home-image" alt="">
+          </span>
+        </button>
+        <div class="monitor-home-meta">
+          <p id="monitor-home-caption" class="monitor-home-caption"></p>
+          <button id="monitor-edit" class="monitor-edit-button" type="button">编辑</button>
+        </div>
+      </section>
+
+      <button id="monitor-add" class="monitor-add" type="button">
+        <span class="monitor-add-plus">＋</span>
+        <span class="monitor-add-title">添加监工</span>
+        <span class="monitor-add-tip">让它盯着你记</span>
+      </button>
     </header>
 
     <section class="hero">
@@ -144,6 +166,103 @@
       BUGTI 是娱乐型阶段状态测评，不代表心理学或医学结论。
     </p>
   </main>
+
+  <div id="monitor-dialog" class="monitor-dialog is-hidden" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="monitor-dialog-title">
+    <section class="monitor-sheet">
+      <header class="monitor-sheet-header">
+        <div>
+          <div class="monitor-eyebrow">MY MONITOR</div>
+          <h2 id="monitor-dialog-title" class="monitor-title">我的监工</h2>
+        </div>
+        <button id="monitor-dialog-close" class="monitor-close" type="button" aria-label="关闭">×</button>
+      </header>
+
+      <input id="monitor-file-input" class="monitor-file-input" type="file" accept="image/*">
+
+      <section class="monitor-stage-panel" data-monitor-stage="choose">
+        <p class="monitor-lead">选一张图，把想留在首页的主体厚涂出来。</p>
+        <button class="monitor-primary" type="button" data-choose-monitor>选择图片</button>
+        <p class="monitor-privacy">图片只在当前浏览器本地处理，原图不会长期保存。</p>
+      </section>
+
+      <section class="monitor-stage-panel is-hidden" data-monitor-stage="settings">
+        <div class="monitor-existing-checker">
+          <img id="monitor-existing-image" class="monitor-existing-image" alt="当前监工">
+        </div>
+
+        <label class="monitor-field-label" for="monitor-existing-name">监工名字</label>
+        <input id="monitor-existing-name" class="monitor-text-input" type="text" autocomplete="off">
+        <div id="monitor-existing-name-count" class="monitor-field-help">0 / 6 个字符</div>
+
+        <div class="monitor-scale-head">
+          <label class="monitor-field-label" for="monitor-existing-scale">首页显示大小</label>
+          <output id="monitor-existing-scale-value">115%</output>
+        </div>
+        <input id="monitor-existing-scale" class="monitor-range" type="range" min="75" max="200" step="1" value="115">
+
+        <div class="monitor-action-row monitor-action-row-three">
+          <button class="monitor-secondary" type="button" data-choose-monitor>更换图片</button>
+          <button id="monitor-delete" class="monitor-danger" type="button">删除监工</button>
+          <button id="monitor-save-existing" class="monitor-primary" type="button">保存修改</button>
+        </div>
+      </section>
+
+      <section class="monitor-stage-panel is-hidden" data-monitor-stage="paint">
+        <div class="monitor-step-row">
+          <span>PAINT MASK</span>
+          <span>1 / 2</span>
+        </div>
+        <p class="monitor-lead">绿色区域会被保留。涂多了可以切到擦除。</p>
+
+        <div id="monitor-paint-shell" class="monitor-paint-shell">
+          <canvas id="monitor-paint-canvas" class="monitor-paint-canvas"></canvas>
+        </div>
+
+        <div class="monitor-tool-row">
+          <button class="monitor-tool monitor-tool-active" type="button" data-paint-mode="paint">涂抹保留</button>
+          <button class="monitor-tool" type="button" data-paint-mode="erase">擦除误涂</button>
+        </div>
+
+        <div class="monitor-scale-head">
+          <label class="monitor-field-label" for="monitor-brush-size">笔刷大小</label>
+        </div>
+        <input id="monitor-brush-size" class="monitor-range" type="range" min="18" max="96" step="1" value="42">
+
+        <div class="monitor-action-row monitor-action-row-three">
+          <button class="monitor-secondary" type="button" data-choose-monitor>换张图</button>
+          <button id="monitor-clear-mask" class="monitor-secondary" type="button">清空全部</button>
+          <button id="monitor-preview-cutout" class="monitor-primary" type="button">看看效果</button>
+        </div>
+      </section>
+
+      <section class="monitor-stage-panel is-hidden" data-monitor-stage="preview">
+        <div class="monitor-step-row">
+          <span>PREVIEW</span>
+          <span>2 / 2</span>
+        </div>
+        <p class="monitor-lead">棋盘格代表透明区域。现在调整它在首页的大小。</p>
+
+        <div class="monitor-preview-checker">
+          <img id="monitor-preview-image" class="monitor-preview-image" alt="透明监工预览">
+        </div>
+
+        <div class="monitor-scale-head">
+          <label class="monitor-field-label" for="monitor-preview-scale">首页显示大小</label>
+          <output id="monitor-preview-scale-value">115%</output>
+        </div>
+        <input id="monitor-preview-scale" class="monitor-range" type="range" min="75" max="200" step="1" value="115">
+
+        <label class="monitor-field-label" for="monitor-preview-name">给监工起个名字</label>
+        <input id="monitor-preview-name" class="monitor-text-input" type="text" placeholder="例如：哈机密" autocomplete="off">
+        <div id="monitor-preview-name-count" class="monitor-field-help">0 / 6 个字符</div>
+
+        <div class="monitor-action-row">
+          <button id="monitor-back-to-paint" class="monitor-secondary" type="button">返回修改</button>
+          <button id="monitor-save-new" class="monitor-primary" type="button">保存监工</button>
+        </div>
+      </section>
+    </section>
+  </div>
 
   <script type="module" src="./js/pages/index.js"></script>
 </body>

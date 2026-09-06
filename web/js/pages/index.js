@@ -26,6 +26,10 @@ import {
   showToast
 } from "../shared/ui.js"
 
+import {
+  initializeMonitor
+} from "./monitor.js"
+
 
 const moodEmojis = [
   "",
@@ -499,6 +503,11 @@ function initialize() {
   loadSharedFortune()
   loadHomeData()
   loadFortuneData()
+  initializeMonitor()
+    .catch(error => {
+      console.error("监工初始化失败：", error)
+      showToast("监工功能初始化失败")
+    })
 }
 
 

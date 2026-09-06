@@ -120,6 +120,113 @@
   line-height: 1.65;
 }
 
+.wordcloud-section {
+  margin-top: 30px;
+  padding-top: 24px;
+  border-top: 1px solid #edf1ee;
+}
+
+.wordcloud-heading-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.wordcloud-eyebrow {
+  color: #2f7d4a;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.3px;
+}
+
+.wordcloud-title {
+  margin: 5px 0 0;
+  color: #222222;
+  font-size: 17px;
+  line-height: 1.45;
+}
+
+.wordcloud-refresh {
+  min-height: 32px;
+  margin-top: 5px;
+  padding: 0 8px;
+  flex: none;
+  border-radius: 999px;
+  background: #edf5ef;
+  color: #2f7d4a;
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.wordcloud-subtitle {
+  margin: 7px 0 0;
+  color: #999999;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.wordcloud-card {
+  position: relative;
+  width: 100%;
+  height: 290px;
+  margin-top: 13px;
+  overflow: hidden;
+  border-radius: 15px;
+  background: #f7faf7;
+}
+
+.wordcloud-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.wordcloud-error,
+.wordcloud-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #718177;
+  text-align: center;
+}
+
+.wordcloud-error {
+  position: absolute;
+  inset: 0;
+  padding: 22px;
+  background: #f7faf7;
+}
+
+.wordcloud-empty {
+  min-height: 130px;
+  margin-top: 13px;
+  padding: 22px;
+  border-radius: 15px;
+  background: #f7faf7;
+}
+
+.wordcloud-error strong,
+.wordcloud-empty strong {
+  color: #2f7d4a;
+  font-size: 15px;
+}
+
+.wordcloud-error span,
+.wordcloud-empty span {
+  margin-top: 6px;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.wordcloud-note {
+  margin: 8px 0 0;
+  color: #a4ada6;
+  font-size: 10px;
+  text-align: right;
+}
+
 .missing-report {
   padding: 90px 0;
   text-align: center;

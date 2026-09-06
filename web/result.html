@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="bugti-build" content="wordcloud-monitor-v1">
   <title>结果｜BUGTI</title>
   <link rel="stylesheet" href="./css/base.css">
   <link rel="stylesheet" href="./css/result.css">
@@ -36,6 +37,31 @@
       <section class="system-card">
         <span class="system-label">系统评价</span>
         <p id="system-comment" class="system-comment"></p>
+      </section>
+
+      <section class="wordcloud-section" aria-labelledby="wordcloud-title">
+        <div class="wordcloud-heading-row">
+          <div>
+            <div class="wordcloud-eyebrow">RECENT WORDS</div>
+            <h2 id="wordcloud-title" class="wordcloud-title">这段时间，都在忙些什么？</h2>
+          </div>
+          <button id="wordcloud-refresh" class="wordcloud-refresh is-hidden" type="button">换个姿势</button>
+        </div>
+        <p id="wordcloud-subtitle" class="wordcloud-subtitle"></p>
+
+        <div id="wordcloud-card" class="wordcloud-card is-hidden">
+          <canvas id="wordcloud-canvas" class="wordcloud-canvas" aria-label="近期记录词云"></canvas>
+          <div id="wordcloud-error" class="wordcloud-error is-hidden">
+            <strong>词都在，站位出了点 Bug。</strong>
+            <span>点“换个姿势”再试一次。</span>
+          </div>
+        </div>
+
+        <div id="wordcloud-empty" class="wordcloud-empty is-hidden">
+          <strong>词云也没词。</strong>
+          <span>没有足够的对应记录，系统只能在这里表演留白。</span>
+        </div>
+        <p id="wordcloud-note" class="wordcloud-note is-hidden">字号代表出现强度 · 颜色只负责好看</p>
       </section>
     </div>
   </main>
