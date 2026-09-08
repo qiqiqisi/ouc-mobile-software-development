@@ -1,0 +1,14 @@
+.top-shell { position: sticky; top: 0; z-index: 50; background: #fff; border-bottom: 1rpx solid #f0f2f4; }
+.brand-row { position: relative; display: flex; align-items: center; padding: 0 30rpx; }
+.brand { display: flex; align-items: center; }
+.brand-logo { width: 47rpx; height: 47rpx; margin-right: 12rpx; }
+.brand-title { font-size: 30rpx; color: #175881; font-weight: 600; letter-spacing: 2rpx; }
+.brand-discover { position: absolute; left: 50%; transform: translateX(-50%); font-size: 33rpx; font-weight: 600; }
+.brand-discover::after { content: ''; display: block; width: 32rpx; height: 5rpx; margin: 9rpx auto -14rpx; border-radius: 4rpx; background: #1980c8; }
+.category-scroll { width: 100%; white-space: nowrap; }
+.category-row { display: flex; justify-content: space-around; padding: 8rpx 15rpx; }
+.category-item { padding: 18rpx 22rpx; color: #888f96; font-size: 27rpx; }
+.category-item.active { color: #1980c8; font-weight: 600; }
+.skeleton-row { display: flex; padding: 16rpx; }
+.skeleton-card { flex: 1; height: 540rpx; border-radius: 16rpx; background: #eceff2; }
+.skeleton-card.short { margin-left: 14rpx; height: 450rpx; }

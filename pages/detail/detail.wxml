@@ -1,0 +1,53 @@
+<view class="detail-page">
+  <view wx:if="{{loading}}" class="detail-skeleton"><view class="skeleton-author"></view><view class="skeleton-image"></view><view class="skeleton-line"></view></view>
+  <view wx:elif="{{errorText}}" class="empty-state"><text class="empty-title">暂时无法查看这条笔记</text><text class="empty-desc">{{errorText}}</text><button class="retry-button" bindtap="loadPost">重新加载</button></view>
+  <block wx:elif="{{post}}">
+    <view class="author-bar">
+      <view class="author" bindtap="onAuthorTap" hover-class="tap-feedback"><image class="author-avatar" src="{{post.author.avatarFileID || '/assets/ouc-logo.png'}}" mode="aspectFill" /><text class="author-name">{{post.author.nickname}}</text></view>
+      <button wx:if="{{!isOwner}}" class="follow-button {{following ? 'followed' : ''}}" bindtap="onFollow">{{following ? '已关注' : '关注'}}</button>
+      <button class="icon-button" open-type="share" aria-label="分享笔记"><ouc-icon name="share" size="44" /></button>
+      <button class="icon-button more-button" bindtap="onMore" aria-label="更多操作"><ouc-icon name="more" size="40" /></button>
+    </view>
+    <view wx:if="{{post.images.length}}" class="gallery">
+      <swiper class="image-swiper" current="{{currentImage}}" bindchange="onImageChange" circular="{{false}}" duration="260">
+        <swiper-item wx:for="{{post.images}}" wx:key="*this"><image class="detail-image" src="{{item}}" mode="aspectFit" data-index="{{index}}" bindtap="onPreviewImage" /></swiper-item>
+      </swiper>
+      <text wx:if="{{post.images.length > 1}}" class="image-counter">{{currentImage + 1}} / {{post.images.length}}</text>
+      <view wx:if="{{post.images.length > 1}}" class="gallery-dots"><view wx:for="{{post.images}}" wx:key="*this" class="gallery-dot {{index === currentImage ? 'selected' : ''}}"></view></view>
+    </view>
+    <view class="note-body">
+      <text class="note-title" user-select>{{post.title}}</text>
+      <text wx:if="{{post.content}}" class="note-content" user-select>{{post.content}}</text>
+      <text class="note-topic">#{{post.categoryLabel}}　#中国海洋大学</text>
+      <view wx:if="{{post.location}}" class="location-pill"><ouc-icon name="location" size="26" /><text>{{post.location}}</text></view>
+      <text wx:if="{{post.contact}}" class="contact-text" user-select>联系：{{post.contact}}</text>
+      <view class="note-meta"><text>{{post.dateTimeText}}</text><text wx:if="{{post.statusText}}" class="status-pill {{post.status === 'resolved' ? 'resolved' : ''}}">{{post.statusText}}</text></view>
+    </view>
+    <view id="comments" class="comments-section">
+      <view class="comments-heading"><text>共 {{post.commentCount}} 条评论</text><text class="comment-order">最新</text></view>
+      <view class="comment-prompt" bindtap="onOpenComposer"><image class="comment-avatar" src="{{currentUser.avatarFileID || '/assets/ouc-logo.png'}}" mode="aspectFill" /><view class="prompt-input">留下你的想法吧<ouc-icon name="edit" size="32" /></view></view>
+      <view wx:for="{{comments}}" wx:key="_id" class="comment-row">
+        <image class="comment-avatar" src="{{item.author.avatarFileID || '/assets/ouc-logo.png'}}" mode="aspectFill" />
+        <view class="comment-main"><view class="comment-byline"><text class="comment-name">{{item.author.nickname}}</text><text wx:if="{{item.openid === post.authorOpenid}}" class="author-badge">作者</text></view><text wx:if="{{item.replyToName}}" class="reply-to">回复 {{item.replyToName}}</text><text class="comment-content" user-select>{{item.content}}</text><view class="comment-meta"><text>{{item.timeText}}</text><text class="reply-action" data-id="{{item._id}}" bindtap="onReply">回复</text><text wx:if="{{item.isMine}}" class="delete-comment" data-id="{{item._id}}" bindtap="onDeleteComment">删除</text></view></view>
+      </view>
+      <view wx:if="{{commentsError}}" class="comment-empty"><text>{{commentsError}}</text><button class="retry-button" bindtap="onRetryComments">重试</button></view>
+      <view wx:elif="{{commentsLoading}}" class="load-more">正在加载评论…</view>
+      <view wx:elif="{{!comments.length}}" class="comment-empty">还没有评论，来聊聊吧</view>
+      <view wx:elif="{{commentsMore}}" class="load-more" bindtap="onRetryComments">查看更多评论</view>
+      <view wx:else class="comment-end">— 已经到底了 —</view>
+    </view>
+    <view class="bottom-bar">
+      <view class="bottom-input" bindtap="onOpenComposer"><ouc-icon name="edit" size="32" /><text>说点什么…</text></view>
+      <button class="reaction {{post.liked ? 'active' : ''}}" bindtap="onLike" aria-label="{{post.liked ? '取消点赞' : '点赞'}}"><ouc-icon name="heart" active="{{post.liked}}" size="49" /><text>{{post.likeCount || '赞'}}</text></button>
+      <button class="reaction {{post.favorited ? 'active' : ''}}" bindtap="onFavorite" aria-label="{{post.favorited ? '取消收藏' : '收藏'}}"><ouc-icon name="star" active="{{post.favorited}}" size="49" /><text>{{post.favoriteCount || '收藏'}}</text></button>
+      <button class="reaction" bindtap="onCommentTap" aria-label="查看评论"><ouc-icon name="comment" size="49" /><text>{{post.commentCount || '评论'}}</text></button>
+    </view>
+  </block>
+  <view wx:if="{{composerOpen}}" class="composer-mask" bindtap="onCloseComposer" catchtouchmove="stopEvent">
+    <view class="composer" style="bottom: {{keyboardHeight}}px;" catchtap="stopEvent">
+      <view class="composer-heading"><text>{{replyToName ? '回复 ' + replyToName : '写评论'}}</text><button class="icon-button" bindtap="onCloseComposer" aria-label="收起评论输入"><ouc-icon name="close" size="36" /></button></view>
+      <textarea class="composer-textarea" placeholder="友善表达，认真交流" value="{{commentDraft}}" maxlength="500" focus="{{composerFocus}}" disabled="{{sending}}" adjust-position="{{false}}" show-confirm-bar="{{false}}" bindinput="onDraftInput" bindkeyboardheightchange="onKeyboardHeight" />
+      <view class="composer-footer"><text>{{commentDraft.length}} / 500</text><text wx:if="{{replyToName}}" class="cancel-reply" bindtap="onCancelReply">取消回复</text><button class="send-button" loading="{{sending}}" disabled="{{sending || !commentDraft.length}}" bindtap="onSendComment">发送</button></view>
+    </view>
+  </view>
+</view>

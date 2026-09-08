@@ -1,0 +1,5 @@
+{
+  "navigationBarTitleText": "浏览记录",
+  "enablePullDownRefresh": true,
+  "onReachBottomDistance": 180
+}

@@ -1,0 +1,9 @@
+{
+  "desc": "海大圈实验六",
+  "rules": [
+    {
+      "action": "allow",
+      "page": "*"
+    }
+  ]
+}

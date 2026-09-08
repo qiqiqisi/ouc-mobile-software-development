@@ -1,0 +1,12 @@
+<view class="card" bindtap="onTapCard" hover-class="card-pressed">
+  <view class="cover">
+    <image wx:if="{{post.coverFileID}}" class="cover-image" src="{{post.coverFileID}}" mode="widthFix" lazy-load />
+    <view wx:else class="text-cover tone-{{post.categoryTone}}"><text class="text-cover-type">{{post.categoryLabel}} · 海大日常</text><text class="text-cover-title">{{post.title}}</text><text class="text-cover-sign">OUC CAMPUS</text></view>
+    <view wx:if="{{post.images.length > 1}}" class="image-badge"><ouc-icon name="image" size="26" /></view>
+  </view>
+  <view class="card-body"><text class="card-title">{{post.title}}</text><view class="card-meta">
+    <view wx:if="{{showAuthor}}" class="author" catchtap="onTapAuthor"><image class="avatar" src="{{post.author.avatarFileID || '/assets/ouc-logo.png'}}" mode="aspectFill" /><text class="author-name">{{post.author.nickname || '海大同学'}}</text></view>
+    <text wx:else class="time">{{post.statusText || post.timeText}}</text>
+    <view class="card-like {{post.liked ? 'liked' : ''}}" catchtap="onTapLike" aria-label="{{post.liked ? '取消点赞' : '点赞'}}"><ouc-icon name="heart" active="{{post.liked}}" size="31" /><text>{{post.likeCount || '赞'}}</text></view>
+  </view></view>
+</view>

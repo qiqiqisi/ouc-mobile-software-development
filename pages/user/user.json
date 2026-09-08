@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "TA 的主页",
+  "enablePullDownRefresh": true,
+  "onReachBottomDistance": 180,
+  "usingComponents": {
+    "post-card": "/components/post-card/post-card"
+  }
+}

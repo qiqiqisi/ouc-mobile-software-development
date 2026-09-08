@@ -1,0 +1,1 @@
+<image class="icon" style="width: {{size}}rpx; height: {{size}}rpx;" src="/assets/icons/{{name}}{{active ? '-active' : ''}}.svg" mode="aspectFit" aria-hidden="true" />

@@ -1,0 +1,16 @@
+{
+  "pages": 8,
+  "js": 27,
+  "handlers": 93,
+  "compilation": {
+    "wxml": {
+      "status": 0,
+      "diagnostics": ""
+    },
+    "wxss": {
+      "status": 0,
+      "diagnostics": ""
+    }
+  },
+  "failures": []
+}

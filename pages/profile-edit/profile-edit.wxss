@@ -1,0 +1,14 @@
+page { background: #fff; }
+.edit-page { min-height: 100vh; padding: 20rpx 36rpx calc(80rpx + env(safe-area-inset-bottom)); background: #fff; }
+.avatar-section { display: flex; flex-direction: column; align-items: center; padding: 40rpx 0 55rpx; }
+.avatar-button { position: relative; width: 168rpx; height: 168rpx; margin: 0; padding: 0; overflow: visible; background: transparent; border-radius: 50%; }
+.edit-avatar { width: 168rpx; height: 168rpx; border-radius: 50%; border: 2rpx solid #e8eef3; background: #f6f9fb; }
+.avatar-edit-mark { position: absolute; bottom: 4rpx; right: 0; width: 48rpx; height: 48rpx; display: flex; align-items: center; justify-content: center; background: #edf5fa; border: 4rpx solid #fff; border-radius: 50%; }
+.avatar-tip { margin-top: 22rpx; color: #1980c8; font-size: 25rpx; }
+.edit-row { display: flex; align-items: center; min-height: 115rpx; border-bottom: 1rpx solid #edf0f2; }
+.field-label { width: 130rpx; font-size: 29rpx; }
+.nickname-input { flex: 1; min-width: 0; height: 100rpx; text-align: right; font-size: 28rpx; }
+.input-placeholder { color: #a5adb6; }
+.school-name { margin-left: auto; color: #939ca5; font-size: 28rpx; }
+.edit-hint { display: block; margin-top: 28rpx; color: #a0a9b2; font-size: 23rpx; line-height: 1.8; }
+.save-button { margin: 70rpx 0 0; height: 84rpx; line-height: 84rpx; background: #1980c8; color: #fff; font-size: 29rpx; border-radius: 45rpx; }

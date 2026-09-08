@@ -1,0 +1,244 @@
+TAP version 13
+# Subtest: 快速切换分类：后到的旧请求不能覆盖新分类
+ok 1 - 快速切换分类：后到的旧请求不能覆盖新分类
+  ---
+  duration_ms: 16.537
+  type: 'test'
+  ...
+# Subtest: 分页网络失败保留已有内容与页码，重试请求同一页
+ok 2 - 分页网络失败保留已有内容与页码，重试请求同一页
+  ---
+  duration_ms: 7.0261
+  type: 'test'
+  ...
+# Subtest: 点赞立即反馈，连点只发一次，失败回滚
+ok 3 - 点赞立即反馈，连点只发一次，失败回滚
+  ---
+  duration_ms: 7.6569
+  type: 'test'
+  ...
+# Subtest: 同时点赞收藏不互相覆盖，首页可增量同步保持分页
+ok 4 - 同时点赞收藏不互相覆盖，首页可增量同步保持分页
+  ---
+  duration_ms: 8.9282
+  type: 'test'
+  ...
+# Subtest: 评论发送失败保留草稿，重试复用请求 ID，成功清空草稿
+ok 5 - 评论发送失败保留草稿，重试复用请求 ID，成功清空草稿
+  ---
+  duration_ms: 7.7626
+  type: 'test'
+  ...
+# Subtest: 空白评论不发送；回复带上真实评论 ID；取消回复不丢草稿
+ok 6 - 空白评论不发送；回复带上真实评论 ID；取消回复不丢草稿
+  ---
+  duration_ms: 6.5853
+  type: 'test'
+  ...
+# Subtest: 旧评论请求不能覆盖刷新后的列表
+ok 7 - 旧评论请求不能覆盖刷新后的列表
+  ---
+  duration_ms: 14.5039
+  type: 'test'
+  ...
+# Subtest: 无效详情链接显示可恢复错误，不陷入加载状态
+ok 8 - 无效详情链接显示可恢复错误，不陷入加载状态
+  ---
+  duration_ms: 8.3355
+  type: 'test'
+  ...
+# Subtest: 详情评论、作者主页与历史页导航可达
+ok 9 - 详情评论、作者主页与历史页导航可达
+  ---
+  duration_ms: 10.4519
+  type: 'test'
+  ...
+# Subtest: 发布校验与封面删除索引修正，发布中禁止更换封面
+ok 10 - 发布校验与封面删除索引修正，发布中禁止更换封面
+  ---
+  duration_ms: 4.655
+  type: 'test'
+  ...
+# Subtest: 多图上传部分失败时回滚已上传文件
+ok 11 - 多图上传部分失败时回滚已上传文件
+  ---
+  duration_ms: 1.6367
+  type: 'test'
+  ...
+# Subtest: 浏览历史按日期分组，移除不影响其他记录
+ok 12 - 浏览历史按日期分组，移除不影响其他记录
+  ---
+  duration_ms: 5.9754
+  type: 'test'
+  ...
+# Subtest: 关注操作请求失败时不伪装成功，后续可以重试
+ok 13 - 关注操作请求失败时不伪装成功，后续可以重试
+  ---
+  duration_ms: 7.3202
+  type: 'test'
+  ...
+# Subtest: 已加载最后一页后刷新失败，重试仍能重新请求第一页
+ok 14 - 已加载最后一页后刷新失败，重试仍能重新请求第一页
+  ---
+  duration_ms: 6.0046
+  type: 'test'
+  ...
+# Subtest: 查看更多评论请求下一页，不会重复刷新第一页
+ok 15 - 查看更多评论请求下一页，不会重复刷新第一页
+  ---
+  duration_ms: 6.7367
+  type: 'test'
+  ...
+# Subtest: 点赞设置幂等，重复请求只计一次，取消不产生负数
+ok 16 - 点赞设置幂等，重复请求只计一次，取消不产生负数
+  ---
+  duration_ms: 7.3926
+  type: 'test'
+  ...
+# Subtest: 不同用户点赞独立，收藏与点赞独立
+ok 17 - 不同用户点赞独立，收藏与点赞独立
+  ---
+  duration_ms: 1.8718
+  type: 'test'
+  ...
+# Subtest: 旧帖子缺少互动字段时按零处理
+ok 18 - 旧帖子缺少互动字段时按零处理
+  ---
+  duration_ms: 1.0347
+  type: 'test'
+  ...
+# Subtest: 无效点赞参数与不存在帖子不会创建关系
+ok 19 - 无效点赞参数与不存在帖子不会创建关系
+  ---
+  duration_ms: 1.5103
+  type: 'test'
+  ...
+# Subtest: 关注不可关注自己，重复关注不重复计数，可取消
+ok 20 - 关注不可关注自己，重复关注不重复计数，可取消
+  ---
+  duration_ms: 2.5299
+  type: 'test'
+  ...
+# Subtest: 关注列表与粉丝列表显示当前用户真实关系
+ok 21 - 关注列表与粉丝列表显示当前用户真实关系
+  ---
+  duration_ms: 1.6525
+  type: 'test'
+  ...
+# Subtest: 重复浏览去重，只查询自己的历史，删除帖子不展示
+ok 22 - 重复浏览去重，只查询自己的历史，删除帖子不展示
+  ---
+  duration_ms: 1.581
+  type: 'test'
+  ...
+# Subtest: 收藏列表只展示本人的收藏，取消后消失
+ok 23 - 收藏列表只展示本人的收藏，取消后消失
+  ---
+  duration_ms: 1.7327
+  type: 'test'
+  ...
+# Subtest: 清空历史不影响他人、收藏及确认后的新访问
+ok 24 - 清空历史不影响他人、收藏及确认后的新访问
+  ---
+  duration_ms: 3.5006
+  type: 'test'
+  ...
+# Subtest: 移除单条历史只操作本人的确定性记录
+ok 25 - 移除单条历史只操作本人的确定性记录
+  ---
+  duration_ms: 1.2298
+  type: 'test'
+  ...
+# Subtest: 评论内容校验：空白与超长拒绝，500字接受
+ok 26 - 评论内容校验：空白与超长拒绝，500字接受
+  ---
+  duration_ms: 1.4384
+  type: 'test'
+  ...
+# Subtest: 评论请求重试幂等，不重复发送或累计评论数
+ok 27 - 评论请求重试幂等，不重复发送或累计评论数
+  ---
+  duration_ms: 1.3901
+  type: 'test'
+  ...
+# Subtest: 回复绑定真实评论，拒绝跨帖子回复
+ok 28 - 回复绑定真实评论，拒绝跨帖子回复
+  ---
+  duration_ms: 1.7661
+  type: 'test'
+  ...
+# Subtest: 评论仅本人可删；重复删除不减两次；别人仍可看评论
+ok 29 - 评论仅本人可删；重复删除不减两次；别人仍可看评论
+  ---
+  duration_ms: 1.7918
+  type: 'test'
+  ...
+# Subtest: 评论分页无截断，顺序确定，最后一页 hasMore 为 false
+ok 30 - 评论分页无截断，顺序确定，最后一页 hasMore 为 false
+  ---
+  duration_ms: 2.0716
+  type: 'test'
+  ...
+# Subtest: 云函数身份来自微信上下文，伪造 openid 无效
+ok 31 - 云函数身份来自微信上下文，伪造 openid 无效
+  ---
+  duration_ms: 1.4562
+  type: 'test'
+  ...
+# Subtest: 完整云函数拒绝越权删帖，并更新作者获赞计数
+ok 32 - 完整云函数拒绝越权删帖，并更新作者获赞计数
+  ---
+  duration_ms: 1.5123
+  type: 'test'
+  ...
+# Subtest: 发布封面必须与索引一致
+ok 33 - 发布封面必须与索引一致
+  ---
+  duration_ms: 1.505
+  type: 'test'
+  ...
+# Subtest: 数据库故障不能被当成空关系覆盖已有互动
+ok 34 - 数据库故障不能被当成空关系覆盖已有互动
+  ---
+  duration_ms: 1.2483
+  type: 'test'
+  ...
+# Subtest: 个人笔记超过100条仍可完整分页读取
+ok 35 - 个人笔记超过100条仍可完整分页读取
+  ---
+  duration_ms: 5.4436
+  type: 'test'
+  ...
+# Subtest: 资料更新同步帖子和评论作者快照
+ok 36 - 资料更新同步帖子和评论作者快照
+  ---
+  duration_ms: 1.7023
+  type: 'test'
+  ...
+# Subtest: 多页清空历史每次最多20条，可以安全重试
+ok 37 - 多页清空历史每次最多20条，可以安全重试
+  ---
+  duration_ms: 6.013
+  type: 'test'
+  ...
+# Subtest: 用户资料读取不泄露浏览记录或收藏列表
+ok 38 - 用户资料读取不泄露浏览记录或收藏列表
+  ---
+  duration_ms: 3.6229
+  type: 'test'
+  ...
+# Subtest: 发布与头像接口拒绝引用别人的云文件
+ok 39 - 发布与头像接口拒绝引用别人的云文件
+  ---
+  duration_ms: 1.426
+  type: 'test'
+  ...
+1..39
+# tests 39
+# suites 0
+# pass 39
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 226.7687

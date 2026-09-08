@@ -1,0 +1,7 @@
+<view class="relations-page"><view class="section-tabs"><view class="section-tab {{type === 'following' ? 'active' : ''}}" data-type="following" bindtap="onTab">关注</view><view class="section-tab {{type === 'followers' ? 'active' : ''}}" data-type="followers" bindtap="onTab">粉丝</view></view>
+  <view wx:for="{{users}}" wx:key="openid" class="person-row"><view class="person-main" data-id="{{item.openid}}" bindtap="onUser"><image class="person-avatar" src="{{item.avatarFileID || '/assets/ouc-logo.png'}}" mode="aspectFill" /><view class="person-copy"><text class="person-name">{{item.nickname}}</text><text class="person-sub">中国海洋大学 · 海大圈</text></view></view><button class="follow-button {{item.following ? 'followed' : ''}}" data-id="{{item.openid}}" bindtap="onFollow">{{item.following ? '已关注' : '关注'}}</button></view>
+  <view wx:if="{{errorText}}" class="empty-state"><text class="empty-desc">{{errorText}}</text><button class="retry-button" bindtap="onRetry">重新加载</button></view>
+  <view wx:elif="{{loading}}" class="load-more">正在加载…</view>
+  <view wx:elif="{{!users.length}}" class="empty-state"><ouc-icon name="people" active size="80" /><text class="empty-title relation-empty-title">{{type === 'following' ? '还没有关注的人' : '还没有粉丝'}}</text><text class="empty-desc">{{type === 'following' ? '从一篇喜欢的笔记，认识一个有趣的人。' : '分享你的日常，让更多同学遇见你。'}}</text></view>
+  <view wx:elif="{{!hasMore}}" class="load-more">— 已经到底了 —</view>
+</view>

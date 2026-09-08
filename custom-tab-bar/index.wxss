@@ -1,0 +1,9 @@
+.tabbar { position: fixed; z-index: 90; left: 0; right: 0; bottom: 0; padding-bottom: env(safe-area-inset-bottom); background: #fff; border-top: 1rpx solid #eef0f2; }
+.tabbar-inner { display: flex; align-items: center; justify-content: space-around; height: 108rpx; }
+.tab-item { width: 180rpx; height: 100rpx; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #8a9199; }
+.tab-item text { font-size: 22rpx; margin-top: 6rpx; }
+.tab-item.selected { color: #1980c8; font-weight: 600; }
+.publish-button { position: relative; display: flex; align-items: center; justify-content: center; width: 80rpx; height: 63rpx; border-radius: 19rpx; background: #1980c8; }
+.plus-h { width: 32rpx; height: 4rpx; border-radius: 4rpx; background: #fff; }
+.plus-v { position: absolute; height: 32rpx; width: 4rpx; border-radius: 4rpx; background: #fff; }
+.publish-item:active { opacity: .7; }

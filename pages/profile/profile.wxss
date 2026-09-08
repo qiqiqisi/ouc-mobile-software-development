@@ -1,0 +1,23 @@
+.profile-header { background: linear-gradient(160deg, #edf6fc 0%, #f6fafc 55%, #fff 100%); padding: 0 36rpx 30rpx; }
+.profile-nav { display: flex; align-items: center; color: #205e88; font-size: 29rpx; font-weight: 600; letter-spacing: 2rpx; }
+.profile-identity { display: flex; align-items: center; padding-top: 38rpx; }
+.profile-avatar { width: 146rpx; height: 146rpx; border: 5rpx solid #fff; border-radius: 50%; background: #fff; flex-shrink: 0; }
+.identity-copy { margin-left: 28rpx; min-width: 0; }
+.profile-name { display: block; font-size: 40rpx; font-weight: 600; color: #222d37; word-break: break-all; }
+.profile-id { display: block; margin-top: 15rpx; color: #8897a4; font-size: 23rpx; }
+.profile-bio { display: block; margin-top: 28rpx; font-size: 26rpx; color: #677785; line-height: 1.6; }
+.profile-bottom { display: flex; align-items: center; justify-content: space-between; margin-top: 24rpx; }
+.stats { display: flex; align-items: center; }
+.stat { padding: 10rpx 22rpx 10rpx 0; margin-right: 16rpx; text-align: center; }
+.stat:last-child { margin-right: 0; padding-right: 0; }
+.stat-value { display: block; color: #26333e; font-size: 31rpx; font-weight: 600; }
+.stat-label { display: block; margin-top: 8rpx; color: #7a858f; font-size: 22rpx; white-space: nowrap; }
+.edit-profile { margin: 0; padding: 0 29rpx; height: 66rpx; line-height: 64rpx; border: 1rpx solid #cbd5dd; border-radius: 36rpx; background: transparent; font-size: 25rpx; color: #36434f; }
+.history-entry { margin: 0; background: #fff; padding: 24rpx 36rpx; display: flex; align-items: center; border-top: 1rpx solid #f1f3f5; border-bottom: 12rpx solid #f7f8fa; }
+.history-icon { display: flex; align-items: center; justify-content: center; width: 68rpx; height: 68rpx; background: #edf6fc; border-radius: 20rpx; }
+.history-copy { flex: 1; margin-left: 20rpx; font-size: 27rpx; }
+.history-hint { display: block; margin-top: 5rpx; font-size: 22rpx; color: #9aa1a8; }
+.filter-row { display: flex; padding: 18rpx 22rpx 2rpx; }
+.filter-item { padding: 10rpx 19rpx; margin-right: 8rpx; border-radius: 30rpx; color: #8a939c; font-size: 23rpx; }
+.filter-item.selected { background: #e9f3fa; color: #1980c8; }
+.profile-error { padding: 16rpx 32rpx; color: #9c5b47; font-size: 25rpx; background: #fff5f0; }

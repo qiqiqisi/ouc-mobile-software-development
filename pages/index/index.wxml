@@ -1,0 +1,14 @@
+<view class="page">
+  <view class="top-shell">
+    <view style="height: {{statusBarHeight}}px;"></view>
+    <view class="brand-row" style="height: {{navHeight}}px;"><view class="brand"><image class="brand-logo" src="/assets/ouc-logo.png" mode="aspectFit" /><text class="brand-title">海大圈</text></view><text class="brand-discover">发现</text></view>
+    <scroll-view class="category-scroll" scroll-x enhanced show-scrollbar="{{false}}"><view class="category-row"><view wx:for="{{categories}}" wx:key="key" class="category-item {{activeCategory === item.key ? 'active' : ''}}" data-key="{{item.key}}" bindtap="onCategoryTap"><text>{{item.label}}</text></view></view></scroll-view>
+  </view>
+  <view wx:if="{{initialLoading}}" class="skeleton-row"><view class="skeleton-card"></view><view class="skeleton-card short"></view></view>
+  <view wx:elif="{{errorText && !posts.length}}" class="empty-state"><image class="empty-logo" src="/assets/ouc-logo.png" mode="aspectFit" /><text class="empty-title">暂时没有加载成功</text><text class="empty-desc">{{errorText}}</text><button class="retry-button" bindtap="onRetry">重新加载</button></view>
+  <view wx:elif="{{!posts.length}}" class="empty-state"><image class="empty-logo" src="/assets/ouc-logo.png" mode="aspectFit" /><text class="empty-title">校园故事，等你开启</text><text class="empty-desc">记录一刻日常，遇见同频的海大人。</text></view>
+  <view wx:else class="feed"><view class="column"><post-card wx:for="{{posts}}" wx:key="_id" wx:if="{{index % 2 === 0}}" post="{{item}}" bind:tapcard="onPostTap" bind:tapauthor="onAuthorTap" bind:like="onLikeTap" /></view><view class="column"><post-card wx:for="{{posts}}" wx:key="_id" wx:if="{{index % 2 === 1}}" post="{{item}}" bind:tapcard="onPostTap" bind:tapauthor="onAuthorTap" bind:like="onLikeTap" /></view></view>
+  <view wx:if="{{errorText && posts.length}}" class="load-more" bindtap="onRetry">{{errorText}} · 点击重试</view>
+  <view wx:elif="{{loading && !initialLoading}}" class="load-more">正在加载…</view>
+  <view wx:elif="{{!hasMore && posts.length}}" class="load-more">— 每一份日常，都值得被看见 —</view>
+</view>
