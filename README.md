@@ -69,7 +69,9 @@ BUGTI Web v1.0.0 **暂时没有账号系统和云端同步**。当前记录保�
 | Lab 01 | 第一个微信小程序 | [lab01](https://github.com/qiqiqisi/ouc-mobile-software-development/tree/lab01) | ✅ 已完成 |
 | Lab 02 | 名片小程序       | [lab02](https://github.com/qiqiqisi/ouc-mobile-software-development/tree/lab02) | ✅ 已完成 |
 | Lab 03 | 高校新闻网       | [lab03](https://github.com/qiqiqisi/ouc-mobile-software-development/tree/lab03) | ✅ 已完成 |
-| ...    | 后续实验         | -                                                            | 持续更新 |
+| Lab 04 | 推箱子：哈吉米推什么推 | [lab04](https://github.com/qiqiqisi/ouc-mobile-software-development/tree/lab04) | ✅ 已完成 |
+| Lab 05 | 鸿蒙开发入门及计算器开发 | [lab05](https://github.com/qiqiqisi/ouc-mobile-software-development/tree/lab05) | ✅ 已完成 |
+| Lab 06 | 海大圈校园图文社区 | [lab06](https://github.com/qiqiqisi/ouc-mobile-software-development/tree/lab06) | ✅ 已完成 |
 
 ---
 
@@ -142,6 +144,71 @@ BUGTI Web v1.0.0 **暂时没有账号系统和云端同步**。当前记录保�
 
 ---
 
+## Lab 04：哈吉米推什么推
+
+实验 4 完成了一个以黑猫“哈吉米”为主题的推箱子小程序，并在基础推箱子功能上进行了个性化设计。
+
+主要完成：
+
+- 使用 8×8 二维数组保存四个关卡
+- 使用 Canvas 2D 绘制游戏地图
+- 将玩家、箱子、目标和墙体分别替换为哈吉米、猫罐头、猫饭碗和快递纸箱
+- 支持方向按钮和棋盘滑动操作
+- 统计步数与推动次数
+- 支持撤回和重新开始
+- 使用微信小程序 Storage 保存每关本地最佳成绩
+- 通关后显示理论最少步数，并可查看“标准作案路线”
+
+👉 [查看 Lab 04 分支](https://github.com/qiqiqisi/ouc-mobile-software-development/tree/lab04)
+
+进入分支后可以直接查看最终小程序源码、实验截图和完整实验报告。
+
+---
+
+## Lab 05：鸿蒙开发入门及计算器开发
+
+实验 5 使用 DevEco Studio、ArkTS 和 HarmonyOS 完成了一个支持多种计算方式的 Calculator 应用。
+
+主要完成：
+
+- 支持标准、科学和程序员三种计算模式
+- 科学模式提供三角函数、对数、幂、根号、括号、π、e 以及 DEG / RAD 角度方式
+- 使用 Decimal 完成高精度基础十进制计算，并保留 Number 标准精度模式
+- 程序员模式使用 BigInt，支持 BIN / OCT / DEC / HEX 进制、位宽与位运算
+- 支持在光标位置编辑表达式和删除内容
+- 保存正式计算的历史记录，并恢复对应模式、表达式和相关设置
+- 使用 HarmonyOS 系统剪贴板复制真实结果字符串
+- 提供简洁、小猫和自定义三套外观
+
+👉 [查看 Lab 05 分支](https://github.com/qiqiqisi/ouc-mobile-software-development/tree/lab05)
+
+进入分支后可以直接查看最终 HarmonyOS 工程、实验截图和完整实验报告。
+
+---
+
+## Lab 06：海大圈
+
+实验 6 基于微信云开发完成了一个校园图文社区“海大圈”，围绕校园笔记发布、互动和个人主页实现完整的数据闭环。
+
+主要完成：
+
+- 首页采用双列校园图文信息流，支持分类筛选、分页和下拉刷新
+- 支持发布 0～3 张图片，并设置多图封面、地点和联系方式
+- 详情页支持多图、评论、回复、点赞、收藏、关注、分享和保存图片
+- 使用 `cloud.getWXContext()` 获取 `OPENID` 作为当前微信用户身份
+- 使用 `login`、`campusApi` 云函数统一处理身份和业务逻辑
+- 使用 `users`、`posts`、`post_reactions`、`follows`、`comments`、`browse_history` 六个云数据库集合
+- 支持个人主页、TA 主页、关注与粉丝列表、资料编辑
+- 支持浏览历史、状态筛选以及单条移除和清空
+- 使用事务、唯一关系 ID 和请求 ID 处理幂等、计数一致性和失败回滚
+- 项目自带 39 项自动测试和静态检查
+
+👉 [查看 Lab 06 分支](https://github.com/qiqiqisi/ouc-mobile-software-development/tree/lab06)
+
+进入分支后可以直接查看最终小程序源码、云函数、实验截图和完整实验报告。
+
+---
+
 ## 🌿 仓库与分支管理
 
 课程实验仍采用一个实验对应一个分支的方式管理；个人项目 BUGTI Web 当前位于 `main` 分支的 `web/` 目录，并通过 GitHub Actions 部署到 GitHub Pages。
@@ -175,5 +242,35 @@ lab03
 ├── README.md
 ├── images/
 ├── lab03_complete/
+└── .gitignore
+
+lab04
+│
+├── README.md
+├── images/
+├── assets/
+├── data/
+├── pages/
+├── utils/
+└── .gitignore
+
+lab05
+│
+├── README.md
+├── images/
+├── AppScope/
+├── entry/
+├── hvigor/
+└── .gitignore
+
+lab06
+│
+├── README.md
+├── images/
+├── assets/
+├── cloudfunctions/
+├── components/
+├── pages/
+├── services/
 └── .gitignore
 ```
