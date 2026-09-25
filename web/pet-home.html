@@ -23,10 +23,15 @@
 
     <section id="room-stage" class="room-stage" aria-label="监工小屋互动场景">
       <img class="room-background" src="./assets/pet/room/pet_room_base.png" alt="监工小屋">
-      <img class="room-board" src="./assets/pet/room/pet_room_status_board.png" alt="状态板">
-      <div id="board-copy" class="room-board-copy">FULL POWER<br>PLAN 0 / 0</div>
+      <button id="room-board" class="room-board" type="button" data-panel="status" aria-label="查看今日运行状态">
+        <img src="./assets/pet/room/pet_room_status_board.png" alt="">
+        <span id="board-copy" class="room-board-copy">FULL POWER<br>PLAN 0 / 0</span>
+      </button>
       <div id="room-pets" class="room-pets"></div>
-      <img class="room-desk" src="./assets/pet/room/pet_room_desk.png" alt="书桌">
+      <div id="collision-fx" class="collision-fx" aria-hidden="true"></div>
+      <button id="room-desk" class="room-desk" type="button" data-panel="plan" aria-label="打开今日计划">
+        <img src="./assets/pet/room/pet_room_desk.png" alt="">
+      </button>
       <button id="teaser-wand" class="teaser-wand" type="button" aria-label="拖动逗猫棒">
         <img src="./assets/pet/room/pet_room_teaser_wand.png" alt="">
       </button>
@@ -67,6 +72,21 @@
       <a id="manage-add" class="manager-add" href="./index.html?monitor=add&amp;return=pet-home">＋ 添加一个监工</a>
       <p id="manage-limit" class="sheet-empty is-hidden">房间最多住 3 个监工，避免走路时挤成一团。</p>
       <button class="sheet-close" type="button" data-close-panel>收起来</button>
+    </section>
+
+    <section id="status-panel" class="pet-sheet is-hidden" aria-labelledby="status-title">
+      <div class="sheet-handle"></div>
+      <header class="sheet-header">
+        <div><div class="pet-eyebrow">SYSTEM STATUS</div><h2 id="status-title">今日运行状态</h2></div>
+        <strong id="status-code">NO DATA</strong>
+      </header>
+      <div class="status-grid">
+        <div class="status-cell"><span>计划</span><strong id="status-plan">0 / 0</strong></div>
+        <div class="status-cell"><span>专注</span><strong id="status-focus">0 min</strong></div>
+        <div class="status-cell"><span>番茄</span><strong id="status-sessions">0</strong></div>
+        <div class="status-cell"><span>监工</span><strong id="status-monitors">0 / 3</strong></div>
+      </div>
+      <button class="sheet-close" type="button" data-close-panel>知道了</button>
     </section>
   </div>
 
