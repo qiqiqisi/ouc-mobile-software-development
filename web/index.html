@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="./css/index.css">
   <link rel="stylesheet" href="./css/monitor.css">
 </head>
-<body>
+<body data-nav="home">
   <main class="app-shell index-page">
     <header class="brand-row">
       <div class="brand">
@@ -23,7 +23,12 @@
       <section id="monitor-home" class="monitor-home is-hidden" aria-label="我的监工">
         <button id="monitor-home-image-button" class="monitor-home-image-button" type="button" aria-label="点击监工">
           <span class="monitor-home-stage">
-            <img id="monitor-home-image" class="monitor-home-image" alt="">
+            <span class="monitor-suit monitor-suit-home">
+              <img class="monitor-suit-leg monitor-suit-leg-left" src="./assets/pet/limbs/pet_leg_straight.png" alt="">
+              <img class="monitor-suit-leg monitor-suit-leg-right" src="./assets/pet/limbs/pet_leg_straight.png" alt="">
+              <img class="monitor-suit-body" src="./assets/pet/body/pet_body_default.png" alt="">
+              <img id="monitor-home-image" class="monitor-home-image monitor-suit-head" alt="">
+            </span>
           </span>
         </button>
         <div class="monitor-home-meta">
@@ -187,7 +192,12 @@
 
       <section class="monitor-stage-panel is-hidden" data-monitor-stage="settings">
         <div class="monitor-existing-checker">
-          <img id="monitor-existing-image" class="monitor-existing-image" alt="当前监工">
+          <span class="monitor-suit monitor-suit-preview">
+            <img class="monitor-suit-leg monitor-suit-leg-left" src="./assets/pet/limbs/pet_leg_straight.png" alt="">
+            <img class="monitor-suit-leg monitor-suit-leg-right" src="./assets/pet/limbs/pet_leg_straight.png" alt="">
+            <img class="monitor-suit-body" src="./assets/pet/body/pet_body_default.png" alt="">
+            <img id="monitor-existing-image" class="monitor-existing-image monitor-suit-head" alt="当前监工">
+          </span>
         </div>
 
         <label class="monitor-field-label" for="monitor-existing-name">监工名字</label>
@@ -198,7 +208,7 @@
           <label class="monitor-field-label" for="monitor-existing-scale">首页显示大小</label>
           <output id="monitor-existing-scale-value">115%</output>
         </div>
-        <input id="monitor-existing-scale" class="monitor-range" type="range" min="75" max="200" step="1" value="115">
+        <input id="monitor-existing-scale" class="monitor-range" type="range" min="75" max="135" step="1" value="115">
 
         <div class="monitor-action-row monitor-action-row-three">
           <button class="monitor-secondary" type="button" data-choose-monitor>更换图片</button>
@@ -240,17 +250,22 @@
           <span>PREVIEW</span>
           <span>2 / 2</span>
         </div>
-        <p class="monitor-lead">棋盘格代表透明区域。现在调整它在首页的大小。</p>
+        <p class="monitor-lead">棋盘格代表透明区域。确认头部完整后，它会穿上 BUGTI 小西装。</p>
 
         <div class="monitor-preview-checker">
-          <img id="monitor-preview-image" class="monitor-preview-image" alt="透明监工预览">
+          <span class="monitor-suit monitor-suit-preview">
+            <img class="monitor-suit-leg monitor-suit-leg-left" src="./assets/pet/limbs/pet_leg_straight.png" alt="">
+            <img class="monitor-suit-leg monitor-suit-leg-right" src="./assets/pet/limbs/pet_leg_straight.png" alt="">
+            <img class="monitor-suit-body" src="./assets/pet/body/pet_body_default.png" alt="">
+            <img id="monitor-preview-image" class="monitor-preview-image monitor-suit-head" alt="透明监工预览">
+          </span>
         </div>
 
         <div class="monitor-scale-head">
           <label class="monitor-field-label" for="monitor-preview-scale">首页显示大小</label>
           <output id="monitor-preview-scale-value">115%</output>
         </div>
-        <input id="monitor-preview-scale" class="monitor-range" type="range" min="75" max="200" step="1" value="115">
+        <input id="monitor-preview-scale" class="monitor-range" type="range" min="75" max="135" step="1" value="115">
 
         <label class="monitor-field-label" for="monitor-preview-name">给监工起个名字</label>
         <input id="monitor-preview-name" class="monitor-text-input" type="text" placeholder="例如：哈机密" autocomplete="off">
@@ -265,5 +280,6 @@
   </div>
 
   <script type="module" src="./js/pages/index.js"></script>
+  <script type="module" src="./js/shared/nav.js"></script>
 </body>
 </html>

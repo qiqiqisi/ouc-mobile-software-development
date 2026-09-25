@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>宠物天地｜BUGTI</title>
+  <link rel="stylesheet" href="./css/base.css">
+  <link rel="stylesheet" href="./css/pet-home.css">
+</head>
+<body data-nav="pet">
+  <main class="app-shell pet-page">
+    <header class="pet-header">
+      <div>
+        <div class="pet-eyebrow">PET WORLD</div>
+        <h1>监工小屋</h1>
+      </div>
+      <div class="pet-tools" aria-label="宠物工具">
+        <a id="focus-pill" class="pet-pill" href="./focus.html"><b>FOCUS</b><span id="focus-pill-value">0 min</span></a>
+        <button class="pet-pill" type="button" data-panel="manage"><b>MANAGE</b><span>监工管理</span></button>
+        <button class="pet-pill" type="button" data-panel="plan"><b>PLAN</b><span id="plan-pill-value">0 / 0</span></button>
+      </div>
+    </header>
+
+    <section id="room-stage" class="room-stage" aria-label="监工小屋互动场景">
+      <img class="room-background" src="./assets/pet/room/pet_room_base.png" alt="监工小屋">
+      <img class="room-board" src="./assets/pet/room/pet_room_status_board.png" alt="状态板">
+      <div id="board-copy" class="room-board-copy">FULL POWER<br>PLAN 0 / 0</div>
+      <div id="room-pets" class="room-pets"></div>
+      <img class="room-desk" src="./assets/pet/room/pet_room_desk.png" alt="书桌">
+      <button id="teaser-wand" class="teaser-wand" type="button" aria-label="拖动逗猫棒">
+        <img src="./assets/pet/room/pet_room_teaser_wand.png" alt="">
+      </button>
+      <div id="pet-bubble" class="pet-bubble is-hidden" role="status"></div>
+      <div id="room-empty" class="room-empty is-hidden">
+        <strong>小屋还没有监工</strong>
+        <span>先添加一位监工，才能使用陪学和逗猫棒。</span>
+        <a href="./index.html?monitor=add&amp;return=pet-home">添加监工</a>
+      </div>
+    </section>
+
+    <p class="room-hint">拖动逗猫棒，监工会追过来；点一下监工，它会回应你。</p>
+  </main>
+
+  <div id="panel-backdrop" class="panel-backdrop is-hidden" aria-hidden="true">
+    <section id="plan-panel" class="pet-sheet is-hidden" aria-labelledby="plan-title">
+      <div class="sheet-handle"></div>
+      <header class="sheet-header">
+        <div><div class="pet-eyebrow">TODAY'S PLAN</div><h2 id="plan-title">今日计划</h2></div>
+        <strong id="plan-count">0 / 0</strong>
+      </header>
+      <form id="plan-form" class="plan-form">
+        <input id="plan-input" maxlength="40" placeholder="今天准备干掉什么？" autocomplete="off">
+        <button type="submit">添加</button>
+      </form>
+      <div id="plan-list" class="plan-list"></div>
+      <p id="plan-empty" class="sheet-empty">今天还没有计划。</p>
+      <button class="sheet-close" type="button" data-close-panel>收起来</button>
+    </section>
+
+    <section id="manage-panel" class="pet-sheet is-hidden" aria-labelledby="manage-title">
+      <div class="sheet-handle"></div>
+      <header class="sheet-header">
+        <div><div class="pet-eyebrow">MONITORS</div><h2 id="manage-title">监工管理</h2></div>
+        <strong id="manage-count">0 / 3</strong>
+      </header>
+      <div id="manage-list" class="manage-list"></div>
+      <a id="manage-add" class="manager-add" href="./index.html?monitor=add&amp;return=pet-home">＋ 添加一个监工</a>
+      <p id="manage-limit" class="sheet-empty is-hidden">房间最多住 3 个监工，避免走路时挤成一团。</p>
+      <button class="sheet-close" type="button" data-close-panel>收起来</button>
+    </section>
+  </div>
+
+  <script type="module" src="./js/pages/pet-home.js"></script>
+  <script type="module" src="./js/shared/nav.js"></script>
+</body>
+</html>

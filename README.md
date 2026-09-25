@@ -8,16 +8,16 @@
 
 ## 🧪 BUGTI 暑期人格测试
 
-> **当前版本：BUGTI Web v1.0.0 · 首个公开测试版本**
+> **当前版本：BUGTI Web 功能同步版 · 与仓库内微信小程序核心功能同步**
 
 🌐 **在线体验：**  
 https://qiqiqisi.github.io/ouc-mobile-software-development/
 
-由于上传为微信小程序需要审批，所以建立测试网站，本网站更适合在手机上打开。欢迎直接使用手机打开测试，也欢迎反馈功能问题、显示异常或体验上的建议，反馈邮箱：wzh1661@stu.ouc.edu.cn。
+由于微信小程序发布需要审核，因此同时提供无需安装的测试网站。页面按手机优先设计，也兼容桌面浏览器；问题和建议可通过本仓库 [Issues](https://github.com/qiqiqisi/ouc-mobile-software-development/issues) 提交。
 
 所有图片均由ChatGPT参考MBTI和SBTI风格生成。
 
-BUGTI 是一个围绕“暑期生活记录 + 阶段人格分析”设计的小项目。用户可以记录每天的状态，在积累一定记录后选择时间范围进行分析，并获得对应的 BUGTI 人格结果；同时提供今日运势、历史日历和分享等功能。
+BUGTI 是一个围绕“生活记录 + 阶段人格分析 + 监工陪学”设计的小项目。用户可以记录每天的状态，在积累记录后按自然日范围分析并获得 BUGTI 人格结果；也可以制作自己的监工、安排今日计划、拖动逗猫棒互动，并让监工陪自己完成一轮专注计时。
 
 ### ✨ 主要功能
 
@@ -27,20 +27,48 @@ BUGTI 是一个围绕“暑期生活记录 + 阶段人格分析”设计的小�
 - 📅 **历史日历**：按月份查看记录日期和心情 Emoji
 - 🧠 **人格分析**：支持最近 7 天、最近 30 天和自定义自然日范围
 - 🎭 **BUGTI 人格结果**：根据记录生成对应人格、文案和人格图片
+- ☁️ **本地记录词云**：只从真实记录提取关键词，支持横排、竖排和空状态；不会用人格结果反推词语
 - 🔮 **今日运势**：每日抽取运势，并支持不同主题与变体
+- 🐈 **我的监工**：从照片中涂抹保留头部，生成透明图片并穿上 BUGTI 小西装；名字支持 1～6 个可见字符，显示大小可调
+- 🏠 **宠物天地**：最多保存 3 位监工，可切换主监工；监工会在房间巡视、回应点击、在桌边活动并追逐逗猫棒
+- 🪄 **逗猫棒互动**：拖动玩具后，房间中的监工会追向当前位置，松手后恢复自由活动
+- ✅ **今日计划**：每天最多添加 5 条计划，支持完成、取消完成、删除，并显示完成进度和累计专注数据
+- ⏱️ **监工陪学**：可选择自由专注或绑定计划、选择监工，使用 25/50/90 分钟预设或 5～120 分钟自定义时长
+- 🍅 **完整计时流程**：支持暂停、继续、提前结束、工作完成后的休息阶段、跳过休息、完成/中断统计，以及刷新后的计时恢复
 - 🔗 **分享**：支持人格结果和运势分享链接
 - 📱 **移动端优先**：适配常见手机宽度，同时兼容 PC 浏览器
 
+### 📷 功能展示
+
+| 首页与每日记录 | 人格结果与记录词云 |
+| --- | --- |
+| <img src="docs/screenshots/bugti-home-fortune.jpg" width="280" alt="BUGTI 首页与今日运势"> | <img src="docs/screenshots/bugti-personality-result.jpg" width="280" alt="BUGTI 人格分析结果"> |
+| <img src="docs/screenshots/bugti-daily-record.jpg" width="280" alt="BUGTI 每日记录表单"> | <img src="docs/screenshots/bugti-wordcloud-detail.jpg" width="280" alt="BUGTI 记录词云详情"> |
+
+| 监工制作与管理 | 宠物天地互动 |
+| --- | --- |
+| <img src="docs/screenshots/bugti-monitor-editor.jpg" width="280" alt="自定义监工编辑页面"> | <img src="docs/screenshots/bugti-monitor-management.jpg" width="280" alt="三位监工管理面板"> |
+| <img src="docs/screenshots/bugti-daily-plan.jpg" width="280" alt="宠物天地今日计划"> | <img src="docs/screenshots/bugti-teaser-wand.jpg" width="280" alt="逗猫棒与监工追逐互动"> |
+
+| 监工陪学设置 | 计时与结果 |
+| --- | --- |
+| <img src="docs/screenshots/bugti-focus-setup.jpg" width="280" alt="选择任务监工和专注时长"> | <img src="docs/screenshots/bugti-focus-running.jpg" width="280" alt="专注计时进行中"> |
+| 预设 25/50/90 分钟，也可自定义 5～120 分钟。 | <img src="docs/screenshots/bugti-focus-finished.jpg" width="280" alt="专注中断结果页面"> |
+
 ### 💾 数据存储说明
 
-BUGTI Web v1.0.0 **暂时没有账号系统和云端同步**。当前记录保存在访问网站时所使用的浏览器本地。
+BUGTI Web **没有账号系统和云端同步**。记录、计划、计时状态和监工图片只保存在访问网站时所使用的浏览器本地。
 
 当前主要存储方式：
 
 - 每日记录：`localStorage`
 - 人格分析报告：`localStorage`
 - 今日运势状态：`localStorage`
+- 今日计划与专注记录：`localStorage`
+- 当前进行中的计时：`localStorage`
+- 监工名单和主监工设置：`localStorage`
 - 记录图片：`IndexedDB`
+- 监工透明图片：`IndexedDB`
 
 因此需要注意：
 
@@ -52,11 +80,21 @@ BUGTI Web v1.0.0 **暂时没有账号系统和云端同步**。当前记录保�
 - 无痕 / 隐私浏览模式下的数据不建议长期保存。
 - 当前版本没有云端备份，请不要把重要资料只保存在 BUGTI 中。
 
-### 📦 版本说明
+### 🔐 公开仓库内容边界
 
-**BUGTI Web v1.0.0** 是第一版公开测试版本，目前已完成主要记录、分析、人格结果、今日运势、分享和移动端适配功能。
+| 可以公开 | 不应公开 |
+| --- | --- |
+| 小程序与 Web 源码、无身份信息的功能截图、项目说明、通用配置、GitHub Actions 工作流 | 真实微信 APPID、`project.private.config.json`、Access Token、云环境 ID、私钥、密码、个人姓名/学号/手机号、聊天截图、带定位或身份元数据的图片 |
 
-当前已完成桌面浏览器和多种手机宽度测试。真实手机环境下的**系统相册选择**和**系统分享面板**仍建议继续进行人工测试。
+公开版 `project.config.json` 使用 `touristappid`；真实 APPID 仅保存在被 `.gitignore` 排除的本机 `project.private.config.json`。用户照片和抠图结果由浏览器本地处理，不会由 BUGTI Web 上传到服务器。
+
+### 📦 版本与验证说明
+
+当前同步版包含记录、分析、人格结果、词云、今日运势、监工制作、宠物天地、逗猫棒、今日计划和监工陪学。Web 使用原生 HTML、CSS 和 JavaScript，无需构建；GitHub Pages 发布 `web/` 目录。
+
+本次整理完成的自动检查包括：25 个 Web JavaScript 文件语法检查、203 组小程序/Web 分析器一致性输入、计划与专注存储逻辑、73 个本地 HTTP 资源可访问性检查。自动检查不能代替微信真机测试。
+
+浏览器和微信小程序的平台外壳并不相同，因此系统相册选择、系统分享面板、微信导航栏以及真机触控手感不可能做到像素级完全一致；这些能力仍建议在真实手机上人工验收。业务页面、分析规则和本地数据流程以仓库代码为准。
 
 后续版本会继续根据实际使用情况修复问题和调整体验。
 

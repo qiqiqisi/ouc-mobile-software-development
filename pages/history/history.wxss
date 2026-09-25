@@ -191,3 +191,5 @@
   line-height: 1.6;
   color: #aaaaaa;
 }
+
+.page { padding-bottom: 190rpx; box-sizing: border-box; }

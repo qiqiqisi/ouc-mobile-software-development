@@ -1,4 +1,9 @@
 const petService = require("../../services/pet")
+const {
+  REFERENCE_WIDTH,
+  REFERENCE_HEIGHT,
+  buildStandingLayers
+} = require("../../config/pet-poses")
 
 const DEFAULT_BRUSH_SIZE = 46
 const MIN_BRUSH_SIZE = 18
@@ -6,7 +11,7 @@ const MAX_BRUSH_SIZE = 96
 const EXPORT_MAX_SIDE = 640
 const WORKING_MAX_SIDE = 1280
 const MIN_SELECTED_SIZE = 4
-const MASK_PADDING_RATIO = 0.06
+const MASK_PADDING_RATIO = 0.11
 
 function clamp(value, min, max) {
   return Math.max(min, Math.min(max, value))
@@ -37,13 +42,31 @@ Page({
     previewPath: "",
     displayScalePercent: 115,
     displayScale: 1.15,
+    headTransform: { scale: 1, offsetX: 0, offsetY: 0, rotation: 0 },
+    headScalePercent: 100,
+    headPreviewReady: false,
+    headPreviewError: false,
+    tryOnBodyStyle: "",
+    tryOnHeadStyle: "",
+    tryOnLegLeftStyle: "",
+    tryOnLegRightStyle: "",
     isBusy: false
   },
 
-  onLoad() {
+  onLoad(options = {}) {
+    const createNew = options.mode === "add"
+    const requestedId = options.petId || ""
+    this._createNewPet = createNew
+    this._editingPetId = createNew ? "" : requestedId
+
     let existingProfile
     try {
-      existingProfile = petService.getProfile()
+      existingProfile = createNew
+        ? null
+        : requestedId
+        ? petService.getProfileById(requestedId)
+        : petService.getProfile()
+      if (existingProfile && !this._editingPetId) this._editingPetId = existingProfile.id || ""
     } catch (error) {
       wx.showToast({ title: "监工配置暂时无法读取，请重新进入", icon: "none" })
       this.setData({ isBusy: true })
@@ -63,6 +86,10 @@ Page({
       displayScale: existingProfile
         ? existingProfile.displayScale
         : petService.DEFAULT_DISPLAY_SCALE
+    }, () => {
+      if (petService.isSuitProfile(existingProfile)) {
+        this.setTryOnTransform(existingProfile.headTransform)
+      }
     })
   },
 
@@ -75,6 +102,23 @@ Page({
     this.cancelPaintStroke()
     this._sourceImage = null
     this._sourcePath = ""
+  },
+
+  setTryOnTransform(transform) {
+    const headTransform = petService.normalizeHeadTransform(transform)
+    const layers = buildStandingLayers("default", headTransform, {
+      walking: false,
+      walkPhase: 0
+    })
+
+    this.setData({
+      headTransform,
+      headScalePercent: Math.round(headTransform.scale * 100),
+      tryOnBodyStyle: layers.bodyStyle,
+      tryOnHeadStyle: layers.headStyle,
+      tryOnLegLeftStyle: layers.leftLegStyle,
+      tryOnLegRightStyle: layers.rightLegStyle
+    })
   },
 
   onPageScroll() {
@@ -148,17 +192,22 @@ Page({
         this._isPainting = false
         this._lastPaintPoint = null
 
+        const nextDisplayScale = this.data.existingProfile
+          ? this.data.existingProfile.displayScale
+          : this.data.displayScale || petService.DEFAULT_DISPLAY_SCALE
+
         this.setData({
           stage: "paint",
           paintMode: "paint",
           brushSize: DEFAULT_BRUSH_SIZE,
           hasSelection: false,
           previewPath: "",
-          displayScalePercent: Math.round(
-            petService.DEFAULT_DISPLAY_SCALE * 100
-          ),
-          displayScale: petService.DEFAULT_DISPLAY_SCALE
+          headPreviewReady: false,
+          headPreviewError: false,
+          displayScalePercent: Math.round(nextDisplayScale * 100),
+          displayScale: nextDisplayScale
         }, () => {
+          this.setTryOnTransform()
           wx.nextTick(() => {
             this.initPaintEditor(this._sourcePath, false)
           })
@@ -431,10 +480,31 @@ Page({
       if (!Number.isFinite(rect.left) || !Number.isFinite(rect.top)) return null
       localX = touch.clientX - rect.left
       localY = touch.clientY - rect.top
+    } else if (Number.isFinite(touch.pageX) && Number.isFinite(touch.pageY)) {
+      if (!Number.isFinite(rect.left) || !Number.isFinite(rect.top)) return null
+      localX = touch.pageX - rect.left
+      localY = touch.pageY - rect.top
     } else if (Number.isFinite(touch.x) && Number.isFinite(touch.y)) {
-      // 部分基础库的 CanvasTouch 只提供画布局部 CSS 坐标，不能再减视口偏移。
-      localX = touch.x
-      localY = touch.y
+      // 不同基础库里 x/y 有时是画布局部坐标，有时是视口坐标；
+      // 优先选择落在画布范围内的那一种，避免“手点这里却画到别处”。
+      const localCandidate = { x: touch.x, y: touch.y }
+      const viewportCandidate = {
+        x: Number.isFinite(rect.left) ? touch.x - rect.left : NaN,
+        y: Number.isFinite(rect.top) ? touch.y - rect.top : NaN
+      }
+      const localValid = localCandidate.x >= 0 && localCandidate.y >= 0 &&
+        localCandidate.x <= rect.width && localCandidate.y <= rect.height
+      const viewportValid = Number.isFinite(viewportCandidate.x) && Number.isFinite(viewportCandidate.y) &&
+        viewportCandidate.x >= 0 && viewportCandidate.y >= 0 &&
+        viewportCandidate.x <= rect.width && viewportCandidate.y <= rect.height
+
+      if (viewportValid && !localValid) {
+        localX = viewportCandidate.x
+        localY = viewportCandidate.y
+      } else {
+        localX = localCandidate.x
+        localY = localCandidate.y
+      }
     } else {
       return null
     }
@@ -709,6 +779,39 @@ Page({
     }
   },
 
+  getRecommendedHeadTransform(imageInfo) {
+    const width = Number(imageInfo && imageInfo.width) || 1
+    const height = Number(imageInfo && imageInfo.height) || 1
+    const ratio = width / height
+
+    // 头像过窄时适度放大，避免“抠到了但试穿页像没显示”。
+    // 这里只给初值，用户仍可在试穿页继续拖动、缩放、旋转。
+    let scale = 1
+    if (ratio < 0.82) {
+      scale = clamp(0.9 / Math.max(ratio, 0.55), 1, 1.3)
+    } else if (ratio > 1.55) {
+      scale = 0.95
+    }
+
+    return { scale, offsetX: 0, offsetY: 0, rotation: 0 }
+  },
+
+  inspectPreviewImage(path) {
+    return new Promise((resolve, reject) => {
+      wx.getImageInfo({
+        src: path,
+        success: info => {
+          if (!info || !(info.width > 0 && info.height > 0)) {
+            reject(new Error("抠图结果尺寸异常，请重新涂抹"))
+            return
+          }
+          resolve(info)
+        },
+        fail: () => reject(new Error("抠图结果暂时无法读取，请重新试一次"))
+      })
+    })
+  },
+
   async previewCutout() {
     if (this.data.isBusy) {
       return
@@ -739,16 +842,25 @@ Page({
       const previewPath = await this.createPaintCutoutPng(bounds)
       if (this._destroyed) return
 
+      const previewInfo = await this.inspectPreviewImage(previewPath)
+      if (this._destroyed) return
+
+      const nextName =
+        this.data.existingProfile && !this.data.petName
+          ? this.data.existingProfile.name
+          : this.data.petName
+      const recommendedTransform = this.getRecommendedHeadTransform(previewInfo)
+      this._recommendedHeadTransform = recommendedTransform
+
       this.setData({
-        stage: "preview",
+        stage: "tryon",
         previewPath,
         isBusy: false,
-        petName:
-          this.data.existingProfile && !this.data.petName
-            ? this.data.existingProfile.name
-            : this.data.petName,
-        nameCount: petService.getNameLength(this.data.petName)
-      })
+        headPreviewReady: false,
+        headPreviewError: false,
+        petName: nextName,
+        nameCount: petService.getNameLength(nextName)
+      }, () => this.setTryOnTransform(recommendedTransform))
     } catch (error) {
       if (this._destroyed) return
       console.error("生成监工透明 PNG 失败：", error)
@@ -1000,10 +1112,100 @@ Page({
 
   backToPaint() {
     if (this.data.isBusy) return
-    this.setData({ stage: "paint" }, () => {
+    this.setData({
+      stage: "paint",
+      headPreviewReady: false,
+      headPreviewError: false
+    }, () => {
       wx.nextTick(() => {
         this.initPaintEditor(this._sourcePath, true)
       })
+    })
+  },
+
+  onHeadPreviewLoad() {
+    if (this.data.headPreviewReady && !this.data.headPreviewError) return
+    this.setData({ headPreviewReady: true, headPreviewError: false })
+  },
+
+  onHeadPreviewError() {
+    this.setData({ headPreviewReady: false, headPreviewError: true })
+  },
+
+  resetHeadTransform() {
+    if (this.data.isBusy) return
+    this.setTryOnTransform(
+      this._recommendedHeadTransform || { scale: 1, offsetX: 0, offsetY: 0, rotation: 0 }
+    )
+  },
+
+  getTryOnTouchPoint(event) {
+    const touch = getTouch(event)
+    if (!touch) return null
+
+    const x = Number.isFinite(touch.clientX)
+      ? touch.clientX
+      : Number.isFinite(touch.pageX)
+      ? touch.pageX
+      : Number.isFinite(touch.x)
+      ? touch.x
+      : null
+    const y = Number.isFinite(touch.clientY)
+      ? touch.clientY
+      : Number.isFinite(touch.pageY)
+      ? touch.pageY
+      : Number.isFinite(touch.y)
+      ? touch.y
+      : null
+
+    return x === null || y === null ? null : { x, y }
+  },
+
+  onTryOnTouchStart(event) {
+    if (this.data.isBusy) return
+    const point = this.getTryOnTouchPoint(event)
+    if (!point) return
+    this.createSelectorQuery().select("#petTryOnStage").boundingClientRect().exec(result => {
+      const rect = result && result[0]
+      if (!rect || !(rect.width > 0 && rect.height > 0)) return
+      this._tryOnRect = rect
+      this._tryOnStart = {
+        clientX: point.x,
+        clientY: point.y,
+        offsetX: this.data.headTransform.offsetX,
+        offsetY: this.data.headTransform.offsetY
+      }
+    })
+  },
+
+  onTryOnTouchMove(event) {
+    const point = this.getTryOnTouchPoint(event)
+    const start = this._tryOnStart
+    const rect = this._tryOnRect
+    if (!point || !start || !rect) return
+    this.setTryOnTransform({
+      ...this.data.headTransform,
+      offsetX: start.offsetX + (point.x - start.clientX) * REFERENCE_WIDTH / rect.width,
+      offsetY: start.offsetY + (point.y - start.clientY) * REFERENCE_HEIGHT / rect.height
+    })
+  },
+
+  onTryOnTouchEnd() {
+    this._tryOnStart = null
+    this._tryOnRect = null
+  },
+
+  onHeadScaleChange(event) {
+    this.setTryOnTransform({
+      ...this.data.headTransform,
+      scale: Number(event.detail.value) / 100
+    })
+  },
+
+  onHeadRotationChange(event) {
+    this.setTryOnTransform({
+      ...this.data.headTransform,
+      rotation: Number(event.detail.value)
     })
   },
 
@@ -1029,7 +1231,8 @@ Page({
 
     try {
       const profile = petService.updateDisplayScale(
-        Number(event.detail.value) / 100
+        Number(event.detail.value) / 100,
+        this._editingPetId
       )
 
       this.setData({
@@ -1080,14 +1283,19 @@ Page({
     this.setData({ isBusy: true })
 
     try {
-      const profile = petService.saveProfile({
+      const profile = petService.saveSuitProfile({
         name: validation.name,
         tempFilePath: this.data.previewPath,
-        displayScale: this.data.displayScale
+        displayScale: this.data.displayScale,
+        headTransform: this.data.headTransform,
+        profileId: this._editingPetId,
+        createNew: this._createNewPet
       })
 
       this._sourcePath = ""
       this._sourceImage = null
+      this._editingPetId = profile.id || this._editingPetId
+      this._createNewPet = false
       this._selectionBounds = null
       this.setData({
         isBusy: false,
@@ -1151,7 +1359,7 @@ Page({
     }
 
     try {
-      const profile = petService.renameProfile(validation.name)
+      const profile = petService.renameProfile(validation.name, this._editingPetId)
       this.setData({
         existingProfile: profile,
         petName: profile.name,
@@ -1184,7 +1392,7 @@ Page({
         }
 
         try {
-          petService.removeProfile()
+          petService.removeProfile(this._editingPetId)
           this._sourcePath = ""
           this._sourceImage = null
           this.setData({

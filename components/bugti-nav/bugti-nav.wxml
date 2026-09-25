@@ -1,0 +1,21 @@
+<view class="nav-shell">
+  <view class="nav-item {{current === 'home' ? 'nav-item-active' : ''}}" data-key="home" bindtap="goRoot">
+    <text class="nav-code">HOME</text>
+    <text class="nav-label">首页</text>
+  </view>
+  <view class="nav-item {{current === 'log' ? 'nav-item-active' : ''}}" data-key="log" bindtap="goRoot">
+    <text class="nav-code">LOG</text>
+    <text class="nav-label">记录</text>
+  </view>
+  <view class="nav-create" bindtap="goRecord" aria-label="记录今天">
+    <text class="nav-plus">＋</text>
+  </view>
+  <view class="nav-item {{current === 'bug' ? 'nav-item-active' : ''}}" data-key="bug" bindtap="goRoot">
+    <text class="nav-code">BUG</text>
+    <text class="nav-label">检测</text>
+  </view>
+  <view class="nav-item {{current === 'pet' ? 'nav-item-active' : ''}}" data-key="pet" bindtap="goRoot">
+    <text class="nav-code">PET</text>
+    <text class="nav-label">小屋</text>
+  </view>
+</view>

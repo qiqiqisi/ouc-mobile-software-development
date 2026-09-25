@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>监工陪学｜BUGTI</title>
+  <link rel="stylesheet" href="./css/base.css">
+  <link rel="stylesheet" href="./css/focus.css">
+</head>
+<body>
+  <main class="app-shell focus-page">
+    <a class="page-back" href="./pet-home.html" aria-label="返回宠物天地">‹</a>
+    <header class="focus-header">
+      <div class="eyebrow">FOCUS SESSION</div>
+      <h1>监工陪我写作业</h1>
+      <p>选任务、选监工、开计时。专注结果会同步回今日计划和专注记录。</p>
+    </header>
+
+    <div id="setup-view">
+      <section class="focus-section">
+        <div class="section-code">TASK</div>
+        <h2>今天先干什么？</h2>
+        <div id="task-list" class="task-list"></div>
+      </section>
+
+      <section class="focus-section">
+        <div class="section-code">MONITOR</div>
+        <h2>谁来盯着你？</h2>
+        <div id="pet-picker" class="pet-picker"></div>
+        <p id="pet-empty" class="focus-empty is-hidden">还没有可用监工。<a href="./index.html?monitor=add&amp;return=focus">先添加一个</a></p>
+      </section>
+
+      <section class="focus-section">
+        <div class="section-code">POMODORO</div>
+        <h2>专注多久？</h2>
+        <div id="duration-row" class="duration-row">
+          <button type="button" data-work="25" data-break="5"><b>25 min</b><span>休息 5 min</span></button>
+          <button type="button" data-work="50" data-break="10"><b>50 min</b><span>休息 10 min</span></button>
+          <button type="button" data-work="90" data-break="15"><b>90 min</b><span>休息 15 min</span></button>
+        </div>
+        <label class="custom-duration">自定义专注 <input id="custom-work" type="range" min="5" max="120" step="5" value="25"><output id="custom-work-value">25 min</output></label>
+      </section>
+
+      <button id="start-session" class="start-button" type="button" disabled>开始干活</button>
+
+      <section class="focus-section today-focus">
+        <div class="today-head">
+          <div><div class="section-code">TODAY FOCUS</div><h2>今日专注记录</h2></div>
+          <strong id="focus-total">0 min</strong>
+        </div>
+        <div class="focus-stats">
+          <div><b id="completed-count">0</b><span>完成番茄</span></div>
+          <div><b id="interrupted-count">0</b><span>中断</span></div>
+          <div><b id="session-count">0</b><span>总轮次</span></div>
+        </div>
+        <div id="session-list" class="session-list"></div>
+        <p id="session-empty" class="focus-empty">今天还没有专注记录。</p>
+      </section>
+    </div>
+
+    <section id="running-view" class="running-card is-hidden">
+      <div id="phase-code" class="section-code">FOCUSING</div>
+      <h2 id="running-task">自由专注</h2>
+      <div id="timer" class="timer">25:00</div>
+      <p id="timer-caption">现在只做这一件事。</p>
+      <div id="running-scene" class="running-scene"></div>
+      <p id="pet-line" class="pet-line"></p>
+      <div class="run-actions">
+        <button id="pause-session" type="button">暂停</button>
+        <button id="stop-session" class="danger-action" type="button">结束本轮</button>
+      </div>
+    </section>
+
+    <section id="finish-view" class="finish-card is-hidden">
+      <div id="finish-code" class="section-code">SESSION STOPPED</div>
+      <h2 id="finish-title">自由专注</h2>
+      <strong id="finish-time">0 min</strong>
+      <p id="finish-copy"></p>
+      <button id="finish-plan" class="finish-primary is-hidden" type="button">把任务标记为完成</button>
+      <button id="again-session" type="button">再来一轮</button>
+      <a href="./pet-home.html">回宠物天地</a>
+    </section>
+  </main>
+
+  <script type="module" src="./js/pages/focus.js"></script>
+</body>
+</html>

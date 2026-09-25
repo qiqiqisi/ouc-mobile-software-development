@@ -33,7 +33,9 @@ const state = {
   previewUrl: "",
   clickCount: 0,
   busy: false,
-  resizeTimer: 0
+  resizeTimer: 0,
+  forceCreateNew: false,
+  returnTarget: ""
 }
 
 
@@ -112,8 +114,8 @@ function updateScaleUi(input, output, image) {
   output.textContent = `${percent}%`
 
   if (image) {
-    image.style.transform =
-      `scale(${percent / 100})`
+    const target = image.closest(".monitor-suit") || image
+    target.style.transform = `scale(${percent / 100})`
   }
 }
 
@@ -908,6 +910,28 @@ async function renderHomeMonitor() {
 }
 
 
+async function loadEditorProfile(profile) {
+  state.profile = profile
+  revokeUrl("homeUrl")
+  if (!profile) return
+  const blob = await monitorStorage.getProfileImage(profile)
+  if (!blob) throw new Error("监工图片不存在")
+  state.homeUrl = URL.createObjectURL(blob)
+}
+
+
+function finishEditor() {
+  closeDialog()
+  if (state.returnTarget) {
+    const targets = {
+      "pet-home": "./pet-home.html",
+      focus: "./focus.html"
+    }
+    window.location.href = targets[state.returnTarget] || "./pet-home.html"
+  }
+}
+
+
 async function saveNewMonitor() {
   if (state.busy || !state.previewBlob) {
     return
@@ -929,11 +953,13 @@ async function saveNewMonitor() {
       name: validation.name,
       blob: state.previewBlob,
       displayScale:
-        Number(elements.previewScale.value) / 100
+        Number(elements.previewScale.value) / 100,
+      profileId: state.profile ? state.profile.id : "",
+      createNew: state.forceCreateNew
     })
     await renderHomeMonitor()
     setBusy(false)
-    closeDialog()
+    finishEditor()
     showToast("监工已住进首页")
   } catch (error) {
     console.error("监工保存失败：", error)
@@ -954,11 +980,12 @@ async function saveExistingMonitor() {
     monitorStorage.updateProfile({
       name: elements.existingName.value,
       displayScale:
-        Number(elements.existingScale.value) / 100
+        Number(elements.existingScale.value) / 100,
+      profileId: state.profile.id
     })
     await renderHomeMonitor()
     setBusy(false)
-    closeDialog()
+    finishEditor()
     showToast("监工设置已更新")
   } catch (error) {
     showToast(error.message || "监工设置保存失败")
@@ -979,10 +1006,10 @@ async function deleteMonitor() {
   setBusy(true)
 
   try {
-    await monitorStorage.removeProfile()
+    await monitorStorage.removeProfile(state.profile.id)
     await renderHomeMonitor()
     setBusy(false)
-    closeDialog()
+    finishEditor()
     showToast("监工已删除")
   } catch (error) {
     console.error("监工删除失败：", error)
@@ -1020,15 +1047,15 @@ function bindEvents() {
     "click",
     onHomeMonitorClick
   )
-  elements.dialogClose.addEventListener("click", closeDialog)
+  elements.dialogClose.addEventListener("click", finishEditor)
   elements.dialog.addEventListener("click", event => {
     if (event.target === elements.dialog) {
-      closeDialog()
+      finishEditor()
     }
   })
   document.addEventListener("keydown", event => {
     if (event.key === "Escape") {
-      closeDialog()
+      finishEditor()
     }
   })
 
@@ -1181,4 +1208,29 @@ export async function initializeMonitor() {
     elements.previewImage
   )
   await renderHomeMonitor()
+
+  const params = new URLSearchParams(window.location.search)
+  const monitorAction = params.get("monitor")
+  state.returnTarget = params.get("return") || ""
+  if (monitorAction === "add") {
+    if (monitorStorage.getProfiles().length >= monitorStorage.MAX_PROFILES) {
+      showToast(`最多保留 ${monitorStorage.MAX_PROFILES} 个监工`)
+      if (state.returnTarget) finishEditor()
+      return
+    }
+    state.forceCreateNew = true
+    state.profile = null
+    revokeUrl("homeUrl")
+    openDialog()
+  } else if (monitorAction === "edit") {
+    const profile = monitorStorage.getProfileById(params.get("petId"))
+    if (!profile) {
+      showToast("没有找到这个监工")
+      if (state.returnTarget) finishEditor()
+      return
+    }
+    state.forceCreateNew = false
+    await loadEditorProfile(profile)
+    openDialog()
+  }
 }

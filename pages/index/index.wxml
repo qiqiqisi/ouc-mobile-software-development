@@ -1,82 +1,61 @@
 <view class="page">
 
-<!-- 品牌区域 + 自定义监工 -->
-<view class="brand">
-  <view class="brand-copy">
-    <text class="brand-name">BUGTI</text>
-    <text class="brand-subtitle">测测你最近是什么 Bug</text>
-  </view>
-
-  <view
-    wx:if="{{petProfile}}"
-    class="pet-monitor"
-    style="width: {{petStageWidth}}rpx;"
-  >
-    <view class="pet-monitor-stage" style="height: {{petStageHeight}}rpx;">
-      <image
-        class="pet-monitor-image"
-        src="{{petProfile.imagePath}}"
-        mode="aspectFit"
-        style="width: {{petStageWidth}}rpx;"
-        bindtap="onPetTap"
-        bindlongpress="goToPet"
-      />
-    </view>
-
-    <view class="pet-monitor-meta">
-      <text class="pet-monitor-caption">
-        {{petBubble || petCaption}}
-      </text>
-      <button class="pet-monitor-edit" bindtap="goToPet">编辑</button>
-    </view>
-  </view>
-
-  <view
-    wx:else
-    class="pet-add"
-    bindtap="goToPet"
-  >
-    <text class="pet-add-plus">＋</text>
-    <text class="pet-add-title">添加监工</text>
-    <text class="pet-add-tip">让它盯着你记</text>
-  </view>
-</view>
-
-
 <!-- 今日状态 -->
 <view class="hero">
+  <view class="hero-top">
+    <view class="hero-top-copy">
+      <text class="brand-name hero-brand-name">BUGTI</text>
+      <text class="brand-subtitle hero-brand-subtitle">测测你最近是什么 Bug</text>
+      <text class="hero-label">TODAY</text>
+    </view>
 
-  <text class="hero-label">TODAY</text>
+    <view wx:if="{{homePets.length}}" class="hero-pet-slot">
+      <view class="home-pets-row home-pets-count-{{homePets.length}}">
+        <view
+          wx:for="{{homePets}}"
+          wx:key="id"
+          class="home-pet-cell"
+          data-id="{{item.id}}"
+          catchtap="onHomePetTap"
+          bindlongpress="onHomePetLongPress"
+        >
+          <view
+            wx:if="{{item.isSuit}}"
+            class="home-pet-character pet-state-{{item.state}}"
+            style="width:{{item.size}}rpx;height:{{item.size}}rpx;"
+          >
+            <image class="pet-suit-leg pet-layer {{item.showLeftStraight ? 'pet-layer-visible' : ''}}" src="/assets/pet/limbs/pet_leg_straight.png" mode="aspectFit" fade-in="{{false}}" style="{{item.leftLegStraightStyle}}" />
+            <image class="pet-suit-leg pet-layer {{item.showRightStraight ? 'pet-layer-visible' : ''}}" src="/assets/pet/limbs/pet_leg_straight.png" mode="aspectFit" fade-in="{{false}}" style="{{item.rightLegStraightStyle}}" />
+            <image class="pet-suit-body pet-layer {{!item.showSleep ? 'pet-layer-visible' : ''}}" src="/assets/pet/body/pet_body_default.png" mode="aspectFit" fade-in="{{false}}" style="{{item.bodyStyle}}" />
+            <image class="pet-suit-body pet-layer {{item.showSleep ? 'pet-layer-visible' : ''}}" src="/assets/pet/extra/pet_sleep_pose.png" mode="aspectFit" fade-in="{{false}}" style="{{item.sleepPoseStyle}}" />
+            <image class="pet-suit-head pet-layer pet-layer-visible" src="{{item.headImage}}" mode="aspectFit" fade-in="{{false}}" style="{{item.headStyle}}" />
+            <image wx:if="{{item.showSleep}}" class="pet-suit-sleep-mask" src="/assets/pet/extra/pet_sleep_mask.png" mode="aspectFit" fade-in="{{false}}" style="{{item.sleepMaskStyle}}" />
+          </view>
+          <image wx:else class="home-pet-legacy" src="{{item.imagePath}}" mode="aspectFit" />
+        </view>
+      </view>
+    </view>
 
-  <text class="hero-title">
-    今天运行得怎么样？
-  </text>
-
-  <text class="hero-date">
-    {{today}}
-  </text>
-
-  <view
-    class="home-action-button home-action-primary"
-    bindtap="goToTodayRecord"
-  >
-    {{hasTodayRecord ? "编辑今日记录" : "记录今天"}}
+    <view wx:else class="hero-pet-empty-wrap">
+      <view class="pet-add hero-pet-empty" bindtap="goToPet">
+        <text class="pet-add-plus">＋</text>
+        <text class="pet-add-title">添加监工</text>
+        <text class="pet-add-tip">让它盯着你记</text>
+      </view>
+    </view>
   </view>
 
-  <picker
-    class="home-action-picker"
-    mode="date"
-    value="{{today}}"
-    end="{{today}}"
-    bindchange="onBackfillDateChange"
-  >
-    <view class="home-action-button home-action-secondary">
-    补之前的记录
-    </view>
-  </picker>
+  <text class="hero-title">今天运行得怎么样？</text>
+  <text class="hero-date">{{today}}</text>
 
+  <view wx:if="{{isSuitPet}}" class="pet-asset-preload" aria-hidden="true">
+    <image src="/assets/pet/body/pet_body_default.png" />
+    <image src="/assets/pet/body/pet_body_react.png" />
+    <image src="/assets/pet/body/pet_body_idle_alt.png" />
+    <image src="/assets/pet/extra/pet_sleep_pose.png" />
+    <image src="/assets/pet/extra/pet_sleep_mask.png" />
+  </view>
 </view>
-
 
 <!-- 今日运势 -->
 <view class="fortune-section">
@@ -193,140 +172,8 @@
 </view>
 
 
-<!-- 解锁进度 -->
-<view class="progress-card">
 
-  <view class="progress-header">
-    <text class="progress-title">BUGTI 检测进度</text>
+<bugti-nav current="home" />
 
-    <text class="progress-number">
-      {{recordedDays}} / {{unlockDays}}
-    </text>
-  </view>
-
-  <view class="progress-track">
-    <view
-    class="progress-bar progress-{{recordedDays}}"
-    ></view>
-  </view>
-
-  <text
-    wx:if="{{recordedDays < unlockDays}}"
-    class="progress-tip"
-  >
-    目前记录还比较少，也可以先测测看。
-  </text>
-
-  <text
-    wx:else
-    class="progress-tip progress-ready"
-  >
-    数据够了，可以看看最近运行成什么样。
-  </text>
-
-  <button
-    class="analyze-button"
-    bindtap="goToAnalyze"
-  >
-    开始检测
-  </button>
-
-</view>
-
-
-<!-- 最近记录 -->
-<view class="section">
-
-  <view class="section-header">
-    <text class="section-title">最近记录</text>
-
-    <text
-      class="section-link"
-      bindtap="goToHistory"
-    >
-      查看全部 ›
-    </text>
-  </view>
-
-  <!-- 有记录 -->
-  <view
-    wx:if="{{recentRecord}}"
-    class="record-card"
-  >
-    <text class="record-date">
-      {{recentRecord.date}}
-    </text>
-
-    <text class="record-summary">
-      {{recentRecord.summary}}
-    </text>
-  </view>
-
-  <!-- 暂无记录 -->
-  <view
-    wx:else
-    class="empty-card"
-  >
-    <text class="empty-title">
-      这里暂时很安静。
-    </text>
-
-    <text class="empty-text">
-      记下第一天之后，最近状态会出现在这里。
-    </text>
-  </view>
-
-</view>
-
-
-<!-- 最近结果 -->
-<view class="section">
-
-  <view class="section-header">
-    <text class="section-title">最近一次结果</text>
-  </view>
-
-  <view
-    wx:if="{{recentResult}}"
-    class="result-card"
-    bindtap="goToRecentResult"
-  >
-    <view>
-      <text class="result-code">
-        {{recentResult.code}}
-      </text>
-
-      <text class="result-name">
-        {{recentResult.name}}
-      </text>
-
-      <text class="empty-text">
-        {{recentResult.tagline}}
-      </text>
-    </view>
-
-    <text class="result-arrow">›</text>
-  </view>
-
-  <view
-    wx:else
-    class="empty-card"
-  >
-    <text class="empty-title">
-      还没有检测结果。
-    </text>
-
-    <text class="empty-text">
-      测一次看看最近是什么 Bug。
-    </text>
-  </view>
-
-</view>
-
-
-<!-- 娱乐声明 -->
-<text class="disclaimer">
-  BUGTI 是娱乐型阶段状态测评，不代表心理学或医学结论。
-</text>
 
 </view>

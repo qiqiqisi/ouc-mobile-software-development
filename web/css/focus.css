@@ -1,0 +1,156 @@
+.focus-page {
+  padding: calc(22px + env(safe-area-inset-top)) 20px calc(36px + env(safe-area-inset-bottom));
+  background: #f5f8f5;
+}
+
+.focus-header { margin-bottom: 20px; }
+.focus-header h1 { margin: 5px 0 0; font-size: 27px; }
+.focus-header p { margin: 8px 0 0; color: #929a94; font-size: 13px; line-height: 1.6; }
+
+.focus-section,
+.running-card,
+.finish-card {
+  margin-top: 14px;
+  padding: 18px;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 10px 26px rgba(53, 75, 59, .06);
+}
+
+.section-code {
+  color: #2f8650;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.6px;
+}
+
+.focus-section h2,
+.running-card h2,
+.finish-card h2 {
+  margin: 4px 0 13px;
+  font-size: 20px;
+}
+
+.task-card {
+  width: 100%;
+  min-height: 62px;
+  margin-top: 8px;
+  padding: 11px 12px;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  border: 1px solid #e2e7e3;
+  border-radius: 13px;
+  background: #fff;
+  color: #262b28;
+  text-align: left;
+}
+
+.task-card.is-selected {
+  border: 2px solid #2f8650;
+  background: #edf6ef;
+}
+
+.task-radio {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+  border: 2px solid #d3ddd5;
+  border-radius: 50%;
+}
+
+.task-card.is-selected .task-radio { border-color: #2f8650; box-shadow: inset 0 0 0 5px #edf6ef; background: #2f8650; }
+.task-copy strong, .task-copy span { display: block; }
+.task-copy strong { font-size: 14px; }
+.task-copy span { margin-top: 3px; color: #939b95; font-size: 11px; }
+
+.pet-picker {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 3px;
+}
+
+.pet-choice {
+  min-width: 104px;
+  min-height: 132px;
+  padding: 9px;
+  border: 1px solid #e4e8e5;
+  border-radius: 14px;
+  background: #fff;
+}
+
+.pet-choice.is-selected { border: 2px solid #2f8650; background: #edf6ef; }
+.pet-choice-preview { position: relative; width: 80px; height: 80px; margin: 0 auto; }
+.pet-choice-preview .focus-pet { transform: translate(-50%, -100%) scale(.8); }
+.pet-choice strong, .pet-choice span { display: block; text-align: center; }
+.pet-choice strong { margin-top: 4px; font-size: 13px; }
+.pet-choice span { margin-top: 3px; color: #2f8650; font-size: 10px; }
+
+.duration-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; }
+.duration-row button { min-width: 0; padding: 12px 4px; border: 1px solid #e2e7e3; border-radius: 12px; background: #fff; }
+.duration-row button.is-selected { border: 2px solid #2f8650; background: #edf6ef; }
+.duration-row b, .duration-row span { display: block; }
+.duration-row b { font-size: 14px; }
+.duration-row span { margin-top: 4px; color: #969d98; font-size: 10px; }
+.custom-duration { margin-top: 14px; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 8px; color: #6c766f; font-size: 11px; }
+.custom-duration input { width: 100%; accent-color: #2f8650; }
+
+.start-button {
+  width: 58%;
+  min-height: 52px;
+  margin: 18px auto 0;
+  display: block;
+  border-radius: 999px;
+  background: #2f8650;
+  color: #fff;
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.start-button:disabled { opacity: .42; cursor: not-allowed; }
+.today-head { display: flex; align-items: flex-end; justify-content: space-between; }
+.today-head h2 { margin-bottom: 0; }
+.today-head strong { color: #2f8650; font-size: 18px; }
+.focus-stats { margin-top: 14px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; }
+.focus-stats div { padding: 11px 4px; border-radius: 11px; background: #f5f8f5; text-align: center; }
+.focus-stats b, .focus-stats span { display: block; }
+.focus-stats b { color: #2f8650; font-size: 20px; }
+.focus-stats span { margin-top: 3px; color: #8e9790; font-size: 10px; }
+.focus-empty { color: #939b95; font-size: 12px; text-align: center; }
+.focus-empty a { color: #2f8650; font-weight: 700; }
+.session-item { margin-top: 8px; padding: 9px 0; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #eef1ef; }
+.session-item strong, .session-item span { display: block; }
+.session-item span { margin-top: 3px; color: #949c96; font-size: 10px; }
+.session-status { color: #2f8650; font-size: 10px; font-weight: 800; }
+.session-status.is-stop { color: #ad6158; }
+
+.running-card,
+.finish-card { min-height: 70vh; text-align: center; }
+.running-card h2 { margin-top: 8px; }
+.timer { margin-top: 14px; font-size: clamp(64px, 20vw, 92px); font-weight: 800; letter-spacing: -4px; }
+#timer-caption { color: #959d97; font-size: 13px; }
+.running-scene { position: relative; width: 86%; aspect-ratio: 1.15; margin: 18px auto 0; }
+.focus-pet { position: absolute; z-index: 2; top: 58%; left: 50%; width: 48%; aspect-ratio: 1; transform: translate(-50%, -100%); }
+.focus-pet .pet-layer { position: absolute; object-fit: contain; }
+.focus-pet .pet-body { z-index: 2; inset: 0; width: 100%; height: 100%; }
+.focus-pet .pet-head { z-index: 4; top: 1.2%; left: 30.1%; width: 39.9%; height: 39.9%; transform: translate(var(--head-x, 0), var(--head-y, 0)) rotate(var(--head-rotation, 0deg)) scale(var(--head-scale, 1)); }
+.focus-pet .pet-leg-left, .focus-pet .pet-leg-right { z-index: 1; top: 67.4%; width: 27%; height: 20%; }
+.focus-pet .pet-leg-left { left: 19.2%; }
+.focus-pet .pet-leg-right { left: 56.4%; transform: scaleX(-1); }
+.focus-desk { position: absolute; z-index: 5; right: 0; bottom: 0; left: 0; width: 100%; }
+.pet-line { margin: 4px 0 0; color: #657269; font-size: 13px; }
+.run-actions { position: absolute; right: 38px; bottom: calc(42px + env(safe-area-inset-bottom)); left: 38px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.run-actions button, .finish-card button, .finish-card a { min-height: 46px; display: flex; align-items: center; justify-content: center; border-radius: 13px; background: #edf4ef; color: #466b53; font-weight: 700; }
+.run-actions .danger-action { border: 1px solid #e7d8d5; background: #fff; color: #a15349; }
+
+.finish-card strong { display: block; margin: 18px 0; color: #2f8650; font-size: 45px; }
+.finish-card p { color: #7e8780; }
+.finish-card button, .finish-card a { width: 62%; margin: 10px auto 0; }
+.finish-card .finish-primary { background: #2f8650; color: #fff; }
+
+@media (max-width: 350px) {
+  .focus-page { padding-inline: 14px; }
+  .duration-row { gap: 4px; }
+  .run-actions { right: 24px; left: 24px; }
+}

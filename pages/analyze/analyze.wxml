@@ -234,4 +234,6 @@
   BUGTI 仅用于娱乐与自我记录，不构成心理或医疗评估。
 </text>
 
+  <bugti-nav current="bug" />
+
 </view>

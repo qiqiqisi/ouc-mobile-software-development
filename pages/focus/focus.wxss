@@ -1,0 +1,97 @@
+page { background:#f6f8f6; color:#202020; }
+.page { min-height:100vh; padding:38rpx 34rpx 70rpx; box-sizing:border-box; }
+.focus-header { margin-bottom:28rpx; }
+.eyebrow,.section-code,.phase-code,.finish-code { display:block; color:#2f7d4a; font-size:18rpx; font-weight:800; letter-spacing:3rpx; }
+.title { display:block; margin-top:8rpx; font-size:44rpx; font-weight:800; }
+.subtitle { display:block; margin-top:10rpx; color:#849087; font-size:22rpx; line-height:1.55; }
+.section,.today-report,.running-card,.finish-card { margin-top:20rpx; padding:24rpx; border-radius:28rpx; background:#fff; box-shadow:0 8rpx 28rpx rgba(55,70,59,.06); }
+.section-head { margin-bottom:18rpx; }
+.section-title { display:block; margin-top:5rpx; font-size:28rpx; font-weight:800; }
+.task-list { display:flex; flex-direction:column; gap:12rpx; }
+.task-card { display:flex; align-items:center; gap:14rpx; padding:18rpx; border:2rpx solid #edf1ee; border-radius:20rpx; background:#fafbfa; }
+.task-card.selected { border-color:#2f8650; background:#edf6ef; }
+.task-done { opacity:.58; }
+.task-radio { width:22rpx; height:22rpx; flex:0 0 auto; border:3rpx solid #cdd8d0; border-radius:50%; }
+.selected .task-radio { border-color:#2f8650; box-shadow:inset 0 0 0 5rpx #edf6ef; background:#2f8650; }
+.task-main { min-width:0; }
+.task-name,.task-meta { display:block; }
+.task-name { font-size:24rpx; font-weight:700; }
+.task-meta { margin-top:5rpx; color:#89948d; font-size:18rpx; }
+.pet-picker { width:100%; white-space:nowrap; }
+.pet-picker-row { display:inline-flex; gap:14rpx; padding:2rpx; }
+.pet-choice { width:150rpx; padding:16rpx 12rpx; box-sizing:border-box; border:2rpx solid #edf1ee; border-radius:22rpx; background:#fafbfa; text-align:center; }
+.pet-choice-selected { border-color:#2f8650; background:#edf6ef; }
+.pet-choice-avatar { width:82rpx; height:82rpx; margin:0 auto; border-radius:50%; background:#fff; overflow:hidden; }
+.pet-choice-avatar image { width:100%; height:100%; }
+.pet-choice-name { display:block; margin-top:8rpx; overflow:hidden; text-overflow:ellipsis; font-size:21rpx; font-weight:700; }
+.primary-tag { display:inline-block; margin-top:6rpx; padding:3rpx 8rpx; border-radius:999rpx; background:#dceee1; color:#2f7d4a; font-size:14rpx; }
+.duration-row { display:grid; grid-template-columns:repeat(3,1fr); gap:10rpx; }
+.duration-card { padding:18rpx 8rpx; border:2rpx solid #edf1ee; border-radius:18rpx; background:#fafbfa; text-align:center; }
+.duration-selected { border-color:#2f8650; background:#edf6ef; }
+.duration-main,.duration-sub { display:block; }
+.duration-main { font-size:24rpx; font-weight:800; }
+.duration-sub { margin-top:4rpx; color:#89948d; font-size:16rpx; }
+.custom-row { margin-top:20rpx; display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:10rpx; }
+.custom-label,.custom-value { font-size:18rpx; color:#647269; }
+.custom-row slider { margin:0; }
+.start-button { margin-top:24rpx; height:88rpx; border-radius:999rpx; background:#2f8650!important; color:#fff!important; font-size:28rpx; font-weight:800; }
+.start-button[disabled] { opacity:.4; }
+.report-head { display:flex; justify-content:space-between; align-items:flex-end; }
+.report-total { color:#2f8650; font-size:28rpx; font-weight:800; }
+.report-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10rpx; }
+.report-cell { padding:16rpx 8rpx; border-radius:18rpx; background:#f5f8f5; text-align:center; }
+.report-number,.report-label { display:block; }
+.report-number { font-size:30rpx; font-weight:800; color:#2f7d4a; }
+.report-label { margin-top:4rpx; font-size:16rpx; color:#879188; }
+.session-list { margin-top:16rpx; }
+.session-item { display:flex; justify-content:space-between; align-items:center; padding:14rpx 2rpx; border-bottom:1rpx solid #edf1ee; }
+.session-title,.session-meta { display:block; }
+.session-title { font-size:21rpx; font-weight:700; }
+.session-meta { margin-top:4rpx; color:#89948d; font-size:17rpx; }
+.session-status { font-size:15rpx; font-weight:800; letter-spacing:1rpx; }
+.session-ok { color:#2f8650; } .session-stop { color:#b66b58; }
+.empty-record { display:block; margin-top:18rpx; color:#9aa39d; font-size:20rpx; text-align:center; }
+.running-card { min-height:72vh; display:flex; flex-direction:column; align-items:center; text-align:center; }
+.running-task { display:block; margin-top:12rpx; max-width:90%; font-size:30rpx; font-weight:800; }
+.timer { display:block; margin-top:24rpx; font-size:92rpx; line-height:1; font-weight:800; letter-spacing:-3rpx; font-variant-numeric:tabular-nums; }
+.timer-caption { display:block; margin-top:12rpx; color:#879188; font-size:20rpx; }
+.focus-scene { position:relative; width:520rpx; height:330rpx; margin-top:16rpx; overflow:hidden; }
+.focus-pet { position:absolute; left:50%; top:18rpx; transform:translateX(-50%); z-index:2; }
+.focus-layer { position:absolute; display:block; }
+.focus-layer.body { z-index:2; } .focus-layer.head { z-index:3; } .focus-layer.mask { z-index:4; }
+.focus-desk { position:absolute; z-index:5; left:50%; bottom:-48rpx; width:420rpx; transform:translateX(-50%); }
+.pet-line { display:block; min-height:44rpx; color:#53675a; font-size:21rpx; }
+.run-actions { width:100%; margin-top:auto; display:flex; gap:14rpx; }
+.run-actions button { flex:1; height:78rpx; border-radius:22rpx; font-size:22rpx; }
+.secondary-action { background:#edf4ef!important; color:#3f684b!important; }
+.danger-action { background:#fff!important; color:#a65d4d!important; border:2rpx solid #eadbd6; }
+.finish-card { margin-top:60rpx; padding:40rpx 28rpx; text-align:center; }
+.finish-title { display:block; margin-top:18rpx; font-size:32rpx; font-weight:800; }
+.finish-time { display:block; margin-top:22rpx; color:#2f8650; font-size:70rpx; font-weight:800; }
+.finish-copy { display:block; margin:16rpx auto 26rpx; max-width:520rpx; color:#768279; font-size:22rpx; line-height:1.5; }
+.finish-primary,.finish-secondary { margin-top:14rpx; height:82rpx; border-radius:999rpx; font-size:23rpx; }
+.finish-primary { background:#2f8650!important; color:#fff!important; }
+.finish-secondary { background:#edf4ef!important; color:#3f684b!important; }
+
+
+/* Focus 页所有原生 button 统一使用 flex 做真正的水平/垂直居中，避免微信 button 默认 line-height/baseline 造成文字偏下。 */
+.start-button,
+.run-actions button,
+.finish-primary,
+.finish-secondary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding-top: 0;
+  padding-bottom: 0;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.start-button::after,
+.run-actions button::after,
+.finish-primary::after,
+.finish-secondary::after {
+  border: 0;
+}

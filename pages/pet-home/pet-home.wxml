@@ -1,0 +1,272 @@
+<view class="page">
+  <view class="room-topbar">
+    <view>
+      <text class="room-eyebrow">PET WORLD</text>
+      <text class="room-title">监工小屋</text>
+    </view>
+    <view class="room-topbar-actions">
+      <view class="focus-pill" bindtap="goToFocus">
+        <text class="pet-edit-code">FOCUS</text>
+        <text class="pet-edit-label">{{focusActive ? '进行中' : focusSummary.totalMinutes + ' min'}}</text>
+      </view>
+      <view class="pet-edit-pill" bindtap="openPetManager">
+        <text class="pet-edit-code">MANAGE</text>
+        <text class="pet-edit-label">监工管理</text>
+      </view>
+      <view class="plan-summary-pill" bindtap="openPlanPanel">
+        <text class="plan-summary-label">PLAN</text>
+        <text class="plan-summary-number">{{planSummary.completed}} / {{planSummary.total}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view
+    id="petRoomStage"
+    class="room-stage"
+    style="height: {{stageHeight}}px;"
+  >
+    <image class="room-background" src="{{roomAssets.background}}" mode="aspectFill" />
+
+    <!-- 墙上状态板 -->
+    <view class="room-status-board" style="{{boardStyle}}" bindtap="openStatusPanel">
+      <image class="room-asset-image" src="{{roomAssets.statusBoard}}" mode="widthFix" />
+      <view class="board-copy">
+        <text class="board-code">{{todayStatus.code}}</text>
+        <text class="board-plan">PLAN {{planSummary.completed}} / {{planSummary.total}}</text>
+      </view>
+    </view>
+
+    <!-- 其他监工：会巡视、追逗宠棒、睡觉，也会和其他监工碰面。 -->
+    <view
+      wx:for="{{companionPets}}"
+      wx:key="id"
+      class="room-pet room-pet-companion pet-state-{{item.state}}"
+      style="width: {{item.size}}px;height: {{item.size}}px;{{item.motionStyle}}"
+      data-id="{{item.id}}"
+      bindtap="onCompanionTap"
+    >
+      <view class="room-pet-visual" style="{{item.visualStyle}}">
+        <image class="pet-leg pet-layer {{item.showLeftStraight ? 'layer-visible' : ''}}" src="/assets/pet/limbs/pet_leg_straight.png" mode="aspectFit" fade-in="{{false}}" style="{{item.leftLegStraightStyle}}" />
+        <image class="pet-leg pet-layer {{item.showLeftBent ? 'layer-visible' : ''}}" src="/assets/pet/limbs/pet_leg_bent.png" mode="aspectFit" fade-in="{{false}}" style="{{item.leftLegBentStyle}}" />
+        <image class="pet-leg pet-layer {{item.showRightStraight ? 'layer-visible' : ''}}" src="/assets/pet/limbs/pet_leg_straight.png" mode="aspectFit" fade-in="{{false}}" style="{{item.rightLegStraightStyle}}" />
+        <image class="pet-leg pet-layer {{item.showRightBent ? 'layer-visible' : ''}}" src="/assets/pet/limbs/pet_leg_bent.png" mode="aspectFit" fade-in="{{false}}" style="{{item.rightLegBentStyle}}" />
+        <image class="pet-body pet-layer {{!item.showSleep ? 'layer-visible' : ''}}" src="/assets/pet/body/pet_body_default.png" mode="aspectFit" fade-in="{{false}}" style="{{item.bodyStyle}}" />
+        <image class="pet-body pet-layer {{item.showSleep ? 'layer-visible' : ''}}" src="/assets/pet/extra/pet_sleep_pose.png" mode="aspectFit" fade-in="{{false}}" style="{{item.sleepPoseStyle}}" />
+        <image class="pet-head" src="{{item.headImage}}" mode="aspectFit" fade-in="{{false}}" style="{{item.headStyle}}" />
+        <image wx:if="{{item.showSleep}}" class="pet-sleep-mask" src="{{roomAssets.sleepMask}}" mode="aspectFit" fade-in="{{false}}" style="{{item.sleepMaskStyle}}" />
+      </view>
+    </view>
+
+    <!-- 监工角色 -->
+    <view
+      wx:if="{{hasSuitPet}}"
+      class="room-pet pet-state-{{petState}}"
+      style="width: {{petCharacterSize}}px;height: {{petCharacterSize}}px;{{petMotionStyle}}"
+      bindtap="onPetTap"
+    >
+      <!-- 仅角色视觉层镜像，气泡不跟着翻转。 -->
+      <view class="room-pet-visual" style="{{petVisualStyle}}">
+        <image class="pet-leg pet-layer {{petShowLeftStraight ? 'layer-visible' : ''}}" src="/assets/pet/limbs/pet_leg_straight.png" mode="aspectFit" fade-in="{{false}}" style="{{petLeftLegStraightStyle}}" />
+        <image class="pet-leg pet-layer {{petShowLeftBent ? 'layer-visible' : ''}}" src="/assets/pet/limbs/pet_leg_bent.png" mode="aspectFit" fade-in="{{false}}" style="{{petLeftLegBentStyle}}" />
+        <image class="pet-leg pet-layer {{petShowRightStraight ? 'layer-visible' : ''}}" src="/assets/pet/limbs/pet_leg_straight.png" mode="aspectFit" fade-in="{{false}}" style="{{petRightLegStraightStyle}}" />
+        <image class="pet-leg pet-layer {{petShowRightBent ? 'layer-visible' : ''}}" src="/assets/pet/limbs/pet_leg_bent.png" mode="aspectFit" fade-in="{{false}}" style="{{petRightLegBentStyle}}" />
+
+        <image class="pet-body pet-layer {{petShowDefaultBody ? 'layer-visible' : ''}}" src="/assets/pet/body/pet_body_default.png" mode="aspectFit" fade-in="{{false}}" style="{{petBodyStyle}}" binderror="onPetBodyError" />
+        <image class="pet-body pet-layer {{petShowReactBody ? 'layer-visible' : ''}}" src="/assets/pet/body/pet_body_react.png" mode="aspectFit" fade-in="{{false}}" style="{{petBodyStyle}}" binderror="onPetBodyError" />
+        <image class="pet-body pet-layer {{petShowIdleBody ? 'layer-visible' : ''}}" src="/assets/pet/body/pet_body_idle_alt.png" mode="aspectFit" fade-in="{{false}}" style="{{petBodyStyle}}" binderror="onPetBodyError" />
+        <image class="pet-body pet-layer {{petShowSleep ? 'layer-visible' : ''}}" src="/assets/pet/extra/pet_sleep_pose.png" mode="aspectFit" fade-in="{{false}}" style="{{petSleepPoseStyle}}" binderror="onPetBodyError" />
+        <image class="pet-head" src="{{petProfile.headImage}}" mode="aspectFit" fade-in="{{false}}" style="{{petHeadStyle}}" binderror="onPetHeadError" />
+        <image wx:if="{{petShowSleep}}" class="pet-sleep-mask" src="{{roomAssets.sleepMask}}" mode="aspectFit" fade-in="{{false}}" style="{{petSleepMaskStyle}}" />
+      </view>
+
+      <view wx:if="{{petBubble}}" class="pet-bubble">{{petBubble}}</view>
+    </view>
+
+    <!-- 无监工时的空状态 -->
+    <view wx:else class="room-empty-pet">
+      <text class="empty-pet-title">监工还没入住</text>
+      <text class="empty-pet-copy">先制作一个监工，再回来巡视新家。</text>
+      <view class="empty-pet-button" bindtap="goCreatePet">去制作监工</view>
+    </view>
+
+    <!-- 监工相遇时的轻量特效 -->
+    <view class="pet-collision-fx-layer" aria-hidden="true">
+      <text
+        wx:for="{{collisionFx}}"
+        wx:key="id"
+        class="pet-collision-fx"
+        style="left:{{item.left}}px;top:{{item.top}}px;font-size:{{item.size}}px;color:{{item.color}};animation-delay:{{item.delay}}ms;"
+      >{{item.symbol}}</text>
+    </view>
+
+    <!-- 书桌在宠物前景，走到桌后时自动遮住腿 -->
+    <view class="room-desk" style="{{deskStyle}}" bindtap="openPlanPanel">
+      <image class="room-asset-image" src="{{roomAssets.desk}}" mode="widthFix" />
+    </view>
+
+    <!-- 逗宠棒：按住即可拖动 -->
+    <view
+      class="room-toy {{toyReturning ? 'toy-returning' : ''}}"
+      style="{{toyStyle}}"
+      bindtouchstart="onToyTouchStart"
+      catchtouchmove="onToyTouchMove"
+      bindtouchend="onToyTouchEnd"
+      bindtouchcancel="onToyTouchEnd"
+    >
+      <image class="room-asset-image" src="{{roomAssets.teaserWand}}" mode="aspectFit" />
+    </view>
+  </view>
+
+  <!-- 计划抽屉 -->
+  <view wx:if="{{panel === 'plans'}}" class="sheet-backdrop" catchtap="closePanel">
+    <view class="bottom-sheet" catchtap="noop">
+      <view class="sheet-handle"></view>
+      <view class="sheet-header">
+        <view>
+          <text class="sheet-eyebrow">TODAY'S PLAN</text>
+          <text class="sheet-title">今日计划</text>
+        </view>
+        <text class="sheet-count">{{planSummary.completed}} / {{planSummary.total}}</text>
+      </view>
+
+      <view class="plan-input-row">
+        <input
+          class="plan-input"
+          value="{{planInput}}"
+          maxlength="40"
+          placeholder="今天准备干掉什么？"
+          confirm-type="done"
+          bindinput="onPlanInput"
+          bindconfirm="addPlan"
+        />
+        <view class="plan-add-button" bindtap="addPlan">添加</view>
+      </view>
+
+      <view wx:if="{{planSummary.items.length}}" class="plan-list">
+        <view wx:for="{{planSummary.items}}" wx:key="id" class="plan-item">
+          <view class="plan-main" data-id="{{item.id}}" bindtap="togglePlan">
+            <view class="plan-check {{item.completed ? 'plan-check-done' : ''}}">{{item.completed ? '✓' : ''}}</view>
+            <view class="plan-copy">
+              <text class="plan-text {{item.completed ? 'plan-text-done' : ''}}">{{item.text}}</text>
+              <text wx:if="{{item.focusMinutes}}" class="plan-focus-meta">已专注 {{item.focusMinutes}} min · {{item.focusCompletedSessions || 0}} 个番茄</text>
+            </view>
+          </view>
+          <view wx:if="{{!item.completed}}" class="plan-focus-button" data-id="{{item.id}}" catchtap="startFocusForPlan">陪学</view>
+          <view class="plan-remove" data-id="{{item.id}}" catchtap="removePlan">×</view>
+        </view>
+      </view>
+
+      <view wx:else class="plan-empty">
+        <text class="plan-empty-title">今天还没有计划。</text>
+        <text class="plan-empty-copy">最多写 5 条，别给自己开项目管理大会。</text>
+      </view>
+
+      <view class="sheet-close" bindtap="closePanel">收起来</view>
+    </view>
+  </view>
+
+  <!-- 状态抽屉 -->
+  <view wx:if="{{panel === 'status'}}" class="sheet-backdrop" catchtap="closePanel">
+    <view class="bottom-sheet status-sheet" catchtap="noop">
+      <view class="sheet-handle"></view>
+      <view class="sheet-header">
+        <view>
+          <text class="sheet-eyebrow">SYSTEM STATUS</text>
+          <text class="sheet-title">今日运行状态</text>
+        </view>
+        <text class="status-code">{{todayStatus.code}}</text>
+      </view>
+
+      <view class="status-grid">
+        <view class="status-cell">
+          <text class="status-key">心情</text>
+          <text class="status-value">{{todayStatus.moodText}}</text>
+        </view>
+        <view class="status-cell">
+          <text class="status-key">电量</text>
+          <text class="status-value">{{todayStatus.energyText}}</text>
+        </view>
+        <view class="status-cell">
+          <text class="status-key">忙碌度</text>
+          <text class="status-value">{{todayStatus.busynessText}}</text>
+        </view>
+        <view class="status-cell">
+          <text class="status-key">计划</text>
+          <text class="status-value">{{planSummary.completed}} / {{planSummary.total}}</text>
+        </view>
+        <view class="status-cell">
+          <text class="status-key">专注</text>
+          <text class="status-value">{{focusSummary.totalMinutes}} min</text>
+        </view>
+      </view>
+
+      <view class="status-block">
+        <text class="status-key">今天干了什么</text>
+        <text class="status-block-value">{{todayStatus.tagsText}}</text>
+      </view>
+
+      <view class="status-block">
+        <text class="status-key">最近人格</text>
+        <block wx:if="{{latestPersonality}}">
+          <text class="status-personality">{{latestPersonality.code}}｜{{latestPersonality.name}}</text>
+          <text class="status-block-value">{{latestPersonality.tagline}}</text>
+        </block>
+        <text wx:else class="status-block-value">还没有最近一次 BUGTI 结果。</text>
+      </view>
+
+      <view class="sheet-close" bindtap="closePanel">知道了</view>
+    </view>
+  </view>
+
+
+  <!-- 监工管理 -->
+  <view wx:if="{{panel === 'manager'}}" class="sheet-backdrop" catchtap="closePanel">
+    <view class="bottom-sheet manager-sheet" catchtap="noop">
+      <view class="sheet-handle"></view>
+      <view class="sheet-header">
+        <view>
+          <text class="sheet-eyebrow">MONITORS</text>
+          <text class="sheet-title">监工管理</text>
+        </view>
+        <text class="manager-count">{{petProfiles.length}} / {{maxPetProfiles}}</text>
+      </view>
+
+      <view class="manager-list">
+        <view wx:for="{{petProfiles}}" wx:key="id" class="manager-item {{item.id === activePetId ? 'manager-item-primary' : ''}}">
+          <view class="manager-avatar">
+            <image wx:if="{{item.mode === 'suit'}}" src="{{item.headImage}}" mode="aspectFit" />
+            <image wx:else src="{{item.imagePath}}" mode="aspectFit" />
+          </view>
+          <view class="manager-info">
+            <view class="manager-name-row">
+              <text class="manager-name">{{item.name}}</text>
+              <text wx:if="{{item.id === activePetId}}" class="manager-primary-badge">主监工</text>
+            </view>
+            <text class="manager-desc">{{item.id === activePetId ? '负责首页巡视和今日计划' : '在宠物天地自由活动'}}</text>
+          </view>
+          <view class="manager-actions">
+            <view wx:if="{{item.id !== activePetId}}" class="manager-action" data-id="{{item.id}}" catchtap="setPrimaryPet">设为主监工</view>
+            <view class="manager-action manager-action-edit" data-id="{{item.id}}" catchtap="editPetById">编辑</view>
+          </view>
+        </view>
+      </view>
+
+      <view wx:if="{{petProfiles.length < maxPetProfiles}}" class="manager-add" bindtap="addPet">＋ 添加一个监工</view>
+      <text wx:else class="manager-limit">房间最多住 {{maxPetProfiles}} 个监工，避免走路时挤成一团。</text>
+      <view class="sheet-close" bindtap="closePanel">收起来</view>
+    </view>
+  </view>
+
+  <!-- 预加载切换素材，避免第一次点击/追逐时出现空白帧 -->
+  <view class="asset-preload" aria-hidden="true">
+    <image src="/assets/pet/body/pet_body_default.png" />
+    <image src="/assets/pet/body/pet_body_react.png" />
+    <image src="/assets/pet/body/pet_body_idle_alt.png" />
+    <image src="/assets/pet/extra/pet_sleep_pose.png" />
+    <image src="/assets/pet/extra/pet_sleep_mask.png" />
+    <image src="/assets/pet/limbs/pet_leg_straight.png" />
+    <image src="/assets/pet/limbs/pet_leg_bent.png" />
+  </view>
+  <bugti-nav current="pet" />
+
+</view>

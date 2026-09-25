@@ -1,0 +1,137 @@
+<view class="page">
+  <view class="focus-header">
+    <text class="eyebrow">FOCUS SESSION</text>
+    <text class="title">监工陪我写作业</text>
+    <text class="subtitle">选任务、选监工、开计时。专注结果会同步回今日计划和专注记录。</text>
+  </view>
+
+  <!-- 设置 -->
+  <block wx:if="{{mode === 'setup'}}">
+    <view class="section">
+      <view class="section-head">
+        <text class="section-code">TASK</text>
+        <text class="section-title">今天先干什么？</text>
+      </view>
+      <view class="task-list">
+        <view class="task-card {{selectedPlanId === '' ? 'selected' : ''}}" data-id="" bindtap="selectPlan">
+          <view class="task-radio"></view>
+          <view class="task-main">
+            <text class="task-name">自由专注</text>
+            <text class="task-meta">不绑定计划，只记录专注时间</text>
+          </view>
+        </view>
+        <view wx:for="{{plans}}" wx:key="id" class="task-card {{selectedPlanId === item.id ? 'selected' : ''}} {{item.completed ? 'task-done' : ''}}" data-id="{{item.id}}" bindtap="selectPlan">
+          <view class="task-radio"></view>
+          <view class="task-main">
+            <text class="task-name">{{item.text}}</text>
+            <text class="task-meta">{{item.focusMinutes || 0}} min · {{item.focusCompletedSessions || 0}} 个完成番茄{{item.completed ? ' · 已完成' : ''}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="section">
+      <view class="section-head">
+        <text class="section-code">MONITOR</text>
+        <text class="section-title">谁来盯着你？</text>
+      </view>
+      <scroll-view class="pet-picker" scroll-x="true" enhanced="true" show-scrollbar="false">
+        <view class="pet-picker-row">
+          <view wx:for="{{pets}}" wx:key="id" class="pet-choice {{selectedPetId === item.id ? 'pet-choice-selected' : ''}}" data-id="{{item.id}}" bindtap="selectPet">
+            <view class="pet-choice-avatar">
+              <image wx:if="{{item.mode === 'suit'}}" src="{{item.headImage}}" mode="aspectFit" />
+              <image wx:else src="{{item.imagePath}}" mode="aspectFit" />
+            </view>
+            <text class="pet-choice-name">{{item.name}}</text>
+            <text wx:if="{{item.id === activePetId}}" class="primary-tag">主监工</text>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+
+    <view class="section">
+      <view class="section-head">
+        <text class="section-code">POMODORO</text>
+        <text class="section-title">专注多久？</text>
+      </view>
+      <view class="duration-row">
+        <view wx:for="{{presets}}" wx:key="work" class="duration-card {{selectedWorkMinutes === item.work ? 'duration-selected' : ''}}" data-work="{{item.work}}" data-break="{{item.break}}" bindtap="selectPreset">
+          <text class="duration-main">{{item.work}} min</text>
+          <text class="duration-sub">休息 {{item.break}} min</text>
+        </view>
+      </view>
+      <view class="custom-row">
+        <text class="custom-label">自定义专注</text>
+        <slider min="5" max="120" step="5" value="{{selectedWorkMinutes}}" activeColor="#2f8650" backgroundColor="#dfe8e1" block-color="#2f8650" block-size="20" bindchanging="onCustomWork" bindchange="onCustomWork" />
+        <text class="custom-value">{{selectedWorkMinutes}} min</text>
+      </view>
+    </view>
+
+    <button class="start-button" disabled="{{!canStart}}" bindtap="startSession">开始干活</button>
+
+    <view class="today-report">
+      <view class="section-head report-head">
+        <view>
+          <text class="section-code">TODAY FOCUS</text>
+          <text class="section-title">今日专注记录</text>
+        </view>
+        <text class="report-total">{{focusSummary.totalMinutes}} min</text>
+      </view>
+      <view class="report-grid">
+        <view class="report-cell"><text class="report-number">{{focusSummary.completed}}</text><text class="report-label">完成番茄</text></view>
+        <view class="report-cell"><text class="report-number">{{focusSummary.interrupted}}</text><text class="report-label">中断</text></view>
+        <view class="report-cell"><text class="report-number">{{focusSummary.sessions}}</text><text class="report-label">总轮次</text></view>
+      </view>
+      <view wx:if="{{focusSummary.items.length}}" class="session-list">
+        <view wx:for="{{focusSummary.items}}" wx:key="id" class="session-item">
+          <view class="session-copy">
+            <text class="session-title">{{item.planText}}</text>
+            <text class="session-meta">{{item.petName}} · {{item.actualMinutes}} min</text>
+          </view>
+          <text class="session-status {{item.completed ? 'session-ok' : 'session-stop'}}">{{item.completed ? 'DONE' : 'STOP'}}</text>
+        </view>
+      </view>
+      <text wx:else class="empty-record">今天还没有专注记录。</text>
+    </view>
+  </block>
+
+  <!-- 计时 -->
+  <block wx:elif="{{mode === 'running'}}">
+    <view class="running-card phase-{{phase}}">
+      <text class="phase-code">{{phase === 'work' ? 'FOCUSING' : 'BREAK'}}</text>
+      <text class="running-task">{{selectedPlanText}}</text>
+      <text class="timer">{{timerText}}</text>
+      <text class="timer-caption">{{phase === 'work' ? '现在只做这一件事。' : '这一轮完成了，休息一下。'}}</text>
+
+      <view class="focus-scene">
+        <view class="focus-pet" style="width:220rpx;height:220rpx;">
+          <image wx:if="{{phase === 'work'}}" class="focus-layer body" src="/assets/pet/body/pet_body_default.png" mode="aspectFit" style="{{focusBodyStyle}}" />
+          <image wx:else class="focus-layer body" src="/assets/pet/extra/pet_sleep_pose.png" mode="aspectFit" style="{{focusSleepPoseStyle}}" />
+          <image class="focus-layer head" src="{{selectedPet.headImage || selectedPet.imagePath}}" mode="aspectFit" style="{{focusHeadStyle}}" />
+          <image wx:if="{{phase === 'break' && selectedPet.mode === 'suit'}}" class="focus-layer mask" src="/assets/pet/extra/pet_sleep_mask.png" mode="aspectFit" style="{{focusSleepMaskStyle}}" />
+        </view>
+        <image wx:if="{{phase === 'work'}}" class="focus-desk" src="/assets/pet/room/pet_room_desk.png" mode="widthFix" />
+      </view>
+      <text class="pet-line">{{runningPetLine}}</text>
+
+      <view class="run-actions">
+        <button wx:if="{{phase === 'work'}}" class="secondary-action" bindtap="togglePause">{{paused ? '继续' : '暂停'}}</button>
+        <button wx:if="{{phase === 'break'}}" class="secondary-action" bindtap="skipBreak">跳过休息</button>
+        <button class="danger-action" bindtap="stopSession">{{phase === 'work' ? '结束本轮' : '结束'}}</button>
+      </view>
+    </view>
+  </block>
+
+  <!-- 完成报告 -->
+  <block wx:else>
+    <view class="finish-card">
+      <text class="finish-code">{{lastResult.completed ? 'BUILD SUCCEEDED' : 'SESSION STOPPED'}}</text>
+      <text class="finish-title">{{lastResult.planText}}</text>
+      <text class="finish-time">{{lastResult.actualMinutes}} min</text>
+      <text class="finish-copy">{{lastResult.petName}}：{{lastResult.completed ? '这轮算你认真。' : '这次没跑完，下轮继续。'}}</text>
+      <button wx:if="{{lastResult.planId && !lastResult.planCompleted}}" class="finish-primary" bindtap="markPlanDone">把任务标记为完成</button>
+      <button class="finish-secondary" bindtap="backToSetup">再来一轮</button>
+      <button class="finish-secondary" bindtap="backToPetHome">回宠物天地</button>
+    </view>
+  </block>
+</view>

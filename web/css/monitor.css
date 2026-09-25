@@ -78,11 +78,58 @@
   justify-content: flex-end;
 }
 
-.monitor-home-image {
+.monitor-suit {
+  position: relative;
+  display: block;
+  aspect-ratio: 1;
+  transform-origin: 50% 70%;
+  transition: transform 120ms ease;
+}
+
+.monitor-suit-home {
   width: 100%;
   height: 100%;
+}
+
+.monitor-suit-preview {
+  width: min(230px, 72%);
+}
+
+.monitor-suit-body,
+.monitor-suit-head,
+.monitor-suit-leg {
+  position: absolute;
+  display: block;
   object-fit: contain;
-  object-position: center bottom;
+}
+
+.monitor-suit-body {
+  z-index: 2;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.monitor-suit-head {
+  z-index: 4;
+  top: 1.2%;
+  left: 30.1%;
+  width: 39.9%;
+  height: 39.9%;
+}
+
+.monitor-suit-leg {
+  z-index: 1;
+  top: 67.4%;
+  width: 27%;
+  height: 20%;
+}
+
+.monitor-suit-leg-left { left: 19.2%; }
+.monitor-suit-leg-right { left: 56.4%; transform: scaleX(-1); }
+
+.monitor-home-image {
+  object-fit: contain;
 }
 
 .monitor-home-meta {
@@ -263,10 +310,7 @@
 }
 
 .monitor-existing-image {
-  width: min(210px, 70%);
-  height: 190px;
   object-fit: contain;
-  transition: transform 120ms ease;
 }
 
 .monitor-preview-checker {
@@ -275,10 +319,7 @@
 }
 
 .monitor-preview-image {
-  width: min(220px, 68%);
-  height: 220px;
   object-fit: contain;
-  transition: transform 120ms ease;
 }
 
 .monitor-field-label {

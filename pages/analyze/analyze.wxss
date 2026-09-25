@@ -421,3 +421,4 @@
   color:
     #bbbbbb;
 }
+.page { padding-bottom: 190rpx; box-sizing: border-box; }

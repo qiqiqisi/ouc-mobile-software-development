@@ -1,7 +1,10 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/pet-home/pet-home",
+    "pages/focus/focus",
     "pages/pet/pet",
+    "pages/pet-calibration/pet-calibration",
     "pages/record/record",
     "pages/history/history",
     "pages/analyze/analyze",

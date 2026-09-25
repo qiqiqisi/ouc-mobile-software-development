@@ -62,4 +62,6 @@
     点击有记录的日期可以编辑；点击过去的空白日期可以补记录。
   </text>
 
+  <bugti-nav current="log" />
+
 </view>

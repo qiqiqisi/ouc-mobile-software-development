@@ -4,7 +4,7 @@
     <text class="eyebrow">BUGTI MONITOR</text>
     <text class="title">我的监工</text>
     <text class="subtitle">
-      宠物、自己、同学、玩偶都行。把想留下来的部分涂出来，它就能住进首页。
+      宠物、自己、同学、玩偶都行。先抠出脑袋和少量颈胸，再给它穿上 BUGTI 小西装。
     </text>
   </view>
 
@@ -12,7 +12,7 @@
     <view class="intro-mark">＋</view>
     <text class="intro-title">抓一个监工过来</text>
     <text class="intro-text">
-      选择一张图片。下一步只要厚涂想保留的部分，不需要沿轮廓画得很准。
+      选择一张图片。保留头、耳朵、下巴和一点点颈胸即可，不需要把整个身体抠出来。
     </text>
     <button class="primary-button" disabled="{{isBusy}}" bindtap="choosePhoto">
       选择图片
@@ -21,7 +21,13 @@
 
   <view wx:elif="{{stage === 'existing'}}" class="existing-panel">
     <view class="preview-checker existing-preview">
-      <image
+      <view wx:if="{{existingProfile.mode === 'suit'}}" class="suit-preview-stage suit-preview-small">
+        <image class="suit-preview-leg" src="/assets/pet/limbs/pet_leg_straight.png" mode="aspectFit" style="{{tryOnLegLeftStyle}}" />
+        <image class="suit-preview-leg" src="/assets/pet/limbs/pet_leg_straight.png" mode="aspectFit" style="{{tryOnLegRightStyle}}" />
+        <image class="suit-preview-body" src="/assets/pet/body/pet_body_default.png" mode="aspectFit" style="{{tryOnBodyStyle}}" />
+        <image class="suit-preview-head" src="{{existingProfile.headImage}}" mode="aspectFit" style="{{tryOnHeadStyle}}" />
+      </view>
+      <image wx:else
         class="existing-image"
         src="{{existingProfile.imagePath}}"
         mode="aspectFit"
@@ -30,11 +36,11 @@
     </view>
 
     <text class="existing-name">{{existingProfile.name}}</text>
-    <text class="existing-caption">当前监工已经住进首页。</text>
+    <text class="existing-caption">当前监工已保存，可在宠物天地设为主监工。</text>
 
     <view class="scale-block">
       <view class="scale-header">
-        <text class="field-label compact-label">首页显示大小</text>
+        <text class="field-label compact-label">监工显示大小</text>
         <text class="scale-value">{{displayScalePercent}}%</text>
       </view>
       <view class="scale-row">
@@ -42,7 +48,7 @@
         <slider
           class="scale-slider"
           min="75"
-          max="200"
+          max="135"
           step="1"
           value="{{displayScalePercent}}"
           activeColor="#2f7d4a"
@@ -62,7 +68,7 @@
     </view>
 
     <button class="primary-button existing-home-button" bindtap="backHome">
-      回首页看看
+      返回
     </button>
 
     <button class="danger-button" bindtap="confirmDelete">
@@ -72,7 +78,13 @@
 
   <view wx:elif="{{stage === 'rename'}}" class="name-panel">
     <view class="preview-checker name-preview">
-      <image
+      <view wx:if="{{existingProfile.mode === 'suit'}}" class="suit-preview-stage suit-preview-small">
+        <image class="suit-preview-leg" src="/assets/pet/limbs/pet_leg_straight.png" mode="aspectFit" style="{{tryOnLegLeftStyle}}" />
+        <image class="suit-preview-leg" src="/assets/pet/limbs/pet_leg_straight.png" mode="aspectFit" style="{{tryOnLegRightStyle}}" />
+        <image class="suit-preview-body" src="/assets/pet/body/pet_body_default.png" mode="aspectFit" style="{{tryOnBodyStyle}}" />
+        <image class="suit-preview-head" src="{{existingProfile.headImage}}" mode="aspectFit" style="{{tryOnHeadStyle}}" />
+      </view>
+      <image wx:else
         class="name-preview-image"
         src="{{existingProfile.imagePath}}"
         mode="aspectFit"
@@ -104,9 +116,9 @@
       <text class="step-number">1 / 2</text>
     </view>
 
-    <text class="editor-title">把想留下来的部分涂满</text>
+    <text class="editor-title">把脑袋和一点点颈胸涂满</text>
     <text class="editor-tip">
-      绿色代表会被保留。多涂了就切到“擦除”，不用沿着边缘一笔画完。
+      绿色代表会被保留。建议完整保留耳朵、下巴和少量胸毛；多涂了就切到“擦除”。
     </text>
 
     <view class="canvas-shell">
@@ -172,29 +184,58 @@
     </view>
   </view>
 
-  <view wx:elif="{{stage === 'preview'}}" class="preview-panel">
+  <view wx:elif="{{stage === 'tryon'}}" class="preview-panel">
     <view class="step-row">
-      <text class="step-code">PREVIEW</text>
+      <text class="step-code">TRY ON SUIT</text>
       <text class="step-number">2 / 2</text>
     </view>
 
-    <text class="editor-title">抠出来了。</text>
+    <text class="editor-title">给它穿上 BUGTI 小西装。</text>
     <text class="editor-tip">
-      棋盘格只用于显示透明区域。现在再调整它住进首页后的大小。
+      拖动头部对准领口；缩放和旋转只影响头部，不会把它和西装合成一张图片。
     </text>
 
-    <view class="preview-checker final-preview">
+    <view
+      id="petTryOnStage"
+      class="preview-checker suit-preview-stage tryon-stage"
+      catchtouchstart="onTryOnTouchStart"
+      catchtouchmove="onTryOnTouchMove"
+      catchtouchend="onTryOnTouchEnd"
+      catchtouchcancel="onTryOnTouchEnd"
+    >
+      <image class="suit-preview-leg" src="/assets/pet/limbs/pet_leg_straight.png" mode="aspectFit" style="{{tryOnLegLeftStyle}}" />
+      <image class="suit-preview-leg" src="/assets/pet/limbs/pet_leg_straight.png" mode="aspectFit" style="{{tryOnLegRightStyle}}" />
+      <image class="suit-preview-body" src="/assets/pet/body/pet_body_default.png" mode="aspectFit" style="{{tryOnBodyStyle}}" />
+      <view class="tryon-collar-guide"></view>
       <image
-        class="final-preview-image"
+        class="suit-preview-head"
         src="{{previewPath}}"
         mode="aspectFit"
-        style="transform: scale({{displayScale}});"
+        style="{{tryOnHeadStyle}}"
+        bindload="onHeadPreviewLoad"
+        binderror="onHeadPreviewError"
       />
+      <view wx:if="{{!headPreviewReady && !headPreviewError}}" class="tryon-loading-tip">正在载入头部…</view>
+      <view wx:if="{{headPreviewError}}" class="tryon-error-tip">头部图片加载失败，请返回重新抠图</view>
+    </view>
+
+    <view class="head-adjust-block">
+      <view class="scale-header">
+        <text class="field-label compact-label">头部大小</text>
+        <text class="scale-value">{{headScalePercent}}%</text>
+      </view>
+      <slider min="50" max="200" step="1" value="{{headScalePercent}}" activeColor="#2f7d4a" backgroundColor="#dfe8e1" block-color="#2f7d4a" block-size="20" bindchanging="onHeadScaleChange" bindchange="onHeadScaleChange" />
+      <view class="scale-header head-rotation-header">
+        <text class="field-label compact-label">头部旋转</text>
+        <text class="scale-value">{{headTransform.rotation}}°</text>
+      </view>
+      <slider min="-35" max="35" step="1" value="{{headTransform.rotation}}" activeColor="#2f7d4a" backgroundColor="#dfe8e1" block-color="#2f7d4a" block-size="20" bindchanging="onHeadRotationChange" bindchange="onHeadRotationChange" />
+      <button class="adjust-reset-button" bindtap="resetHeadTransform">恢复自动对齐</button>
     </view>
 
     <view class="scale-block preview-scale-block">
       <view class="scale-header">
-        <text class="field-label compact-label">首页显示大小</text>
+        <text class="field-label compact-label">监工显示大小</text>
         <text class="scale-value">{{displayScalePercent}}%</text>
       </view>
       <view class="scale-row">
@@ -202,7 +243,7 @@
         <slider
           class="scale-slider"
           min="75"
-          max="200"
+          max="135"
           step="1"
           value="{{displayScalePercent}}"
           activeColor="#2f7d4a"
@@ -229,7 +270,7 @@
     </text>
 
     <view class="bottom-actions">
-      <button class="secondary-button" disabled="{{isBusy}}" bindtap="backToPaint">返回修改</button>
+      <button class="secondary-button" disabled="{{isBusy}}" bindtap="backToPaint">重新抠图</button>
       <button
         class="primary-button compact-button"
         disabled="{{isBusy}}"

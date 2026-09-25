@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "宠物天地",
+  "navigationBarBackgroundColor": "#ffffff",
+  "navigationBarTextStyle": "black",
+  "disableScroll": true,
+  "usingComponents": {
+    "bugti-nav": "/components/bugti-nav/bugti-nav"
+  }
+}

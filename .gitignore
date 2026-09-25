@@ -1,6 +1,16 @@
 # 微信开发者工具本地私有配置
 project.private.config.json
 
+# 本地发布与验收目录
+/.publish-stage/
+/tmp/
+
+# 原始示例图与开发记录不发布；仅保留脱敏后的 README 截图
+/images/
+/docs/*
+!/docs/screenshots/
+!/docs/screenshots/**
+
 # Node.js
 node_modules/
 

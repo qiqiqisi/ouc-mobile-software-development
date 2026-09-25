@@ -1,0 +1,16 @@
+<view wx:if="{{allowed}}" class="page">
+  <text class="title">开发素材校准</text>
+  <text class="tip">仅用于核对 DEFAULT、REACT、IDLE_ALT、SLEEP 的头部和地面线；保存后的正式数值必须回写 config/pet-poses.js。</text>
+  <view class="grid">
+    <block wx:for="{{['default', 'react', 'idleAlt', 'sleep']}}" wx:key="*this">
+      <view class="card"><text>{{item}}</text><image mode="aspectFit" src="{{item === 'sleep' ? '/assets/pet/extra/pet_sleep_pose.png' : '/assets/pet/body/pet_body_' + (item === 'idleAlt' ? 'idle_alt' : item) + '.png'}}" /></view>
+    </block>
+  </view>
+  <view class="controls">
+    <text>Head X {{headX}}</text><slider data-key="headX" min="500" max="750" value="{{headX}}" bindchanging="onValueChange" />
+    <text>Head bottom Y {{headBottomY}}</text><slider data-key="headBottomY" min="400" max="620" value="{{headBottomY}}" bindchanging="onValueChange" />
+    <text>Leg scale {{legScalePercent}}%</text><slider data-key="legScalePercent" min="12" max="30" value="{{legScalePercent}}" bindchanging="onValueChange" />
+    <text>Ground Y {{groundY}}</text><slider data-key="groundY" min="950" max="1150" value="{{groundY}}" bindchanging="onValueChange" />
+  </view>
+  <text class="output">{{output}}</text>
+</view>

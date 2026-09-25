@@ -2,5 +2,8 @@
   "navigationBarTitleText": "历史记录",
   "navigationBarBackgroundColor": "#ffffff",
   "navigationBarTextStyle": "black",
-  "backgroundColor": "#ffffff"
+  "backgroundColor": "#ffffff",
+  "usingComponents": {
+    "bugti-nav": "/components/bugti-nav/bugti-nav"
+  }
 }

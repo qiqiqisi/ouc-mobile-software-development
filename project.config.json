@@ -2,13 +2,29 @@
   "compileType": "miniprogram",
   "libVersion": "trial",
   "packOptions": {
-    "ignore": [],
-    "include": [
+    "ignore": [
       {
         "type": "folder",
-        "value": "assets"
+        "value": "docs"
+      },
+      {
+        "type": "folder",
+        "value": "web"
+      },
+      {
+        "type": "folder",
+        "value": ".github"
+      },
+      {
+        "type": "file",
+        "value": "README.md"
+      },
+      {
+        "type": "file",
+        "value": ".gitignore"
       }
-    ]
+    ],
+    "include": []
   },
   "setting": {
     "coverView": true,
@@ -25,7 +41,7 @@
     },
     "compileWorklet": false,
     "uglifyFileName": false,
-    "uploadWithSourceMap": true,
+    "uploadWithSourceMap": false,
     "packNpmManually": false,
     "minifyWXSS": true,
     "minifyWXML": true,
@@ -41,6 +57,6 @@
     "tabIndent": "auto",
     "tabSize": 2
   },
-  "appid": "wx3e844890750abcca",
+  "appid": "touristappid",
   "simulatorPluginLibVersion": {}
 }
